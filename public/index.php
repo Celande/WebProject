@@ -34,6 +34,14 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
+require 'config/database.php'
+require 'start.php'
+
+spl_autoload_register(function ($classname) {
+    require (__DIR__ . '/../src/Models/' . $classname . ".php");
+});
+
+$this->db; // establish db conncection
 
 $app = new \Slim\App;
 $app->get('/hello/{name}', function (Request $request, Response $response) {
