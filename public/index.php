@@ -1,15 +1,13 @@
 <?php
-/*if (PHP_SAPI == 'cli-server') {
-    // To help the built-in PHP dev server, check if the request was actually for
-    // something which should probably be served as a static file
-    $url  = parse_url($_SERVER['REQUEST_URI']);
-    $file = __DIR__ . $url['path'];
-    if (is_file($file)) {
-        return false;
-    }
-}
 
-require __DIR__ . '/../vendor/autoload.php';
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
+
+/* Init */
+//require __DIR__ .'/../config/database.php'
+//require 'start.php'
+
+require __DIR__ .'/../vendor/autoload.php';
 
 session_start();
 
@@ -26,28 +24,226 @@ require __DIR__ . '/../src/middleware.php';
 // Register routes
 require __DIR__ . '/../src/routes.php';
 
-// Run app
-$app->run();
+/* Container */
+$container = $app->getContainer();
+
+// Twig view
+$container['view'] = function ($container) {
+    $templates = __DIR__ . '/../templates/';
+    $cache = __DIR__ . '/tmp/views/';
+
+    $view = new Slim\Views\Twig($templates, compact('cache'));
+
+    // Instantiate and add Slim specific extension
+    $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
+    $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
+
+    return $view;
+};
+
+// Database - Eloquence
+$container['db'] = function ($container) {
+    $capsule = new \Illuminate\Database\Capsule\Manager;
+    $capsule->addConnection($container['settings']['db']);
+
+    $capsule->setAsGlobal();
+    $capsule->bootEloquent();
+
+    return $capsule;
+};
+/*
+$container[App\WidgetController::class] = function ($c) {
+    $view = $c->get('view');
+    $logger = $c->get('logger');
+    $table = $c->get('db')->table('table_name');
+    return new \App\WidgetController($view, $logger, $table);
+};
+*/
+/* Class */
+spl_autoload_register(function ($classname) {
+  require (__DIR__ . '/../src/Models/' . $classname . ".php");
+});
+
+/* Database */
+//$this->db; // establish db conncection
+
+/** Routes **/
+
+$app->get('/hello/{name}', function (Request $request, Response $response) {
+  $name = $request->getAttribute('name');
+/*
+  $response->getBody()->write("Hello, $name");
+
+  return $response;
+  */
+
+    return $this->view->render($response, 'home.twig', [
+        'name' => $name
+    ]);
+
+    // for an array of data with args as parameter: 'name' => $args['name']
+});
+
+/* Get all goat races from the database
+$app->get('/races', function() {
+  require_once(__DIR__ .'/../config/database.php');
+  $query = "select name from race order by id";
+  $result = $connection->query($query);
+  // var_dump($result);
+  while ($row = $result->fetch_assoc()){
+    $data[] = $row;
+  }
+
+  echo json_encode($data);
+
+});
 */
 
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
+/* Get info on one goat race from the database
+$app->get('/races/{id}', function(Request $request, Response $response) {
+  require_once(__DIR__ .'/../config/database.php');
 
-require '../vendor/autoload.php';
-require 'config/database.php'
-require 'start.php'
+  $race_id = $request->getAttribute('id');
 
-spl_autoload_register(function ($classname) {
-    require (__DIR__ . '/../src/Models/' . $classname . ".php");
+  $query = sprintf("SELECT * FROM race WHERE id = '%d'",
+mysql_real_escape_int($race_id));
+  $result = $connection->query($query);
+  // var_dump($result);
+  while ($row = $result->fetch_assoc()){
+    $data[] = $row;
+  }
+
+  //echo json_encode($data);
+  $response->getBody()->write(ùdata);
+
+  return $response;
+
 });
+*/
 
-$this->db; // establish db conncection
+/* Get all available goats from the database
+$app->get('/goats', function() {
+  require_once(__DIR__ .'/../config/database.php');
+  $query = "SELECT name FROM goat ORDER BY created_at";
+  $result = $connection->query($query);
+  // var_dump($result);
+  while ($row = $result->fetch_assoc()){
+    $data[] = $row;
+  }
 
-$app = new \Slim\App;
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write("Hello, $name");
+  echo json_encode($data);
 
-    return $response;
 });
-$app->run();
+*/
+
+/* Get info on one goat from the database
+$app->get('/goats/{id}', function(Request $request, Response $response) {
+  require_once(__DIR__ .'/../config/database.php');
+
+  $goat_id = $request->getAttribute('id');
+
+  $query = sprintf("SELECT * FROM goat WHERE id = '%d'",
+mysql_real_escape_int($goat_id));
+  $result = $connection->query($query);
+  // var_dump($result);
+  while ($row = $result->fetch_assoc()){
+    $data[] = $row;
+  }
+
+  //echo json_encode($data);
+  $response->getBody()->write(ùdata);
+
+  return $response;
+
+});
+*/
+
+/* Add goat to the database
+$app->post('/goats/add', function($request){
+
+  require_once(__DIR__ .'/../config/database.php');
+  $race_name = 'fred';
+
+  $query_race = sprintf("SELECT id FROM race WHERE name = '%s'",
+  mysql_real_escape_string($race_name));
+
+  $result = mysql_query($query_race);
+
+  if (!$result) {
+    $message  = 'Invalid request : ' . mysql_error() . "\n";
+    $message .= 'Completed request : ' . $query_race;
+    die($message);
+  }
+
+  while ($row = mysql_fetch_assoc($result)) {
+    $data[] = $row;
+  }
+
+  $query = "INSERT INTO goat (name, price, birthdate, race_id, gender, localisation, identification, description) VALUES (?,?,?,?,?,?,?,?)";
+
+  $stmt = $connection->prepare($query);
+
+  $stmt->bind_param("sss", $name, $price, $birthdate, $race_id, $gender, $localisation, $identification, $description);
+
+  $name = $request->getParsedBody()['name'];
+  $price = $request->getParsedBody()['price'];
+  $birthdate = $request->getParsedBody()['birthdate'];
+  $race_id = $data; //$request->getParsedBody()['race_id']; // need a query based on the name
+  $gender = $request->getParsedBody()['gender'];
+  $localisation = $request->getParsedBody()['localisation'];
+  $identification = $request->getParsedBody()['identification'];
+  $description = $request->getParsedBody()['description'];
+
+  $stmt->execute();
+
+});
+*/
+
+/* Search for goats in the database
+$app->post('/goats/search', function($request){
+
+  require_once(__DIR__ .'/../config/database.php');
+  $race_name = 'fred';
+
+  $query_race = sprintf("SELECT id FROM race WHERE name = '%s'",
+  mysql_real_escape_string($race_name));
+
+  $result = mysql_query($query_race);
+
+  if (!$result) {
+    $message  = 'Invalid request : ' . mysql_error() . "\n";
+    $message .= 'Completed request : ' . $query_race;
+    die($message);
+  }
+
+  while ($row = mysql_fetch_assoc($result)) {
+    $data[] = $row;
+  }
+
+  $query = sprintf("SELECT * FROM goat WHERE
+    CONTAINS(name, '%s'),
+    price < '%d', price > '%d',
+    birthdate < '', birthdate > '', r
+    ace_id = '%d',
+    gender = '%s',
+    CONTAINS(localisation, '%s'),
+    identification = '%d'",
+    mysql_real_escape_string($race_name));
+
+    $stmt = $connection->prepare($query);
+
+    $stmt->bind_param("sss", $name, $price, $birthdate, $race_id, $gender, $localisation, $identification);
+
+    $name = $request->getParsedBody()['name'];
+    $price = $request->getParsedBody()['price'];
+    $birthdate = $request->getParsedBody()['birthdate'];
+    $race_id = $data; //$request->getParsedBody()['race_id']; // need a query based on the name
+    $gender = $request->getParsedBody()['gender'];
+    $localisation = $request->getParsedBody()['localisation'];
+    $identification = $request->getParsedBody()['identification'];
+
+    $stmt->execute();
+
+  });
+*/
+  $app->run();

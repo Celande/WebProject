@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+        <script src="js/bootstrap.bundle.js"></script>
+
+        <title>{% block page_title %} {% endblock %}</title>
+    </head>
+    <body>
+        <div id="header">{% block body_header %} {% endblock %}</div>
+        <div id="core">{% block body_core %} {% endblock %}</div>
+        <div id="footer">{% block body_footer %} {% endblock %}</div>
+    </body>
+</html>
