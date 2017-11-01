@@ -5,7 +5,6 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 /* Init */
 //require __DIR__ .'/../config/database.php'
-//require 'start.php'
 
 require __DIR__ .'/../vendor/autoload.php';
 
@@ -25,40 +24,8 @@ require __DIR__ . '/../src/middleware.php';
 require __DIR__ . '/../src/routes.php';
 
 /* Container */
-$container = $app->getContainer();
+// see dependencies.php
 
-// Twig view
-$container['view'] = function ($container) {
-    $templates = __DIR__ . '/../templates/';
-    $cache = __DIR__ . '/tmp/views/';
-
-    $view = new Slim\Views\Twig($templates, compact('cache'));
-
-    // Instantiate and add Slim specific extension
-    $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
-    $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
-
-    return $view;
-};
-
-// Database - Eloquence
-$container['db'] = function ($container) {
-    $capsule = new \Illuminate\Database\Capsule\Manager;
-    $capsule->addConnection($container['settings']['db']);
-
-    $capsule->setAsGlobal();
-    $capsule->bootEloquent();
-
-    return $capsule;
-};
-/*
-$container[App\WidgetController::class] = function ($c) {
-    $view = $c->get('view');
-    $logger = $c->get('logger');
-    $table = $c->get('db')->table('table_name');
-    return new \App\WidgetController($view, $logger, $table);
-};
-*/
 /* Class */
 spl_autoload_register(function ($classname) {
   require (__DIR__ . '/../src/Models/' . $classname . ".php");

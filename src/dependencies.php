@@ -18,7 +18,7 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-// Service factory for the ORM
+// Service factory for the ORM // Eloquence Database
 $container['db'] = function ($container) {
     $capsule = new \Illuminate\Database\Capsule\Manager;
     $capsule->addConnection($container['settings']['db']);
@@ -29,17 +29,32 @@ $container['db'] = function ($container) {
     return $capsule;
 };
 
-$container[App\WidgetController::class] = function ($c) {
+// Twig view
+$container['view'] = function ($container) {
+    $templates = __DIR__ . '/../templates/';
+    $cache = __DIR__ . '/tmp/views/';
+
+    $view = new Slim\Views\Twig($templates, compact('cache'));
+
+    // Instantiate and add Slim specific extension
+    $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
+    $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
+
+    return $view;
+};
+
+// Eloquence - Controller of the table
+$container[App\src\Controller\RaceController::class] = function ($c) {
     $view = $c->get('view');
     $logger = $c->get('logger');
-    $table = $c->get('db')->table('goat_race');
-    return new \App\WidgetController($view, $logger, $table);
+    $table = $c->get('db')->table('race'); // I have 2 tables: goat and race
+    return new \App\src\Controller\RaceController($view, $logger, $table);
 };
-/*
-$container[App\src\Models\GoatRace::class] = function ($c) {
+
+// Eloquence - Controller of the table
+$container[App\src\Controller\GoatController::class] = function ($c) {
     $view = $c->get('view');
     $logger = $c->get('logger');
-    $table = $c->get('db')->table('goat_race');
-    return new App\src\Models\GoatRace($view, $logger, $table);
+    $table = $c->get('db')->table('goat'); // I have 2 tables: goat and race
+    return new \App\src\Controller\GoatController($view, $logger, $table);
 };
-*/

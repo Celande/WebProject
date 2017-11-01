@@ -6,9 +6,20 @@ return [
         // Slim Settings
         'determineRouteBeforeAppMiddleware' => false,
         'displayErrorDetails' => true,
+        // Eloquence, install: http://laravel.sillo.org/laravel-4-chapitre-34-les-relations-avec-eloquent-2-2/
+        // NO NEED FOR ARTISAN & LARAVEL
         'db' => [
             'driver' => 'mysql',
             'host' => 'localhost',
+            /*
+            'read' => [
+                'host' => '192.168.1.1',
+            ],
+            'write' => [
+                'host' => '196.168.1.2'
+            ],
+            */
+            'sticky'    => true, // can read new data just after write
             'database' => 'web_project',
             'username' => 'root',
             'password' => 'root', // Gardevoir

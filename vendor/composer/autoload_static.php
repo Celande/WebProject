@@ -7,8 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
 {
     public static $files = array (
-        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -29,11 +31,13 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\Translation\\' => 30,
             'Slim\\Views\\' => 11,
             'Slim\\' => 5,
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
@@ -45,6 +49,10 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'I' => 
         array (
             'Interop\\Container\\' => 18,
+            'Illuminate\\Support\\' => 19,
+            'Illuminate\\Database\\' => 20,
+            'Illuminate\\Contracts\\' => 21,
+            'Illuminate\\Container\\' => 21,
         ),
         'F' => 
         array (
@@ -53,7 +61,12 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Common\\Inflector\\' => 26,
             'DeepCopy\\' => 9,
+        ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
         ),
     );
 
@@ -84,6 +97,10 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
         'Slim\\Views\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/php-view/src',
@@ -92,6 +109,10 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'Slim\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
+        ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -113,6 +134,22 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
         ),
+        'Illuminate\\Support\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/support',
+        ),
+        'Illuminate\\Database\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/database',
+        ),
+        'Illuminate\\Contracts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/contracts',
+        ),
+        'Illuminate\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/container',
+        ),
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
@@ -121,9 +158,17 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
+        'Doctrine\\Common\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
+        ),
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
     );
 
@@ -152,7 +197,13 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
+        'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
+        'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
+        'PHPUnit\\Framework\\Test' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Test.php',
         'PHPUnit\\Framework\\TestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestCase.php',
+        'PHPUnit\\Framework\\TestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestListener.php',
+        'PHPUnit\\Framework\\TestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestSuite.php',
         'PHPUnit_Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit_Extensions_GroupTestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
         'PHPUnit_Extensions_PhptTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',
@@ -174,6 +225,7 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'PHPUnit_Framework_Constraint_ClassHasStaticAttribute' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/ClassHasStaticAttribute.php',
         'PHPUnit_Framework_Constraint_Composite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Composite.php',
         'PHPUnit_Framework_Constraint_Count' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Count.php',
+        'PHPUnit_Framework_Constraint_DirectoryExists' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/DirectoryExists.php',
         'PHPUnit_Framework_Constraint_Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Exception.php',
         'PHPUnit_Framework_Constraint_ExceptionCode' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/ExceptionCode.php',
         'PHPUnit_Framework_Constraint_ExceptionMessage' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/ExceptionMessage.php',
@@ -191,8 +243,10 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'PHPUnit_Framework_Constraint_IsJson' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsJson.php',
         'PHPUnit_Framework_Constraint_IsNan' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsNan.php',
         'PHPUnit_Framework_Constraint_IsNull' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsNull.php',
+        'PHPUnit_Framework_Constraint_IsReadable' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsReadable.php',
         'PHPUnit_Framework_Constraint_IsTrue' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsTrue.php',
         'PHPUnit_Framework_Constraint_IsType' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsType.php',
+        'PHPUnit_Framework_Constraint_IsWritable' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsWritable.php',
         'PHPUnit_Framework_Constraint_JsonMatches' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/JsonMatches.php',
         'PHPUnit_Framework_Constraint_JsonMatches_ErrorMessageProvider' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/JsonMatches/ErrorMessageProvider.php',
         'PHPUnit_Framework_Constraint_LessThan' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/LessThan.php',
@@ -208,7 +262,7 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'PHPUnit_Framework_Constraint_TraversableContains' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/TraversableContains.php',
         'PHPUnit_Framework_Constraint_TraversableContainsOnly' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/TraversableContainsOnly.php',
         'PHPUnit_Framework_Constraint_Xor' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Xor.php',
-        'PHPUnit_Framework_CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/PHPUnit_Framework_CoveredCodeNotExecutedException.php',
+        'PHPUnit_Framework_CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/CoveredCodeNotExecutedException.php',
         'PHPUnit_Framework_Error' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Error.php',
         'PHPUnit_Framework_Error_Deprecated' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Error/Deprecated.php',
         'PHPUnit_Framework_Error_Notice' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Error/Notice.php',
@@ -220,7 +274,7 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'PHPUnit_Framework_IncompleteTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/IncompleteTestCase.php',
         'PHPUnit_Framework_IncompleteTestError' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/IncompleteTestError.php',
         'PHPUnit_Framework_InvalidCoversTargetException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/InvalidCoversTargetException.php',
-        'PHPUnit_Framework_MissingCoversAnnotationException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/PHPUnit_Framework_MissingCoversAnnotationException.php',
+        'PHPUnit_Framework_MissingCoversAnnotationException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/MissingCoversAnnotationException.php',
         'PHPUnit_Framework_MockObject_BadMethodCallException' => __DIR__ . '/..' . '/phpunit/phpunit-mock-objects/src/Framework/MockObject/Exception/BadMethodCallException.php',
         'PHPUnit_Framework_MockObject_Builder_Identity' => __DIR__ . '/..' . '/phpunit/phpunit-mock-objects/src/Framework/MockObject/Builder/Identity.php',
         'PHPUnit_Framework_MockObject_Builder_InvocationMocker' => __DIR__ . '/..' . '/phpunit/phpunit-mock-objects/src/Framework/MockObject/Builder/InvocationMocker.php',
