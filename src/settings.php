@@ -1,7 +1,6 @@
 <?php
 return [
     'settings' => [
-        'displayErrorDetails' => true, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
         // Slim Settings
         'determineRouteBeforeAppMiddleware' => false,
@@ -19,7 +18,7 @@ return [
                 'host' => '196.168.1.2'
             ],
             */
-            'sticky'    => true, // can read new data just after write
+            //'sticky'    => true, // can read new data just after write // Need to do an Update Route
             'database' => 'web_project',
             'username' => 'root',
             'password' => 'root', // Gardevoir

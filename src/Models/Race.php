@@ -2,29 +2,21 @@
 
 /* http://laravel.sillo.org/les-relations-avec-eloquent-12/ */
 
-use Eloquent;
+// use Illuminate\Database\Eloquent   and   extends Eloquent
 
-class Race extends Eloquent {
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model as Model;
+
+class Race extends Model {
 
     protected $table = 'race';
     public $timestamps = true;
     protected $softDelete = false;
     protected $guarded = array('id');
 
-/*
-    public function villes()
-    {
-        return $this->hasMany('\Lib\Villes\Ville');
-    }
-
-    public function auteurs()
-    {
-        return $this->hasManyThrough('\Lib\Auteurs\Auteur', '\Lib\Villes\Ville');
-    }
-    */
-
     public function goat(){
-      this->hasMany('\src\Models\Goat', 'race_id'); // race_id usefull ?
+      $table->hasMany('\src\Models\Goat', 'race_id'); // race_id usefull ?
     }
 
 }

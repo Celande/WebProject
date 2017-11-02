@@ -68,6 +68,11 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         array (
             'Carbon\\' => 7,
         ),
+        'A' => 
+        array (
+            'App\\Models\\' => 11,
+            'App\\Controllers\\' => 16,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -169,6 +174,14 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
+        'App\\Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Models',
+        ),
+        'App\\Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Controllers',
         ),
     );
 
