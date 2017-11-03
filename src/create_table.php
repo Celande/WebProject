@@ -81,7 +81,7 @@ function createTable (Capsule $capsule){
       $table->integer('race_id')->unsigned();
       $table->enum('gender', ['male', 'female']);
       $table->string('localisation');
-      $table->string('identification')->nullable();
+      $table->string('identification');
       $table->text('description');
 
       $table->foreign('race_id')->references('id')->on('race');

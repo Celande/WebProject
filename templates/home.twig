@@ -41,15 +41,16 @@
 {% if goat %}
   <h2>Name: {{ goat.name }}</h2>
   <h3>Price: {{ goat.price }} €</h3>
+  <h3>Age: {{ age }}</h3>
   <h3>Birthdate: {{ goat.birthdate }}</h3>
-  <h3>Race: {{ goat.race_id }}</h3>
+  <h3>Race: {{ race_name }}</h3>
   <h3>Gender: {{ goat.gender }}</h3>
   <h3>Localisation: {{ goat.localisation }}</h3>
   <h3>Description: {{ goat.description }}</h3>
   {% if goat.identification %}
   <h3>Identification: {{ goat.identification }}</h3>
   {% endif %}
-  <h3>Created at: {{ goat.created_at }}</h3><br>
+  <h3>Created at: {{ goat.created_at|date("d/m/Y") }}</h3><br>
   <form method="POST" action="/goats/remove">
     <input type="submit" value="Remove">
     <input type="hidden" name="id" value="{{ goat.id }}">
