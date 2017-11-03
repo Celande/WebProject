@@ -12,9 +12,11 @@ use App\Models\Goat;
 
 function createTable (Capsule $capsule){
 
+  //echo " CREATE_TABLE ";
+
   /* race table */
-  $capsule::schema()->dropIfExists('goat'); // because of foreign key
-  $capsule::schema()->dropIfExists('race');
+  //$capsule::schema()->dropIfExists('goat'); // because of foreign key
+  //$capsule::schema()->dropIfExists('race');
 
   // Create race table
   if (!$capsule::schema()->hasTable('race')) {
@@ -34,8 +36,6 @@ function createTable (Capsule $capsule){
       /*$table->enum('exploitation',['milk', 'cheese', 'hair', 'meat', 'pet']);*/
 
       $table->unique('name');
-
-      $table->timestamps();
     });
 
     $capsule::table('race')->insert([

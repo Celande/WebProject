@@ -72,21 +72,17 @@ $app->get('/races', 'App\Controllers\RaceController:show_races')->setName('show_
 /* Get info on one goat race from the database */
 $app->get('/races/{id}', 'App\Controllers\RaceController:show_race');
 
-
 $app->get('/goats', 'App\Controllers\GoatController:show_goats');
-
-//$app->get('/goats/add', 'App\Controllers\GoatController:add_goat');
-//$app->post('/goats/add', 'App\Controllers\GoatController:adding_goat');
 
 $app->map(['GET', 'POST'], '/goats/add', 'App\Controllers\GoatController:add_goat');
 
-$app->get('/goats/remove', 'App\Controllers\GoatController:remove_goat');
-$app->post('/goats/removing', 'App\Controllers\GoatController:removing_goat');
+$app->post('/goats/remove', 'App\Controllers\GoatController:remove_goat');
 
 $app->get('/goats/search', 'App\Controllers\GoatController:search_goat');
 $app->post('/goats/searching', 'App\Controllers\GoatController:searching_goat');
 
-$app->get('/goats/update', 'App\Controllers\GoatController:update_goat');
+//$app->get('/goats/update', 'App\Controllers\GoatController:update_goat');
+$app->map(['GET', 'POST'], '/goats/update', 'App\Controllers\GoatController:update_goat');
 
 $app->get('/goats/{id}', 'App\Controllers\GoatController:show_goat');
 
@@ -98,6 +94,13 @@ $app->get('/404', function (Request $request, Response $response) {
 $app->get('/success', function (Request $request, Response $response) {
   $this->logger->addInfo("Route /success");
   $this->view->render($response, 'success.twig');
+  //sleep(3);
+  //return $response->withRedirect('/home');
+});
+
+$app->get('/failure', function (Request $request, Response $response) {
+  $this->logger->addInfo("Route /failure");
+  $this->view->render($response, 'failure.twig');
   //sleep(3);
   //return $response->withRedirect('/home');
 });

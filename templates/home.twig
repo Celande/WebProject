@@ -35,7 +35,7 @@
   {% endif %}
 
   {% for goat in goats %}
-    <h2>Goats: <a href="http://localhost:8080/goats/{{ goat.id }}">{{ goat.name }}</a></h2>
+    <h2>Goats: <a href="/goats/{{ goat.id }}">{{ goat.name }}</a></h2>
   {% endfor %}
 
 {% if goat %}
@@ -49,7 +49,16 @@
   {% if goat.identification %}
   <h3>Identification: {{ goat.identification }}</h3>
   {% endif %}
-  <h3>Created at: {{ goat.created_at }}</h3>
+  <h3>Created at: {{ goat.created_at }}</h3><br>
+  <form method="POST" action="/goats/remove">
+    <input type="submit" value="Remove">
+    <input type="hidden" name="id" value="{{ goat.id }}">
+  </form>
+
+  <form method="GET" action="/goats/update">
+    <input type="hidden" name="id" value="{{ goat.id }}">
+    <input type="submit" value="Update">
+  </form>
 {% endif %}
 
     <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>

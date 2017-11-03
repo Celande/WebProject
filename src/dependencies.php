@@ -6,7 +6,7 @@
 use Illuminate\Database\Capsule\Manager as Capsule;
 use \Illuminate\Database\Schema\Blueprint as Blueprint;
 
-require __DIR__ . '/../src/create_table.php';
+require_once __DIR__ . '/../src/create_table.php';
 
 $container = $app->getContainer();
 

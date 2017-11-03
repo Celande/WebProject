@@ -45,7 +45,7 @@ class GoatController extends CommonController
 
   public function add_goat(Request $request, Response $response, $args){
     if($request->isGet()) {
-      $this->logger->addInfo("Route /goats/add");
+      $this->logger->addInfo("Route /goats/add - get");
 
       $races = Race::get();
 
@@ -53,15 +53,28 @@ class GoatController extends CommonController
 
     }
     else if($request->isPost()) {
-      $this->logger->addInfo("Route /goats/adding");
+      $this->logger->addInfo("Route /goats/add - post");
 
       $data = $request->getParsedBody();
+      $array = array();
 
-      foreach($data as $d){
-        echo $d . " ";
+
+      foreach($data as $key => $value){
+        //echo $key . " = " . $value . " ";
+        $array[$key] = $value;
       }
-      //return $this->view->render($response, 'home.twig');
-      return $response->withRedirect('/success'); 
+
+      // Get race_id
+      $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
+
+      if($this->store($array)){
+        echo " YEAH! ";
+        //return $response->withRedirect('/success');
+        return $response->withRedirect('/goats');
+      }
+
+      // FAIL
+      //return $response->withRedirect('/failure');
     }
     else{
       // ERROR
@@ -69,16 +82,114 @@ class GoatController extends CommonController
     }
   }
 
-  public function adding_goat(Request $request, Response $response, $args){
-    $this->logger->addInfo("Route /goats/adding");
+  public function remove_goat(Request $request, Response $response, $args){
+      $this->logger->addInfo("Route /goats/remove");
 
-    $data = $request->getParsedBody();
+      $data = $request->getParsedBody();
+      $array = array();
 
-    foreach($data as $d){
-      echo $d . " ";
-    }
-    return $this->view->render($response, 'home.twig');
+      foreach($data as $key => $value){
+        //echo $key . " = " . $value . " ";
+        $array[$key] = $value;
+      }
+
+      if($this->delete(intval($array['id']))){
+        echo " YEAH! ";
+        //return $response->withRedirect('/success');
+        return $response->withRedirect('/goats');
+      }
+
+      // FAIL
+      //return $response->withRedirect('/failure');
   }
+
+  public function update_goat(Request $request, Response $response, $args){
+    if($request->isGet()) {
+      $this->logger->addInfo("Route /goats/update - get");
+
+      $id = $request->getQueryParams()['id'];
+      //echo " ID = ".$id;
+
+      $goat = Goat::find(intval($id));
+      $race = Race::find($goat->race_id);
+
+      return $this->view->render($response, 'update_goat.twig', [
+        'goat' => $goat,
+        'race_name' => $race->name]);
+
+    }
+    else if($request->isPost()) {
+      $this->logger->addInfo("Route /goats/update - post");
+
+      $data = $request->getParsedBody();
+      $array = array();
+
+
+      foreach($data as $key => $value){
+        //echo $key . " = " . $value . " ";
+        $array[$key] = $value;
+      }
+
+      // Get race_id
+      $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
+
+      if($this->update($array)){
+        echo " YEAH! ";
+        //return $response->withRedirect('/success');
+        return $response->withRedirect('/goats');
+      }
+
+      // FAIL
+      //return $response->withRedirect('/failure');
+    }
+    else{
+      // ERROR
+      // NOT ALLOWED
+    }
+  }
+
+  private function store($array)
+    {
+        unset($array['race_name']);
+
+      if(Goat::create($array)){
+          return TRUE;
+        }
+
+        return FALSE;
+    }
+
+    private function delete($id){
+      $goat = Goat::find($id);
+
+      if($goat->delete()){
+        return TRUE;
+      }
+
+      return FALSE;
+    }
+
+    private function update($array)
+      {
+          unset($array['race_name']);
+
+          $goat = Goat::find(intval($array['id']));
+
+          $goat->name = $array['name'];
+          $goat->price = $array['price'];
+          $goat->birthdate = $array['birthdate'];
+          $goat->race_id = $array['race_id'];
+          $goat->gender = $array['gender'];
+          $goat->localisation = $array['localisation'];
+          $goat->identification = $array['identification'];
+          $goat->description = $array['description'];
+
+        if($goat->save()){
+            return TRUE;
+          }
+
+          return FALSE;
+      }
 
   /* Delete Model by KEY
   App\Flight::destroy(1);
