@@ -1,21 +1,14 @@
 {% extends "layout.html" %}
 
-{% block page_title %} My Webpage {% endblock %}
+{% block page_title %} Home {% endblock %}
 
 {% block body_header %}
-{{ a_variable }}
-
-<ul id="navigation">
-  {% for item in navigation %}
-  <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
-  {% endfor %}
-</ul>
+<h1>HOME</h1>
 {% endblock %}
 
 {% block body_core %}
-<h1>UPDATE</h1>
   {% if name %}
-    <h2>Hello home.twig {{name}}</h2>
+    <h2>Hello {{name}}</h2>
   {% endif %}
 
 

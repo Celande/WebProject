@@ -75,8 +75,10 @@ $app->get('/races/{id}', 'App\Controllers\RaceController:show_race');
 
 $app->get('/goats', 'App\Controllers\GoatController:show_goats');
 
-$app->get('/goats/add', 'App\Controllers\GoatController:add_goat');
-$app->post('/goats/adding', 'App\Controllers\GoatController:adding_goat');
+//$app->get('/goats/add', 'App\Controllers\GoatController:add_goat');
+//$app->post('/goats/add', 'App\Controllers\GoatController:adding_goat');
+
+$app->map(['GET', 'POST'], '/goats/add', 'App\Controllers\GoatController:add_goat');
 
 $app->get('/goats/remove', 'App\Controllers\GoatController:remove_goat');
 $app->post('/goats/removing', 'App\Controllers\GoatController:removing_goat');
@@ -87,4 +89,22 @@ $app->post('/goats/searching', 'App\Controllers\GoatController:searching_goat');
 $app->get('/goats/update', 'App\Controllers\GoatController:update_goat');
 
 $app->get('/goats/{id}', 'App\Controllers\GoatController:show_goat');
+
+$app->get('/404', function (Request $request, Response $response) {
+  $this->logger->addInfo("Route /404");
+  return $this->view->render($response, 'not_found.twig');
+});
+
+$app->get('/success', function (Request $request, Response $response) {
+  $this->logger->addInfo("Route /success");
+  $this->view->render($response, 'success.twig');
+  //sleep(3);
+  //return $response->withRedirect('/home');
+});
+
+$app->get('/home', function (Request $request, Response $response) {
+  $this->logger->addInfo("Route /home");
+  return $this->view->render($response, 'home.twig');
+});
+
 $app->run();

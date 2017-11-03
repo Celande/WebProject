@@ -1,12 +1,67 @@
 {% extends "layout.html" %}
 
-{% block page_title %} My Webpage {% endblock %}
+{% block page_title %} ADD GOAT {% endblock %}
 
 {% block body_header %}
 {% endblock %}
 
 {% block body_core %}
 <h1>ADD GOAT</h1>
+
+<form method="post" enctype="multipart/form-data" id="goatform">
+
+  <p>
+    <label>Name</label>
+    <input type="text" name="name"><br>
+  </p>
+
+  <p>
+    <label>Price - convert ',' to '.'</label>
+    <input type="number" name="price" step="0.01" min=0>€<br>
+  </p>
+
+  <p>
+    <label>Birthdate</label>
+    <input type="date" name="birthdate"><br>
+  </p>
+
+  <p>
+    <label>Race - query list of all races</label>
+    <input type=text list=races >
+    <datalist id=races >
+       {% for race in races %}
+          <option> {{ race.name }}
+        {% endfor %}
+    </datalist>
+  </p>
+
+  <p>
+    <label>Gender - Female/Male</label><br>
+    <input type="radio" name="gender" value="female"> Female<br>
+    <input type="radio" name="gender" value="male"> Male<br>
+
+  </p>
+
+  <p>
+    <label>Localisation - see for google map API</label>
+    <input type="text" name="localisation"><br>
+  </p>
+
+  <p>
+    <label>Identification - get the format "COUNTRY_LETTERS 000 000 00000"</label>
+    <input type="text" name="identification"><br>
+  </p>
+
+  <p>
+    <label>Description</label><br>
+    <textarea name="comment" form="goatform" rows="4" cols="50">Enter text here...</textarea>
+
+  </p>
+
+  <p>
+    <input type="submit"/>
+  </p>
+</form>
 
 
     <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>

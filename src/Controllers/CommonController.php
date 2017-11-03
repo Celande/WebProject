@@ -35,8 +35,10 @@ class CommonController
         return $response;
     }
 
+    // TO DO: Take care with handlers, exception and/or redirect
     protected function not_found(Request $request, Response $response, $args){
       return $this->view->render($response, 'not_found.twig');
+      //this->redirect('/404');
     }
 
 }

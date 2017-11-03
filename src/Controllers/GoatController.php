@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Goat;
+use App\Models\Race;
 use App\Controllers\CommonController as CommonController;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
@@ -12,68 +13,95 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class GoatController extends CommonController
 {
-    public function show_goats(Request $request, Response $response, $args){
-      $this->logger->addInfo("Route /goats");
+  public function show_goats(Request $request, Response $response, $args){
+    $this->logger->addInfo("Route /goats");
 
-       $goats = Goat::get(); // all the rows of the DB
+    $goats = Goat::get(); // all the rows of the DB
 
-       if(!$goats){
-         parent::not_found($request, $response, $args);
-         return;
-       }
-
-     return $this->view->render($response, 'home.twig', array('goats' => $goats));
+    if(!$goats){
+      parent::not_found($request, $response, $args);
+      return;
     }
 
-    public function show_goat(Request $request, Response $response, $args){
-      $this->logger->addInfo("Route /goats/{id}");
+    return $this->view->render($response, 'home.twig', array('goats' => $goats));
+  }
 
-      $id = $request->getAttribute('id');
+  public function show_goat(Request $request, Response $response, $args){
+    $this->logger->addInfo("Route /goats/{id}");
 
-       $goat = Goat::find($id); // all the rows of the DB
+    $id = $request->getAttribute('id');
 
-       // TO DO: Calculate AGE & SHOW NAME OF RACE
+    $goat = Goat::find($id); // all the rows of the DB
 
-       if(!$goat){
-         parent::not_found($request, $response, $args);
-         return;
-       }
+    // TO DO: Calculate AGE & SHOW NAME OF RACE
 
-     return $this->view->render($response, 'home.twig', ['goat' => $goat]);
+    if(!$goat){
+      parent::not_found($request, $response, $args);
+      return;
     }
 
-    public function add_goat(Request $request, Response $response, $args){
+    return $this->view->render($response, 'home.twig', ['goat' => $goat]);
+  }
+
+  public function add_goat(Request $request, Response $response, $args){
+    if($request->isGet()) {
       $this->logger->addInfo("Route /goats/add");
 
-      $this->view->render($response, 'add_goat.twig');
-    }
+      $races = Race::get();
 
-    public function adding_goat(Request $request, Response $response, $args){
+      return $this->view->render($response, 'add_goat.twig', array('races' => $races));
+
+    }
+    else if($request->isPost()) {
       $this->logger->addInfo("Route /goats/adding");
+
+      $data = $request->getParsedBody();
+
+      foreach($data as $d){
+        echo $d . " ";
+      }
+      //return $this->view->render($response, 'home.twig');
+      return $response->withRedirect('/success'); 
     }
-
-    /* Delete Model by KEY
-    App\Flight::destroy(1);
-
-App\Flight::destroy([1, 2, 3]);
-
-App\Flight::destroy(1, 2, 3);
-*/
-
-/* Delete Model by query
-$deletedRows = App\Flight::where('active', 0)->delete();
-*/
-
-/** Dynamic scope <=> search
-     * Scope a query to only include users of a given type.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param mixed $type
-     * @return \Illuminate\Database\Eloquent\Builder
-     */ /*
-    public function scopeType($query, $type)
-    {
-        return $query->where('type', $type);
+    else{
+      // ERROR
+      // NOT ALLOWED
     }
-    */
+  }
+
+  public function adding_goat(Request $request, Response $response, $args){
+    $this->logger->addInfo("Route /goats/adding");
+
+    $data = $request->getParsedBody();
+
+    foreach($data as $d){
+      echo $d . " ";
+    }
+    return $this->view->render($response, 'home.twig');
+  }
+
+  /* Delete Model by KEY
+  App\Flight::destroy(1);
+
+  App\Flight::destroy([1, 2, 3]);
+
+  App\Flight::destroy(1, 2, 3);
+  */
+
+  /* Delete Model by query
+  $deletedRows = App\Flight::where('active', 0)->delete();
+  */
+
+  /** Dynamic scope <=> search
+  * Scope a query to only include users of a given type.
+  *
+  * @param \Illuminate\Database\Eloquent\Builder $query
+  * @param mixed $type
+  * @return \Illuminate\Database\Eloquent\Builder
+  */ /*
+  public function scopeType($query, $type)
+  {
+  return $query->where('type', $type);
+}
+*/
 }
