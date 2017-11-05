@@ -14,10 +14,8 @@ require __DIR__ . '/../src/routes.php';
 /* Class */
 /* http://www.php-fig.org/psr/psr-4/examples/ */
 spl_autoload_register(function ($classname) {
-  // project-specific namespace prefix
   $model_prefix = 'App\\Models\\';
 
-  // base directory for the namespace prefix
   $model_base_dir = __DIR__ . '/../src/Models/';
 
   // does the class use the namespace prefix?
@@ -27,15 +25,10 @@ spl_autoload_register(function ($classname) {
     return;
   }
 
-  // get the relative class name
   $model_relative_class = substr($classname, $model_len);
 
-  // replace the namespace prefix with the base directory, replace namespace
-  // separators with directory separators in the relative class name, append
-  // with .php
   $model_file = $model_base_dir . str_replace('\\', '/', $model_relative_class) . '.php';
 
-  // if the file exists, require it
   if (file_exists($model_file)) {
     require $model_file;
   }
