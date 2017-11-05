@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Race;
 use App\Models\Goat;
 
-function createTable (Capsule $capsule){
-
-  //echo " CREATE_TABLE ";
-
-  /* race table */
+/** create_table
+  * Create the tables in the DB
+  * @param Capsule $capsule
+  * @return Capsule $capsule
+  **/
+function create_table (Capsule $capsule){
+  /*** ***** Race Table ***** ***/
   //$capsule::schema()->dropIfExists('goat'); // because of foreign key
   //$capsule::schema()->dropIfExists('race');
 
@@ -38,6 +40,7 @@ function createTable (Capsule $capsule){
       $table->unique('name');
     });
 
+    // Fill the race table
     $capsule::table('race')->insert([
       'name' => 'Saanen',
       'height' => '85',
@@ -69,8 +72,8 @@ function createTable (Capsule $capsule){
     ]);
   }
 
+/*** ***** Goat Table ***** ***/
   // Create goat table
-
   if (!$capsule::schema()->hasTable('goat')) {
     $capsule::schema()->create('goat', function (Blueprint $table) {
       $table->increments('id');
@@ -89,6 +92,7 @@ function createTable (Capsule $capsule){
       $table->timestamps();
     });
 
+    // Fill the goat table
     $capsule::table('goat')->insert([
       'name' => 'Pupuce',
       'price' => '100',
@@ -122,7 +126,6 @@ function createTable (Capsule $capsule){
       'description' => 'Pretty little nanny, sleeping on feathers only.'
     ]);
   }
-
-
+  
   return $capsule;
 }

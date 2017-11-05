@@ -1,12 +1,9 @@
 <?php
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 
-/* Add routes here? */
 /* https://github.com/aimeos/aimeos-slim/issues/4 */
-
-// Routes
 
 /*
 $app->get('/[{name}]', function (Request $request, Response $response, array $args) {

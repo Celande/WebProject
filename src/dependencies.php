@@ -5,6 +5,8 @@
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use \Illuminate\Database\Schema\Blueprint as Blueprint;
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 
 require_once __DIR__ . '/../src/create_table.php';
 
@@ -30,19 +32,21 @@ $container['db'] = function ($container) {
   $capsule = new Capsule;
 
   // Connection to the DB
-$capsule->addConnection($container['settings']['db']);
+  $capsule->addConnection($container['settings']['db']);
 
-$capsule->setAsGlobal();
-$capsule->bootEloquent();
+  $capsule->setAsGlobal();
+  $capsule->bootEloquent();
 
-$capsule = createTable($capsule);
+  // Create the tables in the DB
+  $capsule = create_table($capsule);
 
-$capsule->getContainer()->singleton(
-  Illuminate\Contracts\Debug\ExceptionHandler::class,
-  App\Exceptions\Handler::class
-);
+  // Catch exceptions
+  $capsule->getContainer()->singleton(
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
+  );
 
-return $capsule;
+  return $capsule;
 };
 
 // Twig view
@@ -50,12 +54,14 @@ $container['view'] = function ($container) {
   $templates = __DIR__ . '/../templates/';
   $cache = __DIR__ . '/tmp/views/';
 
-  //$view = new Slim\Views\Twig($templates, compact('cache'));
+  /* Use the cache to not load again and again the same page
+  $view = new Slim\Views\Twig($templates, compact('cache'));
+  */
 
-  /* For development */
+  /* Use for development */
   $view = new Slim\Views\Twig($templates, array(
     'cache' => false,
-));
+  ));
 
   // Instantiate and add Slim specific extension
   $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
@@ -64,7 +70,7 @@ $container['view'] = function ($container) {
   return $view;
 };
 
-// Eloquence - Controller of the table
+// Controller of the race table
 $container[App\Controllers\RaceController::class] = function ($c) {
   $view = $c->get('view');
   $logger = $c->get('logger');
@@ -72,10 +78,20 @@ $container[App\Controllers\RaceController::class] = function ($c) {
   return new App\Controllers\RaceController($view, $logger, $table);
 };
 
-// Eloquence - Controller of the table
+// Controller of the goat table
 $container[App\Controllers\GoatController::class] = function ($c) {
   $view = $c->get('view');
   $logger = $c->get('logger');
   $table = $c->get('db')->table('goat'); // I have 2 tables: goat and race
   return new App\Controllers\GoatController($view, $logger, $table);
+};
+
+//Override the default Not Found Handler
+$container['notFoundHandler'] = function ($c) {
+  return function ($request, $response) use ($c) {
+    return $c['response']
+    ->withStatus(404)
+    ->withHeader('Content-Type', 'text/html')
+    ->write('Page not found');
+  };
 };
