@@ -4,9 +4,9 @@ return [
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
         // Slim Settings
         'determineRouteBeforeAppMiddleware' => false,
+
         'displayErrorDetails' => true,
-        // Eloquence, install: http://laravel.sillo.org/laravel-4-chapitre-34-les-relations-avec-eloquent-2-2/
-        // NO NEED FOR ARTISAN & LARAVEL
+
         'db' => [
             'driver' => 'mysql',
             'host' => 'localhost',
@@ -21,7 +21,7 @@ return [
             //'sticky'    => true, // can read new data just after write // Need to do an Update Route
             'database' => 'web_project',
             'username' => 'root',
-            'password' => 'root', // Gardevoir
+            'password' => 'root',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

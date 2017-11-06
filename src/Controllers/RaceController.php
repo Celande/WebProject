@@ -2,8 +2,6 @@
 
 /* http://laravel.sillo.org/laravel-4-chapitre-34-les-relations-avec-eloquent-2-2/ */
 
-//namespace App;
-
 namespace App\Controllers;
 
 use App\Models\Race;
@@ -14,54 +12,45 @@ use Illuminate\Database\Query\Builder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
+/** RaceController
+* Controller of the Race Model
+**/
 class RaceController extends CommonController
 {
-    public function show_races(Request $request, Response $response, $args){
-      $this->logger->addInfo("Route /races");
+  /** show_races
+  * List of all the goat races
+  * @param Request $request
+  * @param Response $response
+  * @param $args
+  * @return $view
+  **/
+  public function show_races(Request $request, Response $response, $args){
+    $this->logger->addInfo("Route /races");
 
-       $races = Race::get(); // all the rows of the DB
+    // Get all races from DB
+    $races = Race::get();
+    return $this->view->render($response, 'home.twig', array('races' => $races));
+  }
 
-       if(!$races){
-         parent::not_found($request, $response, $args);
-         return;
-       }
+  /** show_race
+  * Show data of one goat
+  * @param Response $response
+  * @param $args
+  * @return $view
+  **/
+  public function show_race(Request $request, Response $response, $args){
+    $this->logger->addInfo("Route /races/{id}");
 
-       //echo "Races: " . $races;
-
-     return $this->view->render($response, 'home.twig', array('races' => $races));
+    // Get the id from request
+    $id = $request->getAttribute('id');
+    // Get the race according to the race id
+    $race = Race::find($id);
+    // Can't find the race, redirect to 404
+    if(!$race){
+      parent::not_found($request, $response, $args);
+      return;
     }
 
-    public function show_race(Request $request, Response $response, $args){
-      $this->logger->addInfo("Route /races/{id}");
-
-      $id = $request->getAttribute('id');
-
-       $race = Race::find($id); // all the rows of the DB
-
-       //echo "<br>Echo, Race " . $id . ": ".$race;
-       //echo "test: " . $race['name'];
-
-       if(!$race){
-         parent::not_found($request, $response, $args);
-         return;
-       }
-
-     return $this->view->render($response, 'home.twig', ['race' => $race]);
-    }
-
-    /**
-     * Create a new race instance which is a new entry in the DB
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        $race = new Race;
-
-        $race->name = $request->name;
-        // TO DO: Set up all the other attributes
-
-        $race->save();
-    }
+    return $this->view->render($response, 'home.twig', ['race' => $race]);
+  }
 }
