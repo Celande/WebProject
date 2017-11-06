@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model as Model;
 class Race extends Model {
 
     protected $table = 'race';
+    protected $timestamp = false; // No need for date
     protected $softDelete = false;
     protected $guarded = array('id');
 

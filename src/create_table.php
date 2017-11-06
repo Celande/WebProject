@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Race;
 use App\Models\Goat;
 
+// TODO: created_at and updated_at not working (NULL in DB)
+
 /** create_table
   * Create the tables in the DB
   * @param Capsule $capsule
@@ -17,8 +19,8 @@ use App\Models\Goat;
   **/
 function create_table (Capsule $capsule){
   /*** ***** Race Table ***** ***/
-  //$capsule::schema()->dropIfExists('goat'); // because of foreign key
-  //$capsule::schema()->dropIfExists('race');
+  $capsule::schema()->dropIfExists('goat'); // because of foreign key
+  $capsule::schema()->dropIfExists('race');
 
   // Create race table
   if (!$capsule::schema()->hasTable('race')) {
@@ -87,9 +89,10 @@ function create_table (Capsule $capsule){
       $table->string('identification');
       $table->text('description');
 
-      $table->foreign('race_id')->references('id')->on('race');
-
       $table->timestamps();
+      // need updated_at
+
+      $table->foreign('race_id')->references('id')->on('race');
     });
 
     // Fill the goat table
@@ -126,6 +129,6 @@ function create_table (Capsule $capsule){
       'description' => 'Pretty little nanny, sleeping on feathers only.'
     ]);
   }
-  
+
   return $capsule;
 }
