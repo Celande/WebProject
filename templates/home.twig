@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block page_title %} Home {% endblock %}
+
+{% block body_header %}
+<h1>HOME</h1>
+{% endblock %}
+
+{% block body_core %}
+  {% if name %}
+    <h2>Hello {{name}}</h2>
+  {% endif %}
+
+
+    {% for race in races %}
+      <h2>Races: <a href="http://localhost:8080/races/{{ race.id }}">{{ race.name }}</a></h2>
+    {% endfor %}
+
+  {% if race %}
+    <h2>Race: {{ race.name }}</h2>
+    <h3>Height: {{ race.height }} cm</h3>
+    <h3>Weight: {{ race.weight }} kg</h3>
+    <h3>Color: {{ race.color }}</h3>
+    <h3>Origin: {{ race.origin }}</h3>
+    {% if race.hair_growth %}
+    <h3>Hair growth: {{ race.hair_growth }} cm/month</h3>
+    {% endif %}
+    {% if race.milk_by_lactation %}
+    <h3>Milk by lactation: {{ race.milk_by_lactation }} l</h3>
+    {% endif %}
+    {% if race.duration_of_lactation %}
+    <h3>Duration of lactation: {{ race.duration_of_lactation }} month</h3>
+    {% endif %}
+    <h3>Exploitation: {{ race.exploitation }}</h3>
+  {% endif %}
+
+  {% for goat in goats %}
+    <h2>Goats: <a href="/goats/{{ goat.id }}">{{ goat.name }}</a></h2>
+  {% endfor %}
+
+{% if goat %}
+  <h2>Name: {{ goat.name }}</h2>
+  <h3>Price: {{ goat.price }} €</h3>
+  <h3>Age: {{ age }}</h3>
+  <h3>Birthdate: {{ goat.birthdate }}</h3>
+  <h3>Race: {{ race_name }}</h3>
+  <h3>Gender: {{ goat.gender }}</h3>
+  <h3>Localisation: {{ goat.localisation }}</h3>
+  <h3>Description: {{ goat.description }}</h3>
+  {% if goat.identification %}
+  <h3>Identification: {{ goat.identification }}</h3>
+  {% endif %}
+  <h3>Created at: {{ goat.created_at|date("d/m/Y") }}</h3><br>
+  <form method="POST" action="/goats/remove">
+    <input type="submit" value="Remove">
+    <input type="hidden" name="id" value="{{ goat.id }}">
+  </form>
+
+  <form method="GET" action="/goats/update">
+    <input type="hidden" name="id" value="{{ goat.id }}">
+    <input type="submit" value="Update">
+  </form>
+{% endif %}
+
+    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
+{% endblock %}
+
+{% block body_footer %} {% endblock %}

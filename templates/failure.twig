@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block page_title %} Success {% endblock %}
+
+{% block body_header %}
+{% endblock %}
+
+{% block body_core %}
+<h1>FAILURE</h1>
+
+<h2>The operation failed.</h2>
+
+<p id="timer"></p>
+
+    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
+{% endblock %}
+
+{% block body_footer %}
+
+{% endblock %}
+
+{% block body_script %}
+
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date().getTime();
+countDownDate.setSeconds(countDownDate.getSeconds() + 5);
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now an the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  //var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("timer").innerHTML = /*days + "d " + hours + "h "
+  + minutes + "m " +*/ "You will be redirected in " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("timer").innerHTML = "EXPIRED";
+    <?php return $response->withRedirect('/home'); ?>
+  }
+}, 1000);
+</script>
+
+{% endblock %}

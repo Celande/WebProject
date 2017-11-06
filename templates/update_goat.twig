@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block page_title %} ADD GOAT {% endblock %}
+
+{% block body_header %}
+{% endblock %}
+
+{% block body_core %}
+<h1>UPDATE GOAT</h1>
+
+{% if goat %}
+<form method="post" enctype="multipart/form-data" id="goatform" name="goatform">
+
+  <p>
+    <label>Name</label>
+    <input type="text" name="name" value="{{ goat.name }}"required><br>
+  </p>
+
+  <p>
+    <label>Price - convert ',' to '.'</label>
+    <input type="number" name="price"
+    step="0.01" min=0 value="{{ goat.price }}"required>€<br>
+  </p>
+
+  <p>
+    <label>Birthdate</label>
+    <input type="date" name="birthdate"
+    value="{{ goat.birthdate }}" required><br>
+  </p>
+
+  <p>
+    <label>Race - query list of all races</label>
+    <input type=text list=races
+    name="race_name" placeholder="Select Race"
+    value="{{ race_name }}" required>
+    <datalist id=races name="race_datalist">
+       {% for race in races %}
+          <option value="{{ race.name }}">
+        {% endfor %}
+    </datalist>
+  </p>
+
+  <p>
+    <label>Gender - Female/Male</label><br>
+    {% if goat.gender == "female" %}
+    <input type="radio" name="gender" value="female" checked required> Female<br>
+    <input type="radio" name="gender" value="male"> Male<br>
+    {% else %}
+    <input type="radio" name="gender" value="female" required> Female<br>
+    <input type="radio" name="gender" value="male" checked> Male<br>
+    {% endif %}
+
+  </p>
+
+  <p>
+    <label>Localisation - see for google map API</label>
+    <input type="text" name="localisation"
+    value="{{ goat.localisation }}" required><br>
+  </p>
+
+  <p>
+    <label>Identification - get the format "COUNTRY_LETTERS 000 000 00000"</label>
+    <input type="text" name="identification"
+    value="{{ goat.identification }}"><br>
+  </p>
+
+  <p>
+    <label>Description</label><br>
+    <textarea name="description" form="goatform"
+    rows="4" cols="50" placeholder="Enter text here..."
+    value="{{ goat.description }}"></textarea>
+
+  </p>
+
+  <p>
+    <input type="hidden" name="id" value="{{ goat.id }}">
+    <input type="submit"/>
+  </p>
+</form>
+{% else %}
+  <h3> ERROR </h3>
+{% endif %}
+
+
+    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
+{% endblock %}
+
+{% block body_footer %} {% endblock %}
