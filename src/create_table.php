@@ -30,7 +30,7 @@ function create_table (Capsule $capsule){
 
       $table->string('name');
       $table->float('height')->comment('cm');
-      $table->float('weight')->comment('cm');
+      $table->float('weight')->comment('kg');
       $table->string('color');
       $table->string('origin');
       $table->float('hair_growth')->nullable()->comment('cm/month');

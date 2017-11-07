@@ -31,7 +31,8 @@ class GoatController extends CommonController
 
     // Get all goats from the DB
     $goats = Goat::get();
-    return $this->view->render($response, 'home.twig', array('goats' => $goats));
+    $races = Race::get();
+    return $this->view->render($response, 'home.twig', array('goats' => $goats,'races' => $races));
   }
 
   /** show_goat

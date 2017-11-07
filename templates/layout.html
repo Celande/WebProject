@@ -14,6 +14,18 @@
         <div id="header"><h1>BuyAGoat</h1>
           {% block body_header %} {% endblock %}
         </div>
+        <div id="menu">
+          <a href="http://localhost:8080/goats" ><button type="button">Market place</button></a>
+          <a href="http://localhost:8080/races" ><button type="button">About the races</button></a>
+          <a href="http://localhost:8080/goats/add" ><button type="button">Sell a goat</button></a>
+        </div>
+        <!--<div id="filter">
+          <select name="race_name">
+            for (race in races){
+             <option value="race.name">race.name</option>
+            }
+          </select>
+        </div>-->
         <div id="core">{% block body_core %} {% endblock %}</div>
         <div id="footer">{% block body_footer %} {% endblock %}</div>
 
