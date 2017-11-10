@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 use Illuminate\Database\Query\Builder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use \Datetime as DateTime;
+use \Datetime as Datetime;
 
 /** GoatController
 * Used to control the Goat Model
@@ -103,6 +103,10 @@ public function add_goat(Request $request, Response $response, $args){
     // Get the race id from the race name
     $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
 
+    // Update the dates
+    $array['created_at'] = new Datetime('Y-m-d');
+    $array['updated_at'] = new Datetime('Y-m-d');
+
     // If the goat was correctly added, you can redirect
     if($this->store($array)){
       return $response->withRedirect('/success');
@@ -182,6 +186,11 @@ public function update_goat(Request $request, Response $response, $args){
       }
       // Get the race id according to the race name
       $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
+
+      // Update the dates
+      //$array['updated_at'] = new Datetime('Y-m-d');
+      $array['updated_at'] = new Datetime();
+
       // If the goat was correctly updated, redirect to success page
       if($this->update($array)){
         return $response->withRedirect('/success');
@@ -214,6 +223,7 @@ public function update_goat(Request $request, Response $response, $args){
     if(Goat::where('identification', 'like', $array['identification'])->get()->count() == 0){
       // No problem in the creation
       if(Goat::create($array)){
+        $table->touch();
         return TRUE;
       }
     }
@@ -259,6 +269,7 @@ public function update_goat(Request $request, Response $response, $args){
     $goat->description = $array['description'];
     // Goat was updated
     if($goat->save()){
+      //$table->touch();
       return TRUE;
     }
     // Any problem

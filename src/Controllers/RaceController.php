@@ -5,6 +5,7 @@
 namespace App\Controllers;
 
 use App\Models\Race;
+use App\Models\Image;
 
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
@@ -29,7 +30,13 @@ class RaceController extends CommonController
 
     // Get all races from DB
     $races = Race::get();
-    return $this->view->render($response, 'home.twig', array('races' => $races));
+    $imgs = Image::where('type', 'like', 'race')->get();
+    echo ' IMG ' . $imgs;
+
+    return $this->view->render($response, 'home.twig',
+        array('races' => $races, 'imgs' => $imgs)
+          );
+
   }
 
   /** show_race

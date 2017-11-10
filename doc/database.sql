@@ -16,8 +16,7 @@ CREATE TABLE IF NOT EXISTS race (
   hair_growth float(7,2) DEFAULT NULL,
   milk_by_lactation float(7,2) DEFAULT NULL,
   duration_of_lactation float(7,2) DEFAULT NULL,
-  exploitation varchar(250) NOT NULL,
-  /*exploitation enum('milk', 'cheese', 'hair', meat', 'pet'),*/
+  exploitation enum('milk', 'cheese', 'hair', 'meat', 'pet'),
   /*average_lifespan*/
   PRIMARY KEY (id),
   UNIQUE KEY (name)

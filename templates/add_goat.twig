@@ -31,43 +31,43 @@
     <input type=text list=races
     name="race_name" placeholder="Select Race" required>
     <datalist id=races name="race_datalist">
-       {% for race in races %}
-          <option value="{{ race.name }}">
+      {% for race in races %}
+      <option value="{{ race.name }}">
         {% endfor %}
-    </datalist>
-  </p>
+      </datalist>
+    </p>
 
-  <p>
-    <label>Gender - Female/Male</label><br>
-    <input type="radio" name="gender" value="female" required> Female<br>
-    <input type="radio" name="gender" value="male"> Male<br>
+    <p>
+      <label>Gender - Female/Male</label><br>
+      <input type="radio" name="gender" value="female" required> Female<br>
+      <input type="radio" name="gender" value="male"> Male<br>
 
-  </p>
+    </p>
 
-  <p>
-    <label>Localisation - see for google map API</label>
-    <input type="text" name="localisation" required><br>
-  </p>
+    <p>
+      <label>Localisation - see for google map API</label>
+      <input type="text" name="localisation" required><br>
+    </p>
 
-  <p>
-    <label>Identification - get the format "COUNTRY_LETTERS 000 000 00000"</label>
-    <input type="text" name="identification"><br>
-  </p>
+              <p>
+                <label>Identification - get the format "COUNTRY_LETTERS 000 000 00000"</label>
+                <input type="text" name="identification"><br>
+              </p>
 
-  <p>
-    <label>Description</label><br>
-    <textarea name="description" form="goatform"
-    rows="4" cols="50" placeholder="Enter text here..."></textarea>
+              <p>
+                <label>Description</label><br>
+                <textarea name="description" form="goatform"
+                rows="4" cols="50" placeholder="Enter text here..."></textarea>
 
-  </p>
+              </p>
 
-  <p>
-    <input type="submit"/>
-  </p>
-</form>
+              <p>
+                <input type="submit"/>
+              </p>
+            </form>
 
 
-    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
-{% endblock %}
+            <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
+          {% endblock %}
 
-{% block body_footer %} {% endblock %}
+        {% block body_footer %} {% endblock %}

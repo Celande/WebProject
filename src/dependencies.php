@@ -27,6 +27,22 @@ $container['logger'] = function ($c) {
   return $logger;
 };
 
+// Img path
+$container['img'] = function ($c) {
+  $img = __DIR__ . '/../img/';
+  return $img;
+};
+
+$container['img_race'] = function ($c) {
+  $img = 'img/race/';
+  return $img;
+};
+
+$container['img_goat'] = function ($c) {
+  $img = __DIR__ . '/../img/goat/';
+  return $img;
+};
+
 // Service factory for the ORM // Eloquence Database
 $container['db'] = function ($container) {
   $capsule = new Capsule;
@@ -38,7 +54,7 @@ $container['db'] = function ($container) {
   $capsule->bootEloquent();
 
   // Create the tables in the DB
-  $capsule = create_table($capsule);
+  $capsule = create_table($capsule, $container->get('img_race'),$container->get('img_goat'));
 
   // Catch exceptions
   $capsule->getContainer()->singleton(

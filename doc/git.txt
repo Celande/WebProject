@@ -9,6 +9,12 @@ git remote add origin ProjectURL
 git push -u origin master
 git pull
 
+# remiser
+git stash
+git stash list
+git stash apply
+git status
+
 ##### Importer le dossier de Github (créer sur github, ajouter au pc) #####
 git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
 
