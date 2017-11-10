@@ -13,7 +13,13 @@
 
 
     {% for race in races %}
-      <h2>Races: <a href="http://localhost:8080/races/{{ race.id }}">{{ race.name }}</a></h2>
+      <h2><a href="/races/{{ race.id }}">
+        {% for img in imgs if race.id == img.num %}
+        <img src="/img/race/race1.jpg"
+        alt="{{ race.name }}" width=20>
+        {{ base_url() ~ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}
+        {% endfor %}
+        {{ race.name }}</a></h2>
     {% endfor %}
 
   {% if race %}
@@ -42,7 +48,7 @@
   <h2>Name: {{ goat.name }}</h2>
   <h3>Price: {{ goat.price }} €</h3>
   <h3>Age: {{ age }}</h3>
-  <h3>Birthdate: {{ goat.birthdate }}</h3>
+  <h3>Birthdate: {{ goat.birthdate|date("d/m/Y") }}</h3>
   <h3>Race: {{ race_name }}</h3>
   <h3>Gender: {{ goat.gender }}</h3>
   <h3>Localisation: {{ goat.localisation }}</h3>
@@ -51,6 +57,7 @@
   <h3>Identification: {{ goat.identification }}</h3>
   {% endif %}
   <h3>Created at: {{ goat.created_at|date("d/m/Y") }}</h3><br>
+  <h3>Updated at: {{ goat.updated_at|date("d/m/Y") }}</h3><br>
   <form method="POST" action="/goats/remove">
     <input type="submit" value="Remove">
     <input type="hidden" name="id" value="{{ goat.id }}">

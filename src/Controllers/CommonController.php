@@ -16,6 +16,7 @@ class CommonController
     protected $view;
     protected $logger;
     protected $table;
+    protected $img;
 
     /** __construct
     * Initialization of the class

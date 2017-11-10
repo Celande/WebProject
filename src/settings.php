@@ -37,6 +37,19 @@ return [
             'name' => 'slim-app',
             'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
+        ],
+        /*
+        'img' => [
+          'path' => __DIR__ . '/../img/'
+        ],
+
+        'img_race' => [
+          'path' => __DIR__ . '/../img/race/'
+        ],
+
+        'img_goat' => [
+          'path' => __DIR__ . '/../img/goat/'
         ]
+        */
       ]
     ];

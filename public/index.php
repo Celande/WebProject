@@ -42,6 +42,31 @@ $app = new \Slim\App($settings);
 // Set up dependencies => containers
 require_once __DIR__ . '/../src/dependencies.php';
 
+// Middleware
+
+$app->add(function($request, $response, $next) {
+    $response = $next($request, $response);
+    $response = $response->withAddedHeader('Content-Type', 'image/jpeg .jpeg .jpg .jpe .JPG');
+    $response = $response->withAddedHeader('Content-Type', 'text/html .html .htm');
+    return $response;
+});
+
+/*
+$app->group('', function () {
+    //json routes
+})->add(function($request, $response, $next) {
+        $response = $next($request, $response);
+        return $response->withHeader('Content-Type', 'text/html .html .htm');
+});
+
+$app->group('', function () {
+    //json routes
+})->add(function($request, $response, $next) {
+        $response = $next($request, $response);
+        return $response->withHeader('Content-Type', 'image/jpeg .jpeg .jpg .jpe .JPG');
+});
+*/
+
 // Hello {name} -> test
 $app->get('/hello/{name}', function (Request $request, Response $response) {
   $this->logger->addInfo("Route /hello/{name}");
@@ -107,4 +132,37 @@ $app->get('/404', function (Request $request, Response $response) {
   return $notFoundHandler($request, $response);
 });
 
+$app->get('/img/race', function(Request $request, Response $response){
+    //$data = $args['data'];
+    $image = @file_get_contents("race1.jpg");
+    if($image === FALSE) {
+        $response->write('Could not find test.jpg.');
+        //$response->withStatus(404);
+        return $this->view->render($response, 'home.twig');
+    }
+
+    $response->write($image);
+    $response->withHeader('Content-Type', 'image/jpeg');
+
+    return $this->view->render($response, 'home.twig');
+  });
+
+/*
+$app->group('/img', function(Request $request, Response $response){
+  $this->get('/race/{data:\w+}', function($request, $response){
+    $data = $args['data'];
+    $image = @file_get_contents("$data");
+    if($image === FALSE) {
+        $handler = $this->notFoundHandler;
+        return $handler($request, $response);
+    }
+
+    $response->write($image);
+    return $response->withHeader('Content-Type', FILEINFO_MIME_TYPE);
+  });
+  $this->get('/goat/{data:\w+}', function($request, $response){
+
+  });
+});
+*/
 $app->run();

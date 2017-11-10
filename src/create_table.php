@@ -17,10 +17,66 @@ use App\Models\Goat;
   * @param Capsule $capsule
   * @return Capsule $capsule
   **/
-function create_table (Capsule $capsule){
+function create_table (Capsule $capsule, $img_race, $img_goat){
   /*** ***** Race Table ***** ***/
   $capsule::schema()->dropIfExists('goat'); // because of foreign key
   $capsule::schema()->dropIfExists('race');
+  $capsule::schema()->dropIfExists('image');
+
+  // Create img table
+  if(!$capsule::schema()->hasTable('image')){
+    $capsule::schema()->create('image', function(Blueprint $table){
+      $table->increments('id');
+
+      $table->string('path');
+      $table->enum('type',['race', 'goat']);
+      $table->integer('num');
+      $table->enum('ext', ['jpg', 'jpeg', 'png'])->comment('extension');
+    });
+
+    // Fill the image table
+    $capsule::table('image')->insert([
+      'path' => $img_race,
+      'type' => 'race',
+      'num' => '1',
+      'ext' => 'jpg'
+    ]);
+
+    $capsule::table('image')->insert([
+      'path' => $img_race,
+      'type' => 'race',
+      'num' => '2',
+      'ext' => 'jpg'
+    ]);
+
+    $capsule::table('image')->insert([
+      'path' => $img_race,
+      'type' => 'race',
+      'num' => '3',
+      'ext' => 'jpg'
+    ]);
+
+    $capsule::table('image')->insert([
+      'path' => $img_goat,
+      'type' => 'goat',
+      'num' => '1',
+      'ext' => 'jpg'
+    ]);
+
+    $capsule::table('image')->insert([
+      'path' => $img_goat,
+      'type' => 'goat',
+      'num' => '2',
+      'ext' => 'jpg'
+    ]);
+
+    $capsule::table('image')->insert([
+      'path' => $img_goat,
+      'type' => 'goat',
+      'num' => '3',
+      'ext' => 'jpg'
+    ]);
+  }
 
   // Create race table
   if (!$capsule::schema()->hasTable('race')) {
@@ -36,10 +92,11 @@ function create_table (Capsule $capsule){
       $table->float('hair_growth')->nullable()->comment('cm/month');
       $table->float('milk_by_lactation')->nullable()->comment('l');
       $table->integer('duration_of_lactation')->nullable()->comment('month');
-      $table->string('exploitation');
-      /*$table->enum('exploitation',['milk', 'cheese', 'hair', 'meat', 'pet']);*/
+      $table->enum('exploitation',['milk', 'cheese', 'hair', 'meat', 'pet', 'environment']);
+      $table->integer('img_id')->unsigned()->comment('300x300px max');
 
       $table->unique('name');
+      $table->foreign('img_id')->references('id')->on('image');
     });
 
     // Fill the race table
@@ -51,7 +108,8 @@ function create_table (Capsule $capsule){
       'origin' => 'Switzerland',
       'milk_by_lactation' => '800',
       'duration_of_lactation' => '9.3',
-      'exploitation' => 'milk'
+      'exploitation' => 'milk',
+      'img_id' => '1'
     ]);
 
     $capsule::table('race')->insert([
@@ -60,7 +118,8 @@ function create_table (Capsule $capsule){
       'weight' => '30',
       'color' => 'caramel pattern, agouti pattern, and black pattern',
       'origin' => 'Central and West Africa',
-      'exploitation' => 'pet'
+      'exploitation' => 'pet',
+      'img_id' => '2'
     ]);
 
     $capsule::table('race')->insert([
@@ -70,7 +129,272 @@ function create_table (Capsule $capsule){
       'color' => 'white',
       'origin' => 'Central Asia',
       'hair_growth' => '2.5',
-      'exploitation' => 'hair'
+      'exploitation' => 'hair',
+      'img_id' => '3'
+    ]);
+
+  $capsule::table('race')->insert([
+      'name' => 'Thüringer goat',
+      'height' => '80',
+      'weight' => '60',
+      'color' => 'chocolate, grey',
+      'origin' => 'Germany',
+      'milk_by_lactation' => '800',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+  $capsule::table('race')->insert([
+      'name' => 'Bunte Deutsche Edelziege',
+      'height' => '80',
+      'weight' => '75',
+      'color' => 'brown',
+      'origin' => 'Germany',
+      'milk_by_lactation' => '1000',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+  $capsule::table('race')->insert([
+      'name' => 'Weiße Deutsche Edelziege',
+      'height' => '80',
+      'weight' => '75',
+      'color' => 'white',
+      'origin' => 'Germany',
+      'milk_by_lactation' => '1000',
+      'duration_of_lactation' => '8',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+  $capsule::table('race')->insert([
+      'name' => 'Appenzell goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'white',
+      'origin' => 'Switzerland',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+  $capsule::table('race')->insert([
+      'name' => 'Gray rays goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'black with white rays on the head',
+      'origin' => 'Switzerland',
+      'exploitation' => 'milk', // and meat
+      'img_id' => '3'
+    ]);
+
+  $capsule::table('race')->insert([
+      'name' => 'Alpes goat',
+      'height' => 'NA',
+      'weight' => '75',
+      'color' => 'brown, black',
+      'origin' => 'Switzerland',
+      'milk_by_lactation' => '780',
+      'exploitation' => 'milk', // and meat
+      'img_id' => '3'
+    ]);
+
+  $capsule::table('race')->insert([
+      'name' => 'Peacock goat',
+      'height' => '60',
+      'weight' => '75',
+      'color' => 'black and white',
+      'origin' => 'Switzerland',
+      'milk_by_lactation' => '538',
+      'duration_of_lactation' => '8',
+      'exploitation' => 'milk', // and meat
+      'img_id' => '3'
+    ]);
+
+  $capsule::table('race')->insert([
+      'name' => 'Booted goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'brown',
+      'origin' => 'Switzerland',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Toggenbourg goat',
+      'height' => '75',
+      'weight' => '55',
+      'color' => 'brown',
+      'origin' => 'Switzerland',
+      'milk_by_lactation' => '780',
+      'duration_of_lactation' => '9',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Valais black collar goat',
+      'height' => '80',
+      'weight' => '55',
+      'color' => 'black and white',
+      'origin' => 'Switzerland',
+      'milk_by_lactation' => '440',
+      'exploitation' => 'environment',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Tennessee goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'any',
+      'origin' => 'USA',
+      'exploitation' => 'meat',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Bush goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'any',
+      'origin' => 'USA',
+      'exploitation' => 'meat',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Kiko',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'any',
+      'origin' => 'New-Zealand',
+      'exploitation' => 'meat',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Poitevine',
+      'height' => '75',
+      'weight' => '70',
+      'color' => 'brown, black',
+      'origin' => 'France',
+      'milk_by_lactation' => '538',
+      'duration_of_lactation' => '8.3',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Corse',
+      'height' => 'NA',
+      'weight' => '50',
+      'color' => 'any',
+      'origin' => 'France',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Ditches goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'any',
+      'origin' => 'France',
+      'exploitation' => 'milk', // and meat
+      'img_id' => '3'
+    ]);
+
+    // TO FINISH
+
+    $capsule::table('race')->insert([
+      'name' => 'Lorraine goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'gray',
+      'origin' => 'France',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Massif Central goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'any',
+      'origin' => 'France',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Provence goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'any',
+      'origin' => 'France',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Pyrenees goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'black, brown',
+      'origin' => 'France',
+      'exploitation' => 'milk', // and meat
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Rove goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'brown',
+      'origin' => 'France',
+      'exploitation' => 'milk', // and meat
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Catalonia goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'brown',
+      'origin' => 'France',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Savoie goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'any',
+      'origin' => 'France',
+      'exploitation' => 'milk',
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Sundgau goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'black and white',
+      'origin' => 'France',
+      'exploitation' => 'milk', // and meat
+      'img_id' => '3'
+    ]);
+
+    $capsule::table('race')->insert([
+      'name' => 'Pyrenees goat',
+      'height' => 'NA',
+      'weight' => 'NA',
+      'color' => 'any',
+      'origin' => 'France',
+      'exploitation' => 'milk', // and meat
+      'img_id' => '3'
     ]);
   }
 
@@ -90,6 +414,7 @@ function create_table (Capsule $capsule){
       $table->text('description');
 
       $table->timestamps();
+      //$table->touch();
       // need updated_at
 
       $table->foreign('race_id')->references('id')->on('race');
@@ -104,7 +429,9 @@ function create_table (Capsule $capsule){
       'gender' => 'female',
       'localisation' => 'Lyon - France',
       'identification' => 'FR 001 001 00001',
-      'description' => 'Young goat loving corn.'
+      'description' => 'Young goat loving corn.',
+      'created_at' => '2017-10-05',
+      'updated_at' => '2017-10-05'
     ]);
 
     $capsule::table('goat')->insert([
@@ -115,7 +442,9 @@ function create_table (Capsule $capsule){
       'gender' => 'male',
       'localisation' => 'Langre - France',
       'identification' => 'FR 002 002 00002',
-      'description' => 'Manly male, stubborn, kicker and go-ahead type.'
+      'description' => 'Manly male, stubborn, kicker and go-ahead type.',
+      'created_at' => '2017-10-05',
+      'updated_at' => '2017-10-05'
     ]);
 
     $capsule::table('goat')->insert([
@@ -126,7 +455,9 @@ function create_table (Capsule $capsule){
       'gender' => 'female',
       'localisation' => 'Chaumont - France',
       'identification' => 'FR 003 003 00003',
-      'description' => 'Pretty little nanny, sleeping on feathers only.'
+      'description' => 'Pretty little nanny, sleeping on feathers only.',
+      'created_at' => '2017-10-05',
+      'updated_at' => '2017-10-05'
     ]);
   }
 

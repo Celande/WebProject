@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Model as Model;
 /** Race
   * Model used for the race table
   **/
-class Race extends Model {
+class Image extends Model {
 
-    protected $table = 'race';
+    protected $table = 'image';
     protected $timestamp = false; // No need for date
     protected $softDelete = false;
     protected $guarded = array('id');
@@ -21,17 +21,15 @@ class Race extends Model {
     * Each goat has ONE race
   **/
     public function goat(){
-      $table->hasMany('\src\Models\Goat', 'race_id'); // race_id usefull ?
+      $table->belongsTo('\src\Models\Goat', 'img_id'); // race_id usefull ?
     }
 
-    /** image
+    /** race
     * Used to set the relation between the race table and the goat table
     * Each goat has ONE race
   **/
-  /*
-    public function image(){
-      $table->belongsTo('\src\Models\Image', 'img_id'); // race_id usefull ?
+    public function race(){
+      $table->belongsTo('\src\Models\Race', 'img_id'); // race_id usefull ?
     }
-    */
 
 }
