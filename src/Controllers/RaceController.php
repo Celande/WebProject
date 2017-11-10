@@ -33,7 +33,7 @@ class RaceController extends CommonController
     $imgs = Image::where('type', 'like', 'race')->get();
     echo ' IMG ' . $imgs;
 
-    return $this->view->render($response, 'home.twig',
+    return $this->view->render($response, 'races.twig',
         array('races' => $races, 'imgs' => $imgs)
           );
 
@@ -58,6 +58,6 @@ class RaceController extends CommonController
       return;
     }
 
-    return $this->view->render($response, 'home.twig', ['race' => $race]);
+    return $this->view->render($response, 'races.twig', ['race' => $race]);
   }
 }

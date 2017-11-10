@@ -51,35 +51,6 @@
     </p>
   </form>
 
-
-    {% for race in races %}
-      <h2><a href="/races/{{ race.id }}">
-        {% for img in imgs if race.id == img.num %}
-        <img src="/img/race/race1.jpg"
-        alt="{{ race.name }}" width=20>
-        {{ base_url() ~ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}
-        {% endfor %}
-        {{ race.name }}</a></h2>
-    {% endfor %}
-
-  {% if race %}
-    <h2>Race: {{ race.name }}</h2>
-    <h3>Height: {{ race.height }} cm</h3>
-    <h3>Weight: {{ race.weight }} kg</h3>
-    <h3>Color: {{ race.color }}</h3>
-    <h3>Origin: {{ race.origin }}</h3>
-    {% if race.hair_growth %}
-    <h3>Hair growth: {{ race.hair_growth }} cm/month</h3>
-    {% endif %}
-    {% if race.milk_by_lactation %}
-    <h3>Milk by lactation: {{ race.milk_by_lactation }} l</h3>
-    {% endif %}
-    {% if race.duration_of_lactation %}
-    <h3>Duration of lactation: {{ race.duration_of_lactation }} month</h3>
-    {% endif %}
-    <h3>Exploitation: {{ race.exploitation }}</h3>
-  {% endif %}
-
   {% for goat in goats %}
     <h2>Goats: <a href="/goats/{{ goat.id }}">{{ goat.name }}</a></h2>
   {% endfor %}
