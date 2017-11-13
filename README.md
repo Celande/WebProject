@@ -130,4 +130,5 @@ The RaceController and the GoatController are used over the Models that have the
 ## Credits
 
 Célande ADRIEN
+
 Arthur FAGOT
