@@ -103,8 +103,10 @@ public function add_goat(Request $request, Response $response, $args){
     $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
 
     // Update the dates
-    $array['created_at'] = new Datetime('Y-m-d');
-    $array['updated_at'] = new Datetime('Y-m-d');
+    $array['created_at'] = new Datetime(); // ->format('Y-m-d')
+    $array['updated_at'] = new Datetime();
+
+    //echo "<script>console.log( 'Debug Objects: " . $array['created_at'] . "' );</script>";
 
     // If the goat was correctly added, you can redirect
     if($this->store($array)){
@@ -220,7 +222,6 @@ public function update_goat(Request $request, Response $response, $args){
     if(Goat::where('identification', 'like', $array['identification'])->get()->count() == 0){
       // No problem in the creation
       if(Goat::create($array)){
-        $table->touch();
         return TRUE;
       }
     }
