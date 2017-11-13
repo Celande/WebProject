@@ -7,6 +7,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use \Illuminate\Database\Schema\Blueprint as Blueprint;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use App\Handlers\NotFoundHandler;
 
 require_once __DIR__ . '/../src/create_table.php';
 
@@ -103,11 +104,17 @@ $container[App\Controllers\GoatController::class] = function ($c) {
 };
 
 //Override the default Not Found Handler
+/* http://help.slimframework.com/discussions/problems/10851-how-to-add-404-template-in-slim-3 */
 $container['notFoundHandler'] = function ($c) {
-  return function ($request, $response) use ($c) {
-    return $c['response']
-    ->withStatus(404)
-    ->withHeader('Content-Type', 'text/html')
-    ->write('Page not found');
-  };
+  return new NotFoundHandler($c->get('view'), function ($request, $response) use ($c) {
+        return $c['response']
+            ->withStatus(404);
+    });
+};
+
+$c['notAllowedHandler'] = function ($c) {
+    return new NotAllowedHandler($c->get('view'), function ($request, $response) use ($c) {
+        return $c['response']
+            ->withStatus(405);
+    });
 };

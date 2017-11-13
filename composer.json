@@ -26,7 +26,8 @@
         "psr-4": {
             "Tests\\": "tests/",
             "App\\Models\\": "src/Models/",
-            "App\\Controllers\\": "src/Controllers/"
+            "App\\Controllers\\": "src/Controllers/",
+            "App\\Handlers\\": "src/Handlers/"
         }
     },
     "config": {

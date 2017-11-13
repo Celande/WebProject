@@ -51,7 +51,6 @@ class GoatController extends CommonController
     // Can't find the goat then 404
     if(!$goat){
       parent::not_found($request, $response, $args);
-      return;
     }
 
     // Get the race according to the id to show the race name
@@ -117,8 +116,7 @@ public function add_goat(Request $request, Response $response, $args){
   }
   // ERROR in method
   else{
-    // ERROR
-    // NOT ALLOWED: 302?
+    return parent::not_allowed($request, $response, $args);
   }
 }
 
@@ -201,8 +199,7 @@ public function update_goat(Request $request, Response $response, $args){
     }
     // ERROR in method
     else{
-      // ERROR
-      // NOT ALLOWED
+      return parent::not_allowed($request, $response, $args);
     }
   }
 
