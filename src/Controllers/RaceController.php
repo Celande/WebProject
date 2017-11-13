@@ -31,7 +31,6 @@ class RaceController extends CommonController
     // Get all races from DB
     $races = Race::get();
     $imgs = Image::where('type', 'like', 'race')->get();
-    echo ' IMG ' . $imgs;
 
     return $this->view->render($response, 'races.twig',
         array('races' => $races, 'imgs' => $imgs)
@@ -54,8 +53,7 @@ class RaceController extends CommonController
     $race = Race::find($id);
     // Can't find the race, redirect to 404
     if(!$race){
-      parent::not_found($request, $response, $args);
-      return;
+      return parent::not_found($request, $response, $args);
     }
 
     return $this->view->render($response, 'races.twig', ['race' => $race]);

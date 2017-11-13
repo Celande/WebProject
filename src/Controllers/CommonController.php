@@ -57,13 +57,18 @@ class CommonController
     * @param Response $response
     * @param $args
     **/
-    // TO DO: Take care with handlers, exception and/or redirect
     protected function not_found(Request $request, Response $response, $args){
-      //return $this->view->render($response, 'not_found.twig');
-      //this->redirect('/404');
+      return $response->withRedirect('/404');
+    }
 
-      //$notFoundHandler = $this->container->get('notFoundHandler');
-      //return $notFoundHandler($request, $response);
+    /** not_allowed
+    * Redirect to the 405 page
+    * @param Request $request
+    * @param Response $response
+    * @param $args
+    **/
+    protected function not_allowed(Request $request, Response $response, $args){
+      return $response->withRedirect('/405');
     }
 
 }

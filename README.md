@@ -31,11 +31,12 @@ Framework:
 We ensured that the `composer.json` file has been modified according to the namespaces that we created.
 
     "autoload-dev": {
-            "psr-4": {
-                "Tests\\": "tests/",
-                "App\\Models\\": "src/Models/",
-                "App\\Controllers\\": "src/Controllers/"
-            }
+        "psr-4": {
+            "Tests\\": "tests/",
+            "App\\Models\\": "src/Models/",
+            "App\\Controllers\\": "src/Controllers/",
+            "App\\Handlers\\": "src/Handlers/"
+        }
     }
 
 ## Database
