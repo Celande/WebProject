@@ -106,12 +106,9 @@ public function add_goat(Request $request, Response $response, $args){
     $array['created_at'] = new Datetime(); // ->format('Y-m-d')
     $array['updated_at'] = new Datetime();
 
-    //echo "<script>console.log( 'Debug Objects: " . $array['created_at'] . "' );</script>";
-
     // If the goat was correctly added, you can redirect
     if($this->store($array)){
       return $response->withRedirect('/success');
-      //return $response->withRedirect('/goats');
     }
     // If the goat couldn't be added, redirect to the failure page
     return $response->withRedirect('/failure');
