@@ -12,7 +12,7 @@ For the MVC, we used:
 The goal of this project is to create a website on which one can get informations about goats and sell or buy a goat.
 
 ## Install
-### Installed Applications (add sources and commands)
+### Installed Applications
 
 LAMP:
 * php
@@ -104,9 +104,15 @@ For the goat table:
       )
     );
 
-## Containers and Settings
+## Environment
 ### Settings
+You can find in the `src/settings.php` file the settings used for this project.
+
+We added from the base file what we needed to make the DB works and the *logger* variable thanks to *Monolog*.
 ### Containers
+You can find in the `src/dependencies.php` file some more settings for the project.
+
+We added from the base file the *logger*, *img*, *img_race* and *img_goat* to indicate the path to the image folder. There is also *db* for the DB, *view* used for *Twig*, the Controllers and the Handlers.
 ## MVC
 
 ### Models
@@ -130,4 +136,5 @@ The RaceController and the GoatController are used over the Models that have the
 ## Credits
 
 Célande ADRIEN
+
 Arthur FAGOT

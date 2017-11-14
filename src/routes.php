@@ -27,7 +27,7 @@ $app->group('/goats', function(){
   //$this->get('/search', 'App\Controllers\GoatController:search_goat');
   //$this->post('/searching', 'App\Controllers\GoatController:searching_goat');
   // Get info on one goat
-  $this->get('/goats/{id}', 'App\Controllers\GoatController:show_goat');
+  $this->get('/{id}', 'App\Controllers\GoatController:show_goat');
 });
 
 // Success returned if goat successfully added/updated/removed
@@ -35,16 +35,12 @@ $app->group('/goats', function(){
 $app->get('/success', function (Request $request, Response $response) {
   $this->logger->addInfo("Route /success");
   $this->view->render($response, 'success.twig');
-  //sleep(3);
-  //return $response->withRedirect('/home');
 });
 // Failure returned if goat successfully added/updated/removed
 // Return to the goat list after a littke delay
 $app->get('/failure', function (Request $request, Response $response) {
   $this->logger->addInfo("Route /failure");
   $this->view->render($response, 'failure.twig');
-  //sleep(3);
-  //return $response->withRedirect('/home');
 });
 
 // Home page
