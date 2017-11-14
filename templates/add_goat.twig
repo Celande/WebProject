@@ -8,7 +8,7 @@
 {% block body_core %}
 <h1>ADD GOAT</h1>
 
-<form method="post" enctype="multipart/form-data" id="goatform" name="goatform">
+<form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
 
   <p>
     <label>Name</label>
@@ -23,7 +23,7 @@
 
   <p>
     <label>Birthdate</label>
-    <input type="date" name="birthdate" required><br>
+    <input type="date" name="birthdate" id='birthId' placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)"><br>
   </p>
 
   <p>
@@ -46,12 +46,12 @@
 
     <p>
       <label>Localisation - see for google map API</label>
-      <input type="text" name="localisation" required><br>
+      <input type="text" name="localisation"><br>
     </p>
 
               <p>
                 <label>Identification - get the format "COUNTRY_LETTERS 000 000 00000"</label>
-                <input type="text" name="identification"><br>
+                <input type="text" name="identification" onblur="verifIdentification(this)"><br>
               </p>
 
               <p>
@@ -68,6 +68,47 @@
 
 
             <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
+            <script>
+            function verifIdentification(champ)
+            {
+              var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
+              if (regex.test(champ.value)){
+                return true;
+              }
+              else {
+                return false;
+              }
+            }
+            function verifBirthdate()
+            {
+              var birth=new Date(document.getElementById('birthId').value);
+              var today=new Date();
+              if (today.getYear()<birth.getYear()){
+                return false;
+              }
+              if (today.getMonth()<birth.getMonth()){
+                return false;
+              }
+              if (today.getDate()<birth.getDate()){
+                return false;
+              }
+              else {
+                return true;
+              }
+            }
+            function verifForm(f)
+            {
+               var IdentificationOk = verifIdentification(f.identification);
+               var BirthdateOk = verifBirthdate();
+               if(IdentificationOk&&BirthdateOk)
+                  return true;
+               else
+               {
+                  alert("Please fill the fields correctly.");
+                  return false;
+               }
+            }
+          </script>
           {% endblock %}
 
         {% block body_footer %} {% endblock %}

@@ -9,7 +9,7 @@
 <h1>UPDATE GOAT</h1>
 
 {% if goat %}
-<form method="post" enctype="multipart/form-data" id="goatform" name="goatform">
+<form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
 
   <p>
     <label>Name</label>
@@ -25,7 +25,7 @@
   <p>
     <label>Birthdate</label>
     <input type="date" name="birthdate"
-    value="{{ goat.birthdate }}" required><br>
+    value="{{ goat.birthdate }}" onblur="verifBirthdate(this)"><br>
   </p>
 
   <p>
@@ -61,7 +61,7 @@
   <p>
     <label>Identification - get the format "COUNTRY_LETTERS 000 000 00000"</label>
     <input type="text" name="identification"
-    value="{{ goat.identification }}"><br>
+    value="{{ goat.identification }}" onblur="verifIdentification(this)"><br>
   </p>
 
   <p>
@@ -77,12 +77,54 @@
     <input type="submit"/>
   </p>
 </form>
+
 {% else %}
   <h3> ERROR </h3>
 {% endif %}
 
 
     <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
+    <script>
+    function verifIdentification(champ)
+    {
+      var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
+      if (regex.test(champ.value)){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    function verifBirthdate()
+    {
+      var birth=new Date(document.getElementById('birthId').value);
+      var today=new Date();
+      if (today.getYear()<birth.getYear()){
+        return false;
+      }
+      if (today.getMonth()<birth.getMonth()){
+        return false;
+      }
+      if (today.getDate()<birth.getDate()){
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
+    function verifForm(f)
+    {
+       var IdentificationOk = verifIdentification(f.identification);
+       var BirthdateOk = verifBirthdate();
+       if(IdentificationOk&&BirthdateOk)
+          return true;
+       else
+       {
+          alert("Please fill the fields correctly.");
+          return false;
+       }
+    }
+  </script>
 {% endblock %}
 
 {% block body_footer %} {% endblock %}
