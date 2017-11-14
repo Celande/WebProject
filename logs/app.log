@@ -88,3 +88,11 @@
 [2017-11-14 09:12:44] slim-app.INFO: Route /goats [] {"uid":"7895a60"}
 [2017-11-14 09:14:08] slim-app.INFO: Route /goats [] {"uid":"30c27fe"}
 [2017-11-14 09:15:05] slim-app.INFO: Route /goats/{id} [] {"uid":"1a5c975"}
+[2017-11-14 15:01:50] slim-app.INFO: Route /home [] {"uid":"5fe623e"}
+[2017-11-14 15:02:05] slim-app.INFO: Route /goats [] {"uid":"a09efd4"}
+[2017-11-14 15:02:17] slim-app.INFO: Route /races [] {"uid":"b87ce21"}
+[2017-11-14 15:02:27] slim-app.INFO: Route /goats/add - get [] {"uid":"60efafd"}
+[2017-11-14 15:03:44] slim-app.INFO: Route /goats [] {"uid":"3087c05"}
+[2017-11-14 15:12:16] slim-app.INFO: Route /goats/{id} [] {"uid":"4446aaf"}
+[2017-11-14 15:12:44] slim-app.INFO: Route /races [] {"uid":"1fd462a"}
+[2017-11-14 15:12:55] slim-app.INFO: Route /goats/add - get [] {"uid":"634b0b9"}
