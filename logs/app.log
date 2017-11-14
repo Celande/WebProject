@@ -84,3 +84,7 @@
 [2017-11-13 15:16:07] slim-app.INFO: Route /goats/add - post [] {"uid":"c29844a"}
 [2017-11-13 15:16:07] slim-app.INFO: Route /success [] {"uid":"a535d5e"}
 [2017-11-13 15:16:18] slim-app.INFO: Route /home [] {"uid":"faeb6bd"}
+[2017-11-14 09:12:36] slim-app.INFO: Route /home [] {"uid":"4c66898"}
+[2017-11-14 09:12:44] slim-app.INFO: Route /goats [] {"uid":"7895a60"}
+[2017-11-14 09:14:08] slim-app.INFO: Route /goats [] {"uid":"30c27fe"}
+[2017-11-14 09:15:05] slim-app.INFO: Route /goats/{id} [] {"uid":"1a5c975"}

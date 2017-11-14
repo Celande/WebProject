@@ -139,7 +139,6 @@ public function remove_goat(Request $request, Response $response, $args){
   // The goat was correctly deleted, redirect to success page
   if($this->delete(intval($array['id']))){
     return $response->withRedirect('/success');
-    //return $response->withRedirect('/goats');
   }
   // The goat couldn't be deleted, redirect to failure page
   return $response->withRedirect('/failure');
@@ -185,13 +184,11 @@ public function update_goat(Request $request, Response $response, $args){
       $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
 
       // Update the dates
-      //$array['updated_at'] = new Datetime('Y-m-d');
       $array['updated_at'] = new Datetime();
 
       // If the goat was correctly updated, redirect to success page
       if($this->update($array)){
         return $response->withRedirect('/success');
-        //return $response->withRedirect('/goats');
       }
       // If the goat couldn't be updated, redirect failure
       return $response->withRedirect('/failure');
