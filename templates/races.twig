@@ -14,7 +14,7 @@
     {% for race in races %}
       <h2><a href="/races/{{ race.id }}">
         {% for img in imgs if race.id == img.num %}
-        <img src="/img/race/race1.jpg"
+        <img src="../img/race/race1.jpg"
         alt="{{ race.name }}" width=20>
         {{ base_url() ~ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}
         {% endfor %}

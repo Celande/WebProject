@@ -3,3 +3,6 @@
 [2017-11-10 10:38:34] slim-app.INFO: Route /races [] {"uid":"9c5ce20"}
 [2017-11-10 10:38:45] slim-app.INFO: Route /goats [] {"uid":"4823ede"}
 [2017-11-10 10:39:28] slim-app.INFO: Route /goats [] {"uid":"5091c4a"}
+[2017-11-20 11:16:52] slim-app.INFO: Route /races [] {"uid":"ab32588"}
+[2017-11-20 11:21:59] slim-app.INFO: Route /races [] {"uid":"10ba520"}
+[2017-11-20 11:23:08] slim-app.INFO: Route /races [] {"uid":"a76fa7f"}
