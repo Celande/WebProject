@@ -7,12 +7,11 @@
 {% endblock %}
 
 {% block body_core %}
-  <form method="get" enctype="multipart/form-data" id="goatform" name="goatform">
-
+  <form method="POST" action="/goats/search" enctype="multipart/form-data" id="goatform" name="goatform">
     <p>
       <label>Race</label>
       <select name="race_name">
-         <option>Indifferent</option>
+         <option value = "">Indifferent</option>
          {% for race in races %}
             <option value="{{ race.name }}">{{race.name}}</option>
           {% endfor %}
@@ -20,14 +19,14 @@
 
       <label>Gender</label>
       <select name="gender">
-        <option>Indifferent</option>
+        <option value = "">Indifferent</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>
 
       <label>Exploitation</label>
       <select name="exploitation">
-        <option>Indifferent</option>
+        <option value = "">Indifferent</option>
         <option value="milk">Milk</option>
         <option value="cheese">Cheese</option>
         <option value="meat">Meat</option>
@@ -39,10 +38,10 @@
 
     <p>
       <input type="number" name="height" placeholder="Height"
-      step="0.01" min=0> cm
+      step="0.01" min=0 value = "0"> cm
 
       <input type="number" name="weight" placeholder="Weight"
-      step="0.01" min=0> kg&emsp;
+      step="0.01" min=0 value = "0"> kg&emsp;
 
       <label>&emsp;Color</label>
       <input type=text list=colors
@@ -56,7 +55,7 @@
     </p>
     <p data-role="rangeslider">
         <label>Max price (0-10000 €)</label>
-        <input type="range" name="max_price" id="max_price" min="0" max="10000">
+        <input type="range" name="price" id="price" min="0" max="10000">
     </p>
 
     <p>
@@ -93,7 +92,6 @@
   </form>
 {% endif %}
 
-    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
 {% endblock %}
 
 {% block body_footer %} {% endblock %}

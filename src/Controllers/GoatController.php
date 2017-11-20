@@ -199,6 +199,43 @@ public function update_goat(Request $request, Response $response, $args){
     }
   }
 
+  public function search_goat(Request $request, Response $response, $args){
+  // POST method
+  if($request->isPost()) {
+    $this->logger->addInfo("Route /goats/search - post");
+
+    // Get the posted data
+    $data = $request->getParsedBody();
+    // Create an array to manipulate the data
+    $array = array();
+    foreach($data as $key => $value){
+      $array[$key] = $value;
+      echo $key . ' = ' . $value;
+    }
+
+    // Get the race id from the race name
+    $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
+    $goats = Goat::with('race') // join('race', 'race_id', '=', 'id') //->race()
+                  //->where('name', 'like', '%'..'%')
+                  ->where('price', '<=', $array['price'])
+                  ->where('race_id', $array['race_id'])
+                  ->where('height', '>=', $array['height'])
+                  ->where('weight', '>=', $array['weight'])
+                  ->where('gender', $array['gender'])
+                  ->where('color', 'like', '%'.$array['color'].'%')
+                  ->where('exploitation', $array['exploitation'])// exploitation
+                  ->get();
+    foreach ($goats as $key => $value) {
+      echo $key . ' = ' . $value;
+    }
+    //return $this->view->render($response, 'home.twig', array('goats' => $goats,'races' => $races));
+  }
+  // ERROR in method
+  else{
+    return parent::not_allowed($request, $response, $args);
+  }
+}
+
   /*** ***** Other method ***** ***/
 
   /** store
