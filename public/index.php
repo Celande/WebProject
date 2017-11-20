@@ -1,5 +1,4 @@
 <?php
-
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
@@ -42,8 +41,8 @@ $app = new \Slim\App($settings);
 // Set up dependencies => containers
 require_once __DIR__ . '/../src/dependencies.php';
 
+/*
 // Middleware
-
 $app->add(function($request, $response, $next) {
     $response = $next($request, $response);
     $response = $response->withAddedHeader('Content-Type', 'image/jpeg .jpeg .jpg .jpe .JPG');
@@ -51,7 +50,7 @@ $app->add(function($request, $response, $next) {
     return $response;
 });
 
-/*
+
 $app->group('', function () {
     //json routes
 })->add(function($request, $response, $next) {
@@ -66,18 +65,6 @@ $app->group('', function () {
         return $response->withHeader('Content-Type', 'image/jpeg .jpeg .jpg .jpe .JPG');
 });
 */
-
-// Hello {name} -> test
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-  $this->logger->addInfo("Route /hello/{name}");
-  $name = $request->getAttribute('name');
-
-  echo $name;
-
-  return $this->view->render($response, 'home.twig', [
-    'name' => $name
-  ]);
-});
 
 /* https://laravel.com/docs/5.5/eloquent#eloquent-model-conventions */
 
@@ -131,7 +118,7 @@ $app->get('/404', function (Request $request, Response $response) {
   $notFoundHandler = $this->container->get('notFoundHandler');
   return $notFoundHandler($request, $response);
 });
-
+/*
 $app->get('/img/race', function(Request $request, Response $response){
     //$data = $args['data'];
     $image = @file_get_contents("race1.jpg");
@@ -146,7 +133,7 @@ $app->get('/img/race', function(Request $request, Response $response){
 
     return $this->view->render($response, 'home.twig');
   });
-
+*/
 /*
 $app->group('/img', function(Request $request, Response $response){
   $this->get('/race/{data:\w+}', function($request, $response){
