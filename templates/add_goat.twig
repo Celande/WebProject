@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body_core %}
-<h1>ADD GOAT</h1>
+<h1>Add goat</h1>
 
 <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
 
@@ -27,12 +27,12 @@
   </p>
 
   <p>
-    <label>Race - query list of all races</label>
-    <input type=text list=races
-    name="race_name" placeholder="Select Race" required>
-    <datalist id=races name="race_datalist">
-      {% for race in races %}
-      <option value="{{ race.name }}">
+    <label>Breed - query list of all breeds</label>
+    <input type=text list=breeds
+    name="breed_name" placeholder="Select Breed" required>
+    <datalist id=breeds name="breed_datalist">
+      {% for breed in breeds %}
+      <option value="{{ breed.name }}">
         {% endfor %}
       </datalist>
     </p>

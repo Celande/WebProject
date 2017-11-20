@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/** show_races
+/** show_breeds
   * Model of the goat table
   **/
 class Goat extends Model {
@@ -14,12 +14,12 @@ class Goat extends Model {
     protected $softDelete = false;
     protected $guarded = array('id');
 
-    /** race
-    * Used to set up the relation between the goat table and the race table
-    * Each goat has ONE race
+    /** breed
+    * Used to set up the relation between the goat table and the breed table
+    * Each goat has ONE breed
   **/
-    public function race(){
-      return $this->belongsTo('App\Models\Race'); // race_id usefull ?
+    public function breed(){
+      return $this->belongsTo('App\Models\Breed'); // breed_id usefull ?
     }
 
 }

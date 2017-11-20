@@ -15,18 +15,11 @@
           {% block body_header %} {% endblock %}
           <div id="menu">
           <a href="/goats" ><button type="button">Market place</button></a>
-          <a href="/races" ><button type="button">About the races</button></a>
+          <a href="/breeds" ><button type="button">About the breeds</button></a>
           <a href="/goats/add" ><button type="button">Sell a goat</button></a>
         </div>
         </div>
 
-        <!--<div id="filter">
-          <select name="race_name">
-            for (race in races){
-             <option value="race.name">race.name</option>
-            }
-          </select>
-        </div>-->
         <div id="core">{% block body_core %} {% endblock %}</div>
         <div id="footer">{% block body_footer %} {% endblock %}</div>
 
