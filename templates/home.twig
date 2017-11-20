@@ -64,10 +64,19 @@
   </form>
 
   {% for goat in goats %}
-    <h2>Goats: <a href="/goats/{{ goat.id }}">{{ goat.name }}</a></h2>
+    <h2>Goats: <a href="/goats/{{ goat.id }}">
+      {% for img in imgs if goat.img_id == img.id %}
+        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+        alt="{{ goat.name }}" width=80>
+        {% endfor %}
+    {{ goat.name }}</a></h2>
   {% endfor %}
 
 {% if goat %}
+{% if img %}
+    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+    alt="{{ goat.name }}" width=200>
+    {% endif %}
   <h2>Name: {{ goat.name }}</h2>
   <h3>Price: {{ goat.price }} €</h3>
   <h3>Age: {{ age }}</h3>

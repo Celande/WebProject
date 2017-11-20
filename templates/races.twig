@@ -13,14 +13,18 @@
 
     {% for race in races %}
       <h2><a href="/races/{{ race.id }}">
-        {% for img in imgs if race.id == img.num %}
-        <img src="{{ base_url() ~ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+        {% for img in imgs if race.img_id == img.id %}
+        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
         alt="{{ race.name }}" width=80>
         {% endfor %}
         {{ race.name }}</a></h2>
     {% endfor %}
 
   {% if race %}
+  {% if img %}
+    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+    alt="{{ race.name }}" width=200>
+    {% endif %}
     <h2>Race: {{ race.name }}</h2>
     <h3>Height: {{ race.height }} cm</h3>
     <h3>Weight: {{ race.weight }} kg</h3>

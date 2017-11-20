@@ -19,7 +19,7 @@ class Goat extends Model {
     * Each goat has ONE race
   **/
     public function race(){
-      $table->belongsTo('\src\Models\Race', 'race_id'); // race_id usefull ?
+      return $this->belongsTo('App\Models\Race'); // race_id usefull ?
     }
 
 }

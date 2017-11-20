@@ -11,3 +11,97 @@
 [2017-11-20 11:04:20] slim-app.INFO: Route /races [] {"uid":"3b54d78"}
 [2017-11-20 14:14:23] slim-app.INFO: Route /races [] {"uid":"694b348"}
 [2017-11-20 14:22:47] slim-app.INFO: Route /races [] {"uid":"4f5c602"}
+[2017-11-20 14:23:30] slim-app.INFO: Route /goats [] {"uid":"2d5c990"}
+[2017-11-20 14:23:47] slim-app.INFO: Route /goats/search - post [] {"uid":"05b85ed"}
+[2017-11-20 14:47:30] slim-app.INFO: Route /goats [] {"uid":"21e5ae0"}
+[2017-11-20 14:47:41] slim-app.INFO: Route /goats/search - post [] {"uid":"fe31c41"}
+[2017-11-20 14:48:30] slim-app.INFO: Route /goats [] {"uid":"89c43b4"}
+[2017-11-20 14:48:37] slim-app.INFO: Route /goats/search - post [] {"uid":"c9b562c"}
+[2017-11-20 14:54:20] slim-app.INFO: Route /goats [] {"uid":"21a142f"}
+[2017-11-20 14:54:27] slim-app.INFO: Route /goats/search - post [] {"uid":"0fd06cd"}
+[2017-11-20 14:55:54] slim-app.INFO: Route /goats [] {"uid":"1eb391c"}
+[2017-11-20 14:56:00] slim-app.INFO: Route /goats/search - post [] {"uid":"9b915b7"}
+[2017-11-20 14:58:07] slim-app.INFO: Route /goats [] {"uid":"417e18a"}
+[2017-11-20 14:58:13] slim-app.INFO: Route /goats/search - post [] {"uid":"63a3851"}
+[2017-11-20 14:58:21] slim-app.INFO: Route /goats [] {"uid":"865b578"}
+[2017-11-20 15:00:10] slim-app.INFO: Route /goats/search - post [] {"uid":"ca99bcc"}
+[2017-11-20 15:00:43] slim-app.INFO: Route /goats [] {"uid":"9622cc7"}
+[2017-11-20 15:00:52] slim-app.INFO: Route /goats/search - post [] {"uid":"6349023"}
+[2017-11-20 15:05:52] slim-app.INFO: Route /goats [] {"uid":"65db010"}
+[2017-11-20 15:06:04] slim-app.INFO: Route /goats/search - post [] {"uid":"6eee050"}
+[2017-11-20 15:08:02] slim-app.INFO: Route /goats [] {"uid":"c430880"}
+[2017-11-20 15:08:09] slim-app.INFO: Route /goats/search - post [] {"uid":"93be468"}
+[2017-11-20 15:08:37] slim-app.INFO: Route /goats [] {"uid":"82d948a"}
+[2017-11-20 15:08:45] slim-app.INFO: Route /goats/{id} [] {"uid":"40831e9"}
+[2017-11-20 15:09:18] slim-app.INFO: Route /goats [] {"uid":"ca9c508"}
+[2017-11-20 15:11:05] slim-app.INFO: Route /goats/search - post [] {"uid":"436ab9a"}
+[2017-11-20 15:11:14] slim-app.INFO: Route /goats [] {"uid":"0e4765d"}
+[2017-11-20 15:11:56] slim-app.INFO: Route /goats/search - post [] {"uid":"c754bec"}
+[2017-11-20 15:12:03] slim-app.INFO: Route /goats [] {"uid":"63ad97d"}
+[2017-11-20 15:16:07] slim-app.INFO: Route /goats/search - post [] {"uid":"2deb407"}
+[2017-11-20 15:16:13] slim-app.INFO: Route /goats [] {"uid":"f73604f"}
+[2017-11-20 15:16:28] slim-app.INFO: Route /goats/search - post [] {"uid":"c136694"}
+[2017-11-20 15:16:35] slim-app.INFO: Route /goats [] {"uid":"e83e0ba"}
+[2017-11-20 15:16:51] slim-app.INFO: Route /goats/search - post [] {"uid":"6de3f3d"}
+[2017-11-20 15:17:13] slim-app.INFO: Route /goats [] {"uid":"896a308"}
+[2017-11-20 15:17:20] slim-app.INFO: Route /goats/search - post [] {"uid":"0ea7296"}
+[2017-11-20 15:20:54] slim-app.INFO: Route /goats/{id} [] {"uid":"c44b5a3"}
+[2017-11-20 15:20:55] slim-app.INFO: Route / [] {"uid":"4290c42"}
+[2017-11-20 15:27:24] slim-app.INFO: Route /goats [] {"uid":"d9f1278"}
+[2017-11-20 15:27:24] slim-app.INFO: Route / [] {"uid":"2ff671b"}
+[2017-11-20 15:29:13] slim-app.INFO: Route /goats [] {"uid":"d409a96"}
+[2017-11-20 15:29:13] slim-app.INFO: Route / [] {"uid":"ab40e62"}
+[2017-11-20 15:29:24] slim-app.INFO: Route /goats/search - post [] {"uid":"1542716"}
+[2017-11-20 15:30:17] slim-app.INFO: Route /goats [] {"uid":"948b12e"}
+[2017-11-20 15:30:17] slim-app.INFO: Route / [] {"uid":"30f64c5"}
+[2017-11-20 15:32:03] slim-app.INFO: Route /goats/search - post [] {"uid":"b7eb6df"}
+[2017-11-20 15:32:03] slim-app.INFO: Route / [] {"uid":"f111ee2"}
+[2017-11-20 15:32:10] slim-app.INFO: Route /goats/{id} [] {"uid":"cd42581"}
+[2017-11-20 15:32:10] slim-app.INFO: Route / [] {"uid":"fc9e1fb"}
+[2017-11-20 15:34:33] slim-app.INFO: Route /races [] {"uid":"f815dae"}
+[2017-11-20 15:34:38] slim-app.INFO: Route /races [] {"uid":"6cb38a9"}
+[2017-11-20 15:34:38] slim-app.INFO: Route / [] {"uid":"ce4b6a4"}
+[2017-11-20 15:34:53] slim-app.INFO: Route /goats [] {"uid":"4883c06"}
+[2017-11-20 15:34:57] slim-app.INFO: Route /goats/add - get [] {"uid":"752e002"}
+[2017-11-20 15:34:57] slim-app.INFO: Route / [] {"uid":"a6ceea6"}
+[2017-11-20 15:34:57] slim-app.INFO: Route / [] {"uid":"559db05"}
+[2017-11-20 15:38:39] slim-app.INFO: Route /races [] {"uid":"cc18954"}
+[2017-11-20 15:38:39] slim-app.INFO: Route / [] {"uid":"9c7d769"}
+[2017-11-20 15:38:46] slim-app.INFO: Route /goats/{id} [] {"uid":"c164f10"}
+[2017-11-20 15:43:41] slim-app.INFO: Route /races [] {"uid":"b80e9db"}
+[2017-11-20 15:43:46] slim-app.INFO: Route /races/{id} [] {"uid":"969424c"}
+[2017-11-20 15:43:46] slim-app.INFO: Route / [] {"uid":"4197104"}
+[2017-11-20 15:43:46] slim-app.INFO: Route / [] {"uid":"2452269"}
+[2017-11-20 15:46:16] slim-app.INFO: Route /races [] {"uid":"c33eb9e"}
+[2017-11-20 15:46:20] slim-app.INFO: Route /races [] {"uid":"690785e"}
+[2017-11-20 15:46:20] slim-app.INFO: Route / [] {"uid":"843f68f"}
+[2017-11-20 15:46:28] slim-app.INFO: Route /races/{id} [] {"uid":"a42ff11"}
+[2017-11-20 15:47:45] slim-app.INFO: Route /races/{id} [] {"uid":"ce11cf5"}
+[2017-11-20 15:47:45] slim-app.INFO: Route / [] {"uid":"fa58a9f"}
+[2017-11-20 15:49:27] slim-app.INFO: Route /races/{id} [] {"uid":"eddefce"}
+[2017-11-20 15:49:27] slim-app.INFO: Route / [] {"uid":"cd8498c"}
+[2017-11-20 15:51:17] slim-app.INFO: Route /races/{id} [] {"uid":"2f04a2e"}
+[2017-11-20 15:51:17] slim-app.INFO: Route / [] {"uid":"1fd9545"}
+[2017-11-20 15:52:50] slim-app.INFO: Route /races/{id} [] {"uid":"64ddc88"}
+[2017-11-20 15:53:27] slim-app.INFO: Route /races/{id} [] {"uid":"0f929a6"}
+[2017-11-20 15:53:27] slim-app.INFO: Route / [] {"uid":"d24da75"}
+[2017-11-20 15:53:27] slim-app.INFO: Route / [] {"uid":"b35be53"}
+[2017-11-20 15:53:54] slim-app.INFO: Route /races/{id} [] {"uid":"0a9c882"}
+[2017-11-20 15:53:54] slim-app.INFO: Route / [] {"uid":"18a60f7"}
+[2017-11-20 15:53:54] slim-app.INFO: Route / [] {"uid":"f8f5329"}
+[2017-11-20 15:55:12] slim-app.INFO: Route /races/{id} [] {"uid":"ef49af6"}
+[2017-11-20 15:55:12] slim-app.INFO: Route / [] {"uid":"f23ede6"}
+[2017-11-20 15:55:12] slim-app.INFO: Route / [] {"uid":"ff43837"}
+[2017-11-20 15:56:34] slim-app.INFO: Route /races/{id} [] {"uid":"ad54e50"}
+[2017-11-20 15:56:34] slim-app.INFO: Route / [] {"uid":"567b2e3"}
+[2017-11-20 16:01:32] slim-app.INFO: Route /races/{id} [] {"uid":"a2ab2d5"}
+[2017-11-20 16:01:32] slim-app.INFO: Route / [] {"uid":"7e00d80"}
+[2017-11-20 16:02:33] slim-app.INFO: Route /races [] {"uid":"0d516f2"}
+[2017-11-20 16:02:38] slim-app.INFO: Route /races [] {"uid":"e584727"}
+[2017-11-20 16:02:38] slim-app.INFO: Route / [] {"uid":"bd2f903"}
+[2017-11-20 16:11:59] slim-app.INFO: Route / [] {"uid":"c3b9137"}
+[2017-11-20 16:12:00] slim-app.INFO: Route / [] {"uid":"be7824c"}
+[2017-11-20 16:14:57] slim-app.INFO: Route /goats [] {"uid":"eead30e"}
+[2017-11-20 16:14:57] slim-app.INFO: Route / [] {"uid":"2008303"}
+[2017-11-20 16:15:07] slim-app.INFO: Route /goats/{id} [] {"uid":"98fe2f2"}
+[2017-11-20 16:15:07] slim-app.INFO: Route / [] {"uid":"3b4679a"}

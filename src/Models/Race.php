@@ -20,8 +20,8 @@ class Race extends Model {
     * Used to set the relation between the race table and the goat table
     * Each goat has ONE race
   **/
-    public function goat(){
-      $table->hasMany('\src\Models\Goat', 'race_id'); // race_id usefull ?
+    public function goats(){
+      return $this->hasMany('App\Models\Goat'); // race_id usefull ?
     }
 
     /** image

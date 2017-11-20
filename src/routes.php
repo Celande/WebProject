@@ -62,3 +62,9 @@ $app->get('/405', function (Request $request, Response $response) {
   $methods = array();
   return $notAllowedHandler($request, $response, $methods);
 });
+
+// Home page
+$app->get('/', function (Request $request, Response $response) {
+  $this->logger->addInfo("Route /");
+  return $this->view->render($response, 'home.twig');
+});

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Goat;
 use App\Models\Race;
+use App\Models\Image;
 use App\Controllers\CommonController as CommonController;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
@@ -32,7 +33,10 @@ class GoatController extends CommonController
     // Get all goats from the DB
     $goats = Goat::get();
     $races = Race::get();
-    return $this->view->render($response, 'home.twig', array('goats' => $goats,'races' => $races));
+    $imgs = Image::where('type', 'like', 'goat')->get();
+
+    return $this->view->render($response, 'home.twig', array('goats' => $goats,
+    'races' => $races, 'imgs' => $imgs));
   }
 
   /** show_goat
@@ -55,15 +59,20 @@ class GoatController extends CommonController
 
     // Get the race according to the id to show the race name
     $race = Race::find($goat->race_id);
+    $img = Image::find($goat['img_id']);
 
     // Get the age according to the birthdate
     $age = $this->getAge($goat->birthdate);
 
+    $races = Race::get();
+
     return $this->view->render($response, 'home.twig',
-    ['goat' => $goat,
+    array('goat' => $goat,
     'age' => $age,
-    'race_name' => $race->name
-  ]);
+    'race_name' => $race->name,
+    'img' => $img,
+    'races' => $races
+  ));
 }
 
 /** add_goat
@@ -210,25 +219,63 @@ public function update_goat(Request $request, Response $response, $args){
     $array = array();
     foreach($data as $key => $value){
       $array[$key] = $value;
-      echo $key . ' = ' . $value;
     }
 
-    // Get the race id from the race name
     $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
-    $goats = Goat::with('race') // join('race', 'race_id', '=', 'id') //->race()
-                  //->where('name', 'like', '%'..'%')
-                  ->where('price', '<=', $array['price'])
+
+    // No Gender
+    if($array['gender'] == "" && $array['exploitation'] != ""){
+      $goats = Goat::where('price', '<=', $array['price'])
                   ->where('race_id', $array['race_id'])
-                  ->where('height', '>=', $array['height'])
-                  ->where('weight', '>=', $array['weight'])
-                  ->where('gender', $array['gender'])
-                  ->where('color', 'like', '%'.$array['color'].'%')
-                  ->where('exploitation', $array['exploitation'])// exploitation
+                  ->whereHas('race', function($raceQuery) use($array){
+                      $raceQuery->where('id', '=', $array['race_id'])
+                                ->where('height', '>=', $array['height'])
+                                ->where('weight', '>=', $array['weight'])
+                                ->where('color', 'like', '%'.$array['color'].'%')
+                                ->where('exploitation', $array['exploitation']);
+                  })
                   ->get();
-    foreach ($goats as $key => $value) {
-      echo $key . ' = ' . $value;
     }
-    //return $this->view->render($response, 'home.twig', array('goats' => $goats,'races' => $races));
+    // No Exploitation
+    else if($array['exploitation'] == "" && $array['gender'] != ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+                  ->where('race_id', $array['race_id'])
+                  ->where('gender', $array['gender'])
+                  ->whereHas('race', function($raceQuery) use($array){
+                      $raceQuery->where('id', '=', $array['race_id'])
+                                ->where('height', '>=', $array['height'])
+                                ->where('weight', '>=', $array['weight'])
+                                ->where('color', 'like', '%'.$array['color'].'%');
+                  })
+                  ->get();
+    }
+    // No Gender && No Exploitation
+    else if($array['exploitation'] == "" && $array['gender'] == ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+                  ->where('race_id', $array['race_id'])
+                  ->whereHas('race', function($raceQuery) use($array){
+                      $raceQuery->where('id', '=', $array['race_id'])
+                                ->where('height', '>=', $array['height'])
+                                ->where('weight', '>=', $array['weight'])
+                                ->where('color', 'like', '%'.$array['color'].'%');
+                  })
+                  ->get();
+    }
+    else{
+      $goats = Goat::where('price', '<=', $array['price'])
+                    ->where('race_id', $array['race_id'])
+                    ->where('gender', $array['gender'])
+                    ->whereHas('race', function($raceQuery) use($array){
+                        $raceQuery->where('id', '=', $array['race_id'])
+                                  ->where('height', '>=', $array['height'])
+                                  ->where('weight', '>=', $array['weight'])
+                                  ->where('color', 'like', '%'.$array['color'].'%')
+                                  ->where('exploitation', $array['exploitation']);
+                    })
+                    ->get();
+    }
+    $races = Race::get();
+    return $this->view->render($response, 'home.twig', array('goats' => $goats,'races' => $races));
   }
   // ERROR in method
   else{
