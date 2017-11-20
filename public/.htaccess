@@ -19,19 +19,4 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d # ajout
   RewriteRule ^ index.php [QSA,L]
-
-  AddType image/gif .gif .GIF
-AddType image/jpeg .jpeg .jpg .jpe .JPG
-AddType image/tiff .tiff .tif
-AddType image/x-cmu-raster .ras
-AddType image/x-portable-anymap .pnm
-AddType image/x-portable-bitmap .pbm
-AddType image/x-portable-graymap .pgm
-AddType image/x-portable-pixmap .ppm
-AddType image/x-rgb .rgb
-AddType image/x-xbitmap .xbm
-AddType image/x-xpixmap .xpm
-AddType image/x-xwindowdump .xwd
-
-  AllowOverride All # ajout
 </IfModule>

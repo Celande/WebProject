@@ -3,14 +3,23 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+if (PHP_SAPI == 'cli-server') {
+    // To help the built-in PHP dev server, check if the request was actually for
+    // something which should probably be served as a static file
+    $url  = parse_url($_SERVER['REQUEST_URI']);
+    $file = __DIR__ . $url['path'];
+    if (is_file($file)) {
+        return false;
+    }
+}
+
 // Autoload
 require __DIR__ .'/../vendor/autoload.php';
 
+session_start();
+
 // Middleware
 require __DIR__ . '/../src/middleware.php';
-
-// Routes: TODO: SET UP routes.php
-//require __DIR__ . '/../src/routes.php';
 
 // Models
 /* http://www.php-fig.org/psr/psr-4/examples/ */
@@ -34,6 +43,12 @@ spl_autoload_register(function($classname) {
     require $model_file;
   }
 });
+
+/* TODO : Doesn't work
+spl_autoload_register(function ($classname) {
+    require __DIR__ . '/../src/Models/' . $classname . '.php';
+});
+*/
 
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
