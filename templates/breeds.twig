@@ -3,21 +3,28 @@
 {% block page_title %} Home {% endblock %}
 
 {% block body_header %}
-<h1>RACES</h1>
+<h1>BREEDS</h1>
 {% endblock %}
 
 {% block body_core %}
+<div style="background-color:#CCE6E3;padding-top:25px;padding-left:50px;padding-bottom:20px;">
   {% if name %}
     <h2>Hello {{name}}</h2>
   {% endif %}
-
     {% for breed in breeds %}
-      <h2><a href="/breeds/{{ breed.id }}">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+        <div class="card-body">
+        <h2>  <a href="/breeds/{{ breed.id }}">
         {% for img in imgs if breed.img_id == img.id %}
         <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
         alt="{{ breed.name }}" width=80>
         {% endfor %}
-        {{ breed.name }}</a></h2>
+        {{ breed.name }}</a></h2></div></div>
+      </div>
+
+    </div>
     {% endfor %}
 
   {% if breed %}
@@ -25,23 +32,24 @@
     <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
     alt="{{ breed.name }}" width=200>
     {% endif %}
-    <h2>Breed: {{ breed.name }}</h2>
-    <h3>Height: {{ breed.height }} cm</h3>
-    <h3>Weight: {{ breed.weight }} kg</h3>
-    <h3>Color: {{ breed.color }}</h3>
-    <h3>Origin: {{ breed.origin }}</h3>
+    <p></p>
+    <h4>Breed: {{ breed.name }}</h4>
+    <h5>Height: {{ breed.height }} cm</h5>
+    <h5>Weight: {{ breed.weight }} kg</h5>
+    <h5>Color: {{ breed.color }}</h5>
+    <h5>Origin: {{ breed.origin }}</h5>
     {% if breed.hair_growth %}
-    <h3>Hair growth: {{ breed.hair_growth }} cm/month</h3>
+    <h5>Hair growth: {{ breed.hair_growth }} cm/month</h5>
     {% endif %}
     {% if breed.milk_by_lactation %}
-    <h3>Milk by lactation: {{ breed.milk_by_lactation }} l</h3>
+    <h5>Milk by lactation: {{ breed.milk_by_lactation }} l</h5>
     {% endif %}
     {% if breed.duration_of_lactation %}
-    <h3>Duration of lactation: {{ breed.duration_of_lactation }} month</h3>
+    <h5>Duration of lactation: {{ breed.duration_of_lactation }} month</h5>
     {% endif %}
-    <h3>Exploitation: {{ breed.exploitation }}</h3>
+    <h5>Exploitation: {{ breed.exploitation }}</h5>
   {% endif %}
-
+</div>
 
     <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
 {% endblock %}

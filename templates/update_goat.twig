@@ -7,7 +7,7 @@
 
 {% block body_core %}
 <h1>UPDATE GOAT</h1>
-
+<div style="background-color:#CCE6E3;padding-top:20px;padding-left:50px;padding-bottom:20px;">
 {% if goat %}
 <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
 
@@ -17,7 +17,7 @@
   </p>
 
   <p>
-    <label>Price - convert ',' to '.'</label>
+    <label>Price</label>
     <input type="number" name="price"
     step="0.01" min=0 value="{{ goat.price }}"required>€<br>
   </p>
@@ -29,7 +29,7 @@
   </p>
 
   <p>
-    <label>Breed - query list of all breeds</label>
+    <label>Breed</label>
     <input type=text list=breeds
     name="breed_name" placeholder="Select Breed"
     value="{{ breed_name }}" required>
@@ -41,7 +41,7 @@
   </p>
 
   <p>
-    <label>Gender - Female/Male</label><br>
+    <label>Gender</label><br>
     {% if goat.gender == "female" %}
     <input type="radio" name="gender" value="female" checked required> Female<br>
     <input type="radio" name="gender" value="male"> Male<br>
@@ -53,15 +53,15 @@
   </p>
 
   <p>
-    <label>Localisation - see for google map API</label>
+    <label>Localisation</label>
     <input type="text" name="localisation"
     value="{{ goat.localisation }}" required><br>
   </p>
 
   <p>
-    <label>Identification - get the format "COUNTRY_LETTERS 000 000 00000"</label>
+    <label>Identification</label>
     <input type="text" name="identification"
-    value="{{ goat.identification }}" onblur="verifIdentification(this)"><br>
+    value="{{ goat.identification }}" onblur="verifIdentification(this)" placeholder="XXX 000 000 00000"><br>
   </p>
 
   <p>
@@ -81,7 +81,7 @@
 {% else %}
   <h3> ERROR </h3>
 {% endif %}
-
+</div>
 
     <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
     <script>

@@ -7,8 +7,9 @@
 {% endblock %}
 
 {% block body_core %}
+<div class="backg" style="background-color:#BBD9D5;padding-top:15px;padding-bottom:15px;">
   <form method="POST" action="/goats/search" enctype="multipart/form-data" id="goatform" name="goatform">
-    <p>
+    <p style="text-align: center;">
       <label>Breed</label>
       <select name="breed_name">
          <option value = "">Indifferent</option>
@@ -52,41 +53,51 @@
       </input></label>
 
         <label>Max price (0- 999 999,99€)</label>
-        <input type="number" name="max_price" id="max_price" min="0" max="999999.99">
+        <input type="number" name="max_price" id="max_price" min="0" max="999999.99"><br>
+
+        <label><input type="number" name="age" placeholder="Age"
+        step="1" min=0> months&emsp;</label>
     </p>
 
     <div style="text-align: center;">
       <input type="submit" value="Search"/>
     </div>
   </form>
-
+</div>
+<div style="background-color:#CCE6E3;padding-top:20px;padding-left:50px;padding-bottom:20px;">
   {% for goat in goats %}
-    <h2>Goats: <a href="/goats/{{ goat.id }}">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+    <a href="/goats/{{ goat.id }}">
+      <div class="card-body">
       {% for img in imgs if goat.img_id == img.id %}
         <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
         alt="{{ goat.name }}" width=80>
         {% endfor %}
-    {{ goat.name }}</a></h2>
+    {{ goat.name }}</div></a>
+  </div>
+  </div>
+  </div>
   {% endfor %}
-
 {% if goat %}
 {% if img %}
     <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
     alt="{{ goat.name }}" width=200>
     {% endif %}
-  <h2>Name: {{ goat.name }}</h2>
-  <h3>Price: {{ goat.price }} €</h3>
-  <h3>Age: {{ age }}</h3>
-  <h3>Birthdate: {{ goat.birthdate|date("d/m/Y") }}</h3>
-  <h3>Breed: {{ breed_name }}</h3>
-  <h3>Gender: {{ goat.gender }}</h3>
-  <h3>Localisation: {{ goat.localisation }}</h3>
-  <h3>Description: {{ goat.description }}</h3>
+  <h4>Name: {{ goat.name }}</h4>
+  <h5>Price: {{ goat.price }} €</h5>
+  <h5>Age: {{ age }}</h5>
+  <h5>Birthdate: {{ goat.birthdate|date("d/m/Y") }}</h5>
+  <h5>Breed: {{ breed_name }}</h5>
+  <h5>Gender: {{ goat.gender }}</h5>
+  <h5>Localisation: {{ goat.localisation }}</h5>
+  <h5>Description: {{ goat.description }}</h5>
   {% if goat.identification %}
-  <h3>Identification: {{ goat.identification }}</h3>
+  <h5>Identification: {{ goat.identification }}</h5>
   {% endif %}
-  <h3>Created at: {{ goat.created_at|date("d/m/Y") }}</h3><br>
-  <h3>Updated at: {{ goat.updated_at|date("d/m/Y") }}</h3><br>
+  <h5>Created at: {{ goat.created_at|date("d/m/Y") }}</h5><br>
+  <h5>Updated at: {{ goat.updated_at|date("d/m/Y") }}</h5><br>
   <form method="POST" action="/goats/remove">
     <input type="submit" value="Remove">
     <input type="hidden" name="id" value="{{ goat.id }}">
@@ -97,7 +108,7 @@
     <input type="submit" value="Update">
   </form>
 {% endif %}
-
+</div>
 {% endblock %}
 
 {% block body_footer %} {% endblock %}
