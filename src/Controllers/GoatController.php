@@ -12,7 +12,8 @@ use Illuminate\Database\Query\Builder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Http\UploadedFile;
-use \Datetime as Datetime;
+use \DateTime as DateTime;
+use \DateInterval as DateInterval;
 
 /** GoatController
 * Used to control the Goat Model
@@ -255,10 +256,49 @@ public function search_goat(Request $request, Response $response, $args){
 
     $array['breed_id'] = Breed::select('id')->where('name', 'like', $array['breed_name'])->get()[0]->id;
 
+    $date = new DateTime();
+    if($array['age'] != NULL){
+      $date->sub(new DateInterval('P'.$array['age'].'M'));
+    } else {
+      $array['age'] = 3000; // 250 years old
+    }
+
+    if($array['price'] == NULL){
+      $array['price'] = 999999.99;
+    }
+
+    if($array['height'] == NULL){
+      $array['height'] = 0;
+    }
+
+    if($array['weight'] == NULL){
+      $array['weight'] = 0;
+    }
+
+    // No Race && Gender
+    if($array['breed_id'] == "" && $array['gender'] == "" && $array['exploitation'] != ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->whereDate('birthdate', '<=', $date)
+      ->get();
+    }
+    // No Race && Exploitation
+    else if($array['breed_id'] == "" && $array['exploitation'] == "" && $array['gender'] != ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->where('gender', $array['gender'])
+      ->whereDate('birthdate', '<=', $date)
+      ->get();
+    }
+    // No Race && Gender && No Exploitation
+    else if($array['breed_id'] == "" && $array['exploitation'] == "" && $array['gender'] == ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->whereDate('birthdate', '<=', $date)
+      ->get();
+    }
     // No Gender
-    if($array['gender'] == "" && $array['exploitation'] != ""){
+    else if($array['gender'] == "" && $array['exploitation'] != ""){
       $goats = Goat::where('price', '<=', $array['price'])
       ->where('breed_id', $array['breed_id'])
+      ->whereDate('birthdate', '<=', $date)
       ->whereHas('breed', function($breedQuery) use($array){
         $breedQuery->where('id', '=', $array['breed_id'])
         ->where('height', '>=', $array['height'])
@@ -273,6 +313,7 @@ public function search_goat(Request $request, Response $response, $args){
       $goats = Goat::where('price', '<=', $array['price'])
       ->where('breed_id', $array['breed_id'])
       ->where('gender', $array['gender'])
+      ->whereDate('birthdate', '<=', $date)
       ->whereHas('breed', function($breedQuery) use($array){
         $breedQuery->where('id', '=', $array['breed_id'])
         ->where('height', '>=', $array['height'])
@@ -285,6 +326,7 @@ public function search_goat(Request $request, Response $response, $args){
     else if($array['exploitation'] == "" && $array['gender'] == ""){
       $goats = Goat::where('price', '<=', $array['price'])
       ->where('breed_id', $array['breed_id'])
+      ->whereDate('birthdate', '<=', $date)
       ->whereHas('breed', function($breedQuery) use($array){
         $breedQuery->where('id', '=', $array['breed_id'])
         ->where('height', '>=', $array['height'])
@@ -297,6 +339,7 @@ public function search_goat(Request $request, Response $response, $args){
       $goats = Goat::where('price', '<=', $array['price'])
       ->where('breed_id', $array['breed_id'])
       ->where('gender', $array['gender'])
+      ->whereDate('birthdate', '<=', $date)
       ->whereHas('breed', function($breedQuery) use($array){
         $breedQuery->where('id', '=', $array['breed_id'])
         ->where('height', '>=', $array['height'])
@@ -307,7 +350,11 @@ public function search_goat(Request $request, Response $response, $args){
       ->get();
     }
     $breeds = Breed::get();
-    return $this->view->render($response, 'home.twig', array('goats' => $goats,'breeds' => $breeds));
+    $imgs = Image::get();
+    return $this->view->render($response, 'home.twig', array('goats' => $goats,
+    'breeds' => $breeds,
+    'imgs' => $imgs
+  ));
   }
   // ERROR in method
   else{

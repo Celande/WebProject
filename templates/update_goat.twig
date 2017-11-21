@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
-{% block page_title %} ADD GOAT {% endblock %}
+{% block page_title %} Update a Goat {% endblock %}
 
 {% block body_header %}
+Update a Goat
 {% endblock %}
 
 {% block body_core %}
-<h1>UPDATE GOAT</h1>
 <div style="background-color:#CCE6E3;padding-top:20px;padding-left:50px;padding-bottom:20px;">
 {% if goat %}
 <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">

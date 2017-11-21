@@ -43,10 +43,9 @@ $app->get('/failure', function (Request $request, Response $response) {
 });
 
 // Home page
-// TODO: Redirect to goats
 $app->get('/home', function (Request $request, Response $response) {
   $this->logger->addInfo("Route /home");
-  return $this->view->render($response, 'home.twig');
+  return $response->withRedirect('/goats');
 });
 
 // 404 not found page
@@ -65,8 +64,7 @@ $app->get('/405', function (Request $request, Response $response) {
 });
 
 // Home page
-// TODO: Redirect to goats
 $app->get('/', function (Request $request, Response $response) {
   $this->logger->addInfo("Route /");
-  return $this->view->render($response, 'home.twig');
+  return $response->withRedirect('/goats');
 });

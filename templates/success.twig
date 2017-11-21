@@ -3,7 +3,7 @@
 {% block page_title %} Success {% endblock %}
 
 {% block body_header %}
-<h1>SUCCESS</h1>
+Success
 {% endblock %}
 
 {% block body_core %}
@@ -37,7 +37,7 @@ var x = setInterval(function() {
     clearInterval(x);
     document.getElementById("timer").innerHTML = "EXPIRED";
     // similar behavior as an HTTP redirect
-    //window.location.replace("/goats");
+    window.location.replace("/goats");
   }
 }, 1000);
 </script>

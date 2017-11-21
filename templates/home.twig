@@ -3,7 +3,7 @@
 {% block page_title %} Home {% endblock %}
 
 {% block body_header %}
-<h1>HOME</h1>
+Goats
 {% endblock %}
 
 {% block body_core %}
@@ -12,37 +12,36 @@
     <p style="text-align: center;">
       <label>Breed</label>
       <select name="breed_name">
-         <option value = "">Indifferent</option>
+         <option value = "">Any</option>
          {% for breed in breeds %}
             <option value="{{ breed.name }}">{{breed.name}}</option>
           {% endfor %}
       </select>&emsp;</label>
 
-      <label>Gender
+      <label>Gender</label>
       <select name="gender">
-        <option value = "">Indifferent</option>
+        <option value = "">Any</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
-      </select>&emsp;</label>
+      </select>&emsp;
 
-      <label>Exploitation
+      <label>Exploitation</label>
       <select name="exploitation">
-        <option value = "">Indifferent</option>
+        <option value = "">Any</option>
         <option value="milk">Milk</option>
         <option value="cheese">Cheese</option>
         <option value="meat">Meat</option>
         <option value="hair">Hair</option>
         <option value="pet">Pet</option>
         <option value="environment">Environment</option>
-      </select></label>
+      </select>
 
-      <label><input type="number" name="height" placeholder="Height"
-      step="0.01" min=0 value="0"> cm&emsp;</label>
+      <input type="number" name="height" placeholder="Height"
+      step="0.01" min=0> cm&emsp;
 
-      <label><input type="number" name="weight" placeholder="Weight"
-      step="0.01" min=0 value="0"> kg&emsp;</label>
+      <input type="number" name="weight" placeholder="Weight"
+      step="0.01" min=0> kg&emsp;
 
-      <label>Color
       <input type=text list=colors
       name="color" placeholder="Select Color">
         <datalist id=colors name="color_datalist">
@@ -50,13 +49,12 @@
           <option value="black">Black</<option>
           <option value="grey">Grey</option>
         </datalist>
-      </input></label>
+      </input>
 
-        <label>Max price (0- 999 999.99€)</label>
-        <input type="number" name="max_price" id="max_price" min="0" max="999999.99"><br>
+        <input type="number" name="price" id="price" min="0" max="999999.99" placeholder="0-999 999"> €<br>
 
-        <label><input type="number" name="age" placeholder="Age"
-        step="1" min=0> months&emsp;</label>
+        <input type="number" name="age" placeholder="Age"
+        step="1" min=0> month(s)&emsp;
     </p>
 
     <div style="text-align: center;">
