@@ -24,8 +24,7 @@ $app->group('/goats', function(){
   // POST: Replace updated goat in the DB
   $this->map(['GET', 'POST'], '/update', 'App\Controllers\GoatController:update_goat');
   // TODO : Search
-  //$this->get('/search', 'App\Controllers\GoatController:search_goat');
-  //$this->post('/searching', 'App\Controllers\GoatController:searching_goat');
+  $this->post('/search', 'App\Controllers\GoatController:search_goat');
   // Get info on one goat
   $this->get('/{id}', 'App\Controllers\GoatController:show_goat');
 });
@@ -62,4 +61,10 @@ $app->get('/405', function (Request $request, Response $response) {
   $notAllowedHandler = $this->notAllowedHandler;
   $methods = array();
   return $notAllowedHandler($request, $response, $methods);
+});
+
+// Home page
+$app->get('/', function (Request $request, Response $response) {
+  $this->logger->addInfo("Route /");
+  return $this->view->render($response, 'home.twig');
 });

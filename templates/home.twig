@@ -7,14 +7,11 @@
 {% endblock %}
 
 {% block body_core %}
-  {% if name %}
-    <h2>Hello {{name}}</h2>
-  {% endif %}
-  <form method="get" enctype="multipart/form-data" id="goatform" name="goatform">
+  <form method="POST" action="/goats/search" enctype="multipart/form-data" id="goatform" name="goatform">
     <p style="text-align: center;">
-      <label>Race
+      <label>Race</label>
       <select name="race_name">
-         <option>Indifferent</option>
+         <option value = "">Indifferent</option>
          {% for race in races %}
             <option value="{{ race.name }}">{{race.name}}</option>
           {% endfor %}
@@ -22,14 +19,14 @@
 
       <label>Gender
       <select name="gender">
-        <option>Indifferent</option>
+        <option value = "">Indifferent</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>&emsp;</label>
 
       <label>Exploitation
       <select name="exploitation">
-        <option>Indifferent</option>
+        <option value = "">Indifferent</option>
         <option value="milk">Milk</option>
         <option value="cheese">Cheese</option>
         <option value="meat">Meat</option>
@@ -64,10 +61,19 @@
   </form>
 
   {% for goat in goats %}
-    <h2>Goats: <a href="/goats/{{ goat.id }}">{{ goat.name }}</a></h2>
+    <h2>Goats: <a href="/goats/{{ goat.id }}">
+      {% for img in imgs if goat.img_id == img.id %}
+        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+        alt="{{ goat.name }}" width=80>
+        {% endfor %}
+    {{ goat.name }}</a></h2>
   {% endfor %}
 
 {% if goat %}
+{% if img %}
+    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+    alt="{{ goat.name }}" width=200>
+    {% endif %}
   <h2>Name: {{ goat.name }}</h2>
   <h3>Price: {{ goat.price }} €</h3>
   <h3>Age: {{ age }}</h3>
@@ -92,7 +98,6 @@
   </form>
 {% endif %}
 
-    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
 {% endblock %}
 
 {% block body_footer %} {% endblock %}

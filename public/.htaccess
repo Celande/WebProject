@@ -11,7 +11,7 @@
   # the following 2 lines to eliminate the overhead.
   RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
   RewriteRule ^(.*) - [E=BASE:%1]
-  
+
   # If the above doesn't work you might need to set the `RewriteBase` directive manually, it should be the
   # absolute physical path to the directory that contains this htaccess file.
   # RewriteBase /
@@ -19,19 +19,4 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d # ajout
   RewriteRule ^ index.php [QSA,L]
-  
-  AddType image/gif .gif .GIF
-AddType image/jpeg .jpeg .jpg .jpe .JPG
-AddType image/tiff .tiff .tif
-AddType image/x-cmu-raster .ras
-AddType image/x-portable-anymap .pnm
-AddType image/x-portable-bitmap .pbm
-AddType image/x-portable-graymap .pgm
-AddType image/x-portable-pixmap .ppm
-AddType image/x-rgb .rgb
-AddType image/x-xbitmap .xbm
-AddType image/x-xpixmap .xpm
-AddType image/x-xwindowdump .xwd 
-  
-  AllowOverride All # ajout
 </IfModule>

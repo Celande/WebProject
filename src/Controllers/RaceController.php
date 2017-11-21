@@ -51,11 +51,12 @@ class RaceController extends CommonController
     $id = $request->getAttribute('id');
     // Get the race according to the race id
     $race = Race::find($id);
+    $img = Image::find($race['img_id']);
     // Can't find the race, redirect to 404
     if(!$race){
       return parent::not_found($request, $response, $args);
     }
 
-    return $this->view->render($response, 'races.twig', ['race' => $race]);
+    return $this->view->render($response, 'races.twig', array('race' => $race, 'img' => $img));
   }
 }

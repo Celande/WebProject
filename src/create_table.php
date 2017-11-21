@@ -93,7 +93,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       $table->float('milk_by_lactation')->nullable()->comment('l');
       $table->integer('duration_of_lactation')->nullable()->comment('month');
       $table->enum('exploitation',['milk', 'cheese', 'hair', 'meat', 'pet', 'environment']);
-      $table->integer('img_id')->unsigned()->comment('300x300px max');
+      $table->integer('img_id')->unsigned()->comment('300x300px max')->nullable();
 
       $table->unique('name');
       $table->foreign('img_id')->references('id')->on('image');
@@ -402,12 +402,14 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       $table->string('localisation');
       $table->string('identification');
       $table->text('description');
+      $table->integer('img_id')->nullable()->unsigned();
 
       $table->timestamps();
       //$table->touch();
       // need updated_at
 
       $table->foreign('race_id')->references('id')->on('race');
+      $table->foreign('img_id')->references('id')->on('image');
     });
 
     // Fill the goat table
