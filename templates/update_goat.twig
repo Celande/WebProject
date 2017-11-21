@@ -8,83 +8,70 @@
 {% block body_core %}
 <h1>UPDATE GOAT</h1>
 <div style="background-color:#CCE6E3;padding-top:20px;padding-left:50px;padding-bottom:20px;">
-{% if goat %}
-<form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
-
-  <p>
-    <label>Name</label>
-    <input type="text" name="name" value="{{ goat.name }}"required><br>
-  </p>
-
-  <p>
-    <label>Price</label>
-    <input type="number" name="price"
-    step="0.01" min=0 value="{{ goat.price }}"required>€<br>
-  </p>
-
-  <p>
-    <label>Birthdate</label>
-    <input type="date" name="birthdate"
-    value="{{ goat.birthdate }}" onblur="verifBirthdate(this)"><br>
-  </p>
-
-  <p>
-    <label>Breed</label>
-    <input type=text list=breeds
-    name="breed_name" placeholder="Select Breed"
-    value="{{ breed_name }}" required>
-    <datalist id=breeds name="breed_datalist">
-       {% for breed in breeds %}
-          <option value="{{ breed.name }}">
-        {% endfor %}
-    </datalist>
-  </p>
-
-  <p>
-    <label>Gender</label><br>
-    {% if goat.gender == "female" %}
-    <input type="radio" name="gender" value="female" checked required> Female<br>
-    <input type="radio" name="gender" value="male"> Male<br>
-    {% else %}
-    <input type="radio" name="gender" value="female" required> Female<br>
-    <input type="radio" name="gender" value="male" checked> Male<br>
+  {% if goat %}
+    <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
+      <p>
+        <label>Name</label>
+        <input type="text" name="name" value="{{ goat.name }}"required><br>
+      </p>
+      <p>
+        <label>Price</label>
+        <input type="number" name="price"
+        step="0.01" min=0 value="{{ goat.price }}"required>€<br>
+      </p>
+      <p>
+        <label>Birthdate</label>
+        <input type="date" name="birthdate"
+        value="{{ goat.birthdate }}" onblur="verifBirthdate(this)"><br>
+      </p>
+      <p>
+        <label>Breed</label>
+        <input type=text list=breeds
+        name="breed_name" placeholder="Select Breed"
+        value="{{ breed_name }}" required>
+        <datalist id=breeds name="breed_datalist">
+          {% for breed in breeds %}
+            <option value="{{ breed.name }}">
+          {% endfor %}
+        </datalist>
+      </p>
+      <p>
+        <label>Gender</label><br>
+        {% if goat.gender == "female" %}
+          <input type="radio" name="gender" value="female" checked required> Female<br>
+          <input type="radio" name="gender" value="male"> Male<br>
+        {% else %}
+        <input type="radio" name="gender" value="female" required> Female<br>
+        <input type="radio" name="gender" value="male" checked> Male<br>
+      </p>
     {% endif %}
-
-  </p>
-
   <p>
     <label>Localisation</label>
     <input type="text" name="localisation"
     value="{{ goat.localisation }}" required><br>
   </p>
-
   <p>
     <label>Identification</label>
     <input type="text" name="identification"
     value="{{ goat.identification }}" onblur="verifIdentification(this)" placeholder="XXX 000 000 00000"><br>
   </p>
-
   <p>
     <label>Description</label><br>
     <textarea name="description" form="goatform"
     rows="4" cols="50"
     value="{{ goat.description }}"></textarea>
-
   </p>
-
   <p>
     <input type="hidden" name="id" value="{{ goat.id }}">
     <input type="submit"/>
   </p>
 </form>
-
 {% else %}
   <h3> ERROR </h3>
 {% endif %}
 </div>
-
-    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
-    <script>
+  <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
+  <script>
     function verifIdentification(champ)
     {
       var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;

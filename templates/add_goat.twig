@@ -7,116 +7,105 @@
 
 {% block body_core %}
 <div style="background-color:#CCE6E3;padding-top:20px;padding-left:50px;padding-bottom:20px;">
-<form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
-
-  <p>
+  <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
+    <p>
     <label>Name</label>
-    <input type="text" name="name" required><br>
-  </p>
-
-  <p>
-    <label>Price</label>
-    <input type="number" name="price"
-    step="0.01" min=0 onblur="verifPrice(this)">€<br>
-  </p>
-
-  <p>
-    <label>Birthdate</label>
-    <input type="date" name="birthdate" id='birthId' placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)"><br>
-  </p>
-
-  <p>
-    <label>Breed</label>
-    <input type=text list=breeds
-    name="breed_name" placeholder="Select Breed" required>
-    <datalist id=breeds name="breed_datalist">
-      {% for breed in breeds %}
-      <option value="{{ breed.name }}">
+      <input type="text" name="name" required><br>
+    </p>
+    <p>
+      <label>Price</label>
+      <input type="number" name="price"
+      step="0.01" min=0 onblur="verifPrice(this)">€<br>
+    </p>
+    <p>
+      <label>Birthdate</label>
+      <input type="date" name="birthdate" id='birthId' placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)"><br>
+    </p>
+    <p>
+      <label>Breed</label>
+      <input type=text list=breeds
+      name="breed_name" placeholder="Select Breed" required>
+      <datalist id=breeds name="breed_datalist">
+        {% for breed in breeds %}
+          <option value="{{ breed.name }}">
         {% endfor %}
       </datalist>
     </p>
-
     <p>
       <label>Gender</label><br>
       <input type="radio" name="gender" value="female" required> Female<br>
       <input type="radio" name="gender" value="male"> Male<br>
-
     </p>
-
     <p>
       <label>Localisation</label>
       <input type="text" name="localisation"><br>
     </p>
-
-              <p>
-                <label>Identification</label>
-                <input type="text" name="identification" onblur="verifIdentification(this)" placeholder="XXX 000 000 00000"><br>
-              </p>
-
-              <p>
-                <label>Description</label><br>
-                <textarea name="description" form="goatform"
-                rows="4" cols="50" placeholder="Enter text here..."></textarea>
-
-              </p>
-
-              <p>
-                <input type="submit"/>
-              </p>
-            </form>
+    <p>
+      <label>Identification</label>
+      <input type="text" name="identification" onblur="verifIdentification(this)" placeholder="XXX 000 000 00000"><br>
+    </p>
+    <p>
+      <label>Description</label><br>
+      <textarea name="description" form="goatform"
+      rows="4" cols="50" placeholder="Enter text here..."></textarea>
+    </p>
+    <p>
+      <input type="submit"/>
+    </p>
+  </form>
 </div>
 
-            <script>
-            function verifIdentification(champ)
-            {
-              var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
-              if (regex.test(champ.value)){
-                return true;
-              }
-              else {
-                return false;
-              }
-            }
-            function verifPrice(champ)
-            {
-              if (champ.value>999999.99)
-              {
-                return false;
-              }
-              else {
-                return true;
-              }
-            }
-            function verifBirthdate()
-            {
-              var birth=new Date(document.getElementById('birthId').value);
-              var today=new Date();
-              if (today.getYear()<birth.getYear()){
-                return false;
-              }
-              if (today.getMonth()<birth.getMonth()){
-                return false;
-              }
-              if (today.getDate()<birth.getDate()){
-                return false;
-              }
-              else {
-                return true;
-              }
-            }
-            function verifForm(f)
-            {
-               var IdentificationOk = verifIdentification(f.identification);
-               var BirthdateOk = verifBirthdate();
-               var PriceOk = verifPrice(f.price);
-               if(IdentificationOk&&BirthdateOk&&PriceOk)
-                  return true;
-               else
-               {
-                  alert("Please fill the fields correctly.");
-                  return false;
-               }
-            }
-          </script>
-          {% endblock %}
-        {% block body_footer %} {% endblock %}
+<script>
+  function verifIdentification(champ)
+  {
+    var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
+    if (regex.test(champ.value)){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  function verifPrice(champ)
+  {
+    if (champ.value>999999.99)
+    {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  function verifBirthdate()
+  {
+    var birth=new Date(document.getElementById('birthId').value);
+    var today=new Date();
+    if (today.getYear()<birth.getYear()){
+      return false;
+    }
+    if (today.getMonth()<birth.getMonth()){
+      return false;
+    }
+    if (today.getDate()<birth.getDate()){
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  function verifForm(f)
+  {
+     var IdentificationOk = verifIdentification(f.identification);
+     var BirthdateOk = verifBirthdate();
+     var PriceOk = verifPrice(f.price);
+     if(IdentificationOk&&BirthdateOk&&PriceOk)
+      return true;
+     else
+     {
+        alert("Please fill the fields correctly.");
+        return false;
+     }
+  }
+</script>
+{% endblock %}
+{% block body_footer %} {% endblock %}

@@ -11,26 +11,29 @@
   {% if name %}
     <h2>Hello {{name}}</h2>
   {% endif %}
-    {% for breed in breeds %}
+  {% for breed in breeds %}
     <div class="row">
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100">
-        <div class="card-body">
-        <h2>  <a href="/breeds/{{ breed.id }}">
-        {% for img in imgs if breed.img_id == img.id %}
-        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-        alt="{{ breed.name }}" width=80>
-        {% endfor %}
-        {{ breed.name }}</a></h2></div></div>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h2>
+              <a href="/breeds/{{ breed.id }}">
+                {% for img in imgs if breed.img_id == img.id %}
+                  <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+                  alt="{{ breed.name }}" width=80>
+                {% endfor %}
+                {{ breed.name }}
+              </a>
+            </h2>
+          </div>
+        </div>
       </div>
-
     </div>
-    {% endfor %}
-
+  {% endfor %}
   {% if breed %}
-  {% if img %}
-    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-    alt="{{ breed.name }}" width=200>
+    {% if img %}
+      <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+      alt="{{ breed.name }}" width=200>
     {% endif %}
     <p></p>
     <h4>Breed: {{ breed.name }}</h4>
@@ -39,19 +42,19 @@
     <h5>Color: {{ breed.color }}</h5>
     <h5>Origin: {{ breed.origin }}</h5>
     {% if breed.hair_growth %}
-    <h5>Hair growth: {{ breed.hair_growth }} cm/month</h5>
+      <h5>Hair growth: {{ breed.hair_growth }} cm/month</h5>
     {% endif %}
     {% if breed.milk_by_lactation %}
-    <h5>Milk by lactation: {{ breed.milk_by_lactation }} l</h5>
+      <h5>Milk by lactation: {{ breed.milk_by_lactation }} l</h5>
     {% endif %}
     {% if breed.duration_of_lactation %}
-    <h5>Duration of lactation: {{ breed.duration_of_lactation }} month</h5>
+      <h5>Duration of lactation: {{ breed.duration_of_lactation }} month</h5>
     {% endif %}
     <h5>Exploitation: {{ breed.exploitation }}</h5>
   {% endif %}
 </div>
 
-    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
+<p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
 {% endblock %}
 
 {% block body_footer %} {% endblock %}
