@@ -16,22 +16,8 @@ class Breed extends Model {
     protected $softDelete = false;
     protected $guarded = array('id');
 
-    /** goat
-    * Used to set the relation between the breed table and the goat table
-    * Each goat has ONE breed
-  **/
     public function goats(){
       return $this->hasMany('App\Models\Goat'); // breed_id usefull ?
     }
-
-    /** image
-    * Used to set the relation between the breed table and the goat table
-    * Each goat has ONE breed
-  **/
-  /*
-    public function image(){
-      $table->belongsTo('\src\Models\Image', 'img_id'); // breed_id usefull ?
-    }
-    */
 
 }

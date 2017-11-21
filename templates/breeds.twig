@@ -1,36 +1,34 @@
 {% extends "layout.html" %}
 
-{% block page_title %} Home {% endblock %}
+{% block page_title %} Breeds {% endblock %}
 
 {% block body_header %}
-<h1>BREEDS</h1>
+<h1>Breeds</h1>
 {% endblock %}
 
 {% block body_core %}
-<div style="background-color:#CCE6E3;padding-top:25px;padding-left:50px;padding-bottom:20px;">
-  {% for breed in breeds %}
+<div class="show_animals">
+    {% for breed in breeds %}
     <div class="row">
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h2>
-              <a href="/breeds/{{ breed.id }}">
-                {% for img in imgs if breed.img_id == img.id %}
-                  <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-                  alt="{{ breed.name }}" width=80>
-                {% endfor %}
-                {{ breed.name }}
-              </a>
-            </h2>
-          </div>
-        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+        <div class="card-body">
+        <h2>  <a href="/breeds/{{ breed.id }}">
+        {% for img in imgs if breed.img_id == img.id %}
+        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+        class="mini_img">
+        {% endfor %}
+        {{ breed.name }}</a></h2></div></div>
       </div>
     </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
+
   {% if breed %}
-    {% if img %}
-      <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-      alt="{{ breed.name }}" width=200>
+  <div class="profile">
+  {% if img %}
+    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+    alt="{{ breed.name }}" class="show_img">
     {% endif %}
     <p></p>
     <h4>Breed: {{ breed.name }}</h4>
@@ -48,10 +46,9 @@
       <h5>Duration of lactation: {{ breed.duration_of_lactation }} month</h5>
     {% endif %}
     <h5>Exploitation: {{ breed.exploitation }}</h5>
+  </div>
   {% endif %}
-</div>
 
-<p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
 {% endblock %}
 
 {% block body_footer %} {% endblock %}

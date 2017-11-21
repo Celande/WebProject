@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
-{% block page_title %} Success {% endblock %}
+{% block page_title %} Failure {% endblock %}
 
 {% block body_header %}
+Failure
 {% endblock %}
 
 {% block body_core %}
-<h1>FAILURE</h1>
 
 <h2>The operation failed.</h2>
 
@@ -30,7 +30,7 @@ var x = setInterval(function() {
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
   // Display the result in the element with id="timer"
-  document.getElementById("timer").innerHTML = "You will be redirected in "+ seconds+1 + " seconds.";
+  document.getElementById("timer").innerHTML = "You will be redirected in "+ seconds + " seconds.";
 
   // If the count down is finished, write some text
   if (distance < 0) {

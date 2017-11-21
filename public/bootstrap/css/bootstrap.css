@@ -99,6 +99,40 @@
   box-sizing: border-box;
 }
 
+.goat_form{
+  background-color:#BBD9D5;
+  padding-top:15px;
+  padding-bottom:15px;
+}
+
+.show_animals{
+  background-color:#CCE6E3;
+  padding-top:20px;
+  padding-left:50px;
+  padding-bottom:20px;
+  text-align:center;
+}
+.mini_img{
+  width:80px;
+  text-align: left;
+}
+.show_img{
+  width:200px;
+  text-align: center;
+}
+.profile{
+  background-color:#CCE6E3;
+  padding-top:20px;
+  padding-left:50px;
+  padding-bottom:20px;
+  text-align:center;
+}
+.search_button{
+  text-align: center;
+}
+p{
+  text-align: center;
+}
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -2839,6 +2873,7 @@ input[type="submit"].btn-block,
 input[type="reset"].btn-block,
 input[type="button"].btn-block {
   width: 100%;
+  align:center;
 }
 
 .fade {

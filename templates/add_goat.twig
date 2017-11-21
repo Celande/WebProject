@@ -1,14 +1,16 @@
 {% extends "layout.html" %}
 
-{% block page_title %} ADD GOAT {% endblock %}
+{% block page_title %} Add a Goat {% endblock %}
 
 {% block body_header %}
+Add a Goat
 {% endblock %}
 
 {% block body_core %}
-<div style="background-color:#CCE6E3;padding-top:20px;padding-left:50px;padding-bottom:20px;">
-  <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
-    <p>
+<div class="goat_form">
+<form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
+
+  <p>
     <label>Name</label>
       <input type="text" name="name" required><br>
     </p>
@@ -40,19 +42,33 @@
       <label>Localisation</label>
       <input type="text" name="localisation"><br>
     </p>
-    <p>
-      <label>Identification</label>
-      <input type="text" name="identification" onblur="verifIdentification(this)" placeholder="XXX 000 000 00000"><br>
+
+              <p>
+                <label>Identification</label>
+                <input type="text" name="identification" onblur="verifIdentification(this)" placeholder="XXX 000 000 00000"><br>
+              </p>
+
+              <p>
+                <label>Description</label><br>
+                <textarea name="description" form="goatform"
+                rows="4" cols="50" placeholder="Enter text here..."></textarea>
+
+              </p>
+
+              <p>
+{% if img %}
+    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+    alt="{{ goat.name }}" class="show_img">
+    {% endif %}
+    <input type="hidden" name="id" value="{{ goat.id }}">
+      <label>Add image (single): </label><br/>
+      <input type="file" name="image"/>
     </p>
-    <p>
-      <label>Description</label><br>
-      <textarea name="description" form="goatform"
-      rows="4" cols="50" placeholder="Enter text here..."></textarea>
-    </p>
-    <p>
-      <input type="submit"/>
-    </p>
-  </form>
+
+              <p>
+                <input type="submit" value="Sell"/>
+              </p>
+            </form>
 </div>
 
 <script>
