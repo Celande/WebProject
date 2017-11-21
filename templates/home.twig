@@ -11,24 +11,23 @@
     <h2>Hello {{name}}</h2>
   {% endif %}
   <form method="get" enctype="multipart/form-data" id="goatform" name="goatform">
-
-    <p>
-      <label>Race</label>
+    <p style="text-align: center;">
+      <label>Race
       <select name="race_name">
          <option>Indifferent</option>
          {% for race in races %}
             <option value="{{ race.name }}">{{race.name}}</option>
           {% endfor %}
-      </select>
+      </select>&emsp;</label>
 
-      <label>Gender</label>
+      <label>Gender
       <select name="gender">
         <option>Indifferent</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
-      </select>
+      </select>&emsp;</label>
 
-      <label>Exploitation</label>
+      <label>Exploitation
       <select name="exploitation">
         <option>Indifferent</option>
         <option value="milk">Milk</option>
@@ -37,17 +36,15 @@
         <option value="hair">Hair</option>
         <option value="pet">Pet</option>
         <option value="environment">Environment</option>
-      </select>
-    </p>
+      </select></label>
 
-    <p>
-      <input type="number" name="height" placeholder="Height"
-      step="0.01" min=0> cm
+      <label><input type="number" name="height" placeholder="Height"
+      step="0.01" min=0> cm&emsp;</label>
 
-      <input type="number" name="weight" placeholder="Weight"
-      step="0.01" min=0> kg&emsp;
+      <label><input type="number" name="weight" placeholder="Weight"
+      step="0.01" min=0> kg&emsp;</label>
 
-      <label>&emsp;Color</label>
+      <label>Color
       <input type=text list=colors
       name="color" placeholder="Select Color">
         <datalist id=colors name="color_datalist">
@@ -55,16 +52,15 @@
           <option value="black">Black</<option>
           <option value="grey">Grey</option>
         </datalist>
-      </input><br>
-    </p>
-    <p data-role="rangeslider">
-        <label>Max price (0-10000 €)</label>
-        <input type="range" name="max_price" id="max_price" min="0" max="10000">
+      </input></label>
+
+        <label>Max price (0- 999 999,99€)</label>
+        <input type="number" name="max_price" id="max_price" min="0" max="999999.99">
     </p>
 
-    <p>
+    <div style="text-align: center;">
       <input type="submit" value="Search"/>
-    </p>
+    </div>
   </form>
 
   {% for goat in goats %}

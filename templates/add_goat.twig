@@ -18,7 +18,7 @@
   <p>
     <label>Price - convert ',' to '.'</label>
     <input type="number" name="price"
-    step="0.01" min=0 required>€<br>
+    step="0.01" min=0 onblur="verifPrice(this)">€<br>
   </p>
 
   <p>
@@ -79,6 +79,16 @@
                 return false;
               }
             }
+            function verifPrice(champ)
+            {
+              if (champ.value>999999.99)
+              {
+                return false;
+              }
+              else {
+                return true;
+              }
+            }
             function verifBirthdate()
             {
               var birth=new Date(document.getElementById('birthId').value);
@@ -100,7 +110,8 @@
             {
                var IdentificationOk = verifIdentification(f.identification);
                var BirthdateOk = verifBirthdate();
-               if(IdentificationOk&&BirthdateOk)
+               var PriceOk = verifPrice(f.price);
+               if(IdentificationOk&&BirthdateOk&&PriceOk)
                   return true;
                else
                {
