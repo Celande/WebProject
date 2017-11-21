@@ -275,6 +275,8 @@ public function search_goat(Request $request, Response $response, $args){
       $array['weight'] = 0;
     }
 
+    $array['color'] = strtolower($array['color']);
+
     // No Race && Gender
     if($array['breed_id'] == "" && $array['gender'] == "" && $array['exploitation'] != ""){
       $goats = Goat::where('price', '<=', $array['price'])

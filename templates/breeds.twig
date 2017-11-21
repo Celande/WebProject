@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body_core %}
-<div style="background-color:#CCE6E3;padding-top:25px;padding-left:50px;padding-bottom:20px;">
+<div class="show_animals">
     {% for breed in breeds %}
     <div class="row">
         <div class="col-lg-4 col-md-6 mb-4">
@@ -16,18 +16,20 @@
         <h2>  <a href="/breeds/{{ breed.id }}">
         {% for img in imgs if breed.img_id == img.id %}
         <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-        width=80>
+        class="mini_img">
         {% endfor %}
         {{ breed.name }}</a></h2></div></div>
       </div>
 
     </div>
     {% endfor %}
+  </div>
 
   {% if breed %}
+  <div class="profile">
   {% if img %}
     <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-    alt="{{ breed.name }}" width=200>
+    alt="{{ breed.name }}" class="show_img">
     {% endif %}
     <p></p>
     <h4>Breed: {{ breed.name }}</h4>
@@ -45,10 +47,9 @@
     <h5>Duration of lactation: {{ breed.duration_of_lactation }} month</h5>
     {% endif %}
     <h5>Exploitation: {{ breed.exploitation }}</h5>
+  </div>
   {% endif %}
-</div>
 
-    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
 {% endblock %}
 
 {% block body_footer %} {% endblock %}

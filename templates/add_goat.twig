@@ -7,7 +7,7 @@ Add a Goat
 {% endblock %}
 
 {% block body_core %}
-<div style="background-color:#CCE6E3;padding-top:20px;padding-left:50px;padding-bottom:20px;">
+<div class="goat_form">
 <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
 
   <p>
@@ -62,7 +62,17 @@ Add a Goat
               </p>
 
               <p>
-                <input type="submit"/>
+{% if img %}
+    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+    alt="{{ goat.name }}" class="show_img">
+    {% endif %}
+    <input type="hidden" name="id" value="{{ goat.id }}">
+      <label>Add image (single): </label><br/>
+      <input type="file" name="image"/>
+    </p>
+
+              <p>
+                <input type="submit" value="Sell"/>
               </p>
             </form>
 </div>

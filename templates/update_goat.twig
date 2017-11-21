@@ -7,7 +7,7 @@ Update a Goat
 {% endblock %}
 
 {% block body_core %}
-<div style="background-color:#CCE6E3;padding-top:20px;padding-left:50px;padding-bottom:20px;">
+<div class="goat_form">
 {% if goat %}
 <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
 
@@ -72,15 +72,16 @@ Update a Goat
 
   </p>
 
-</p>
+<p>
 {% if img %}
     <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-    alt="{{ goat.name }}" width=200>
+    alt="{{ goat.name }}" class="show_img">
     {% endif %}
     <input type="hidden" name="id" value="{{ goat.id }}">
       <label>Add image (single): </label><br/>
       <input type="file" name="image"/>
-    <p>
+    </p>
+
 
   <p>
     <input type="hidden" name="id" value="{{ goat.id }}">
@@ -93,7 +94,6 @@ Update a Goat
 {% endif %}
 </div>
 
-    <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
     <script>
     function verifIdentification(champ)
     {

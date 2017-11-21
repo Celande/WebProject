@@ -1,15 +1,21 @@
 {% extends "layout.html" %}
 
-{% block page_title %} Home {% endblock %}
+{% block page_title %}
+{% if goat %}
+ {{ goat.name }}
+{% else %}
+ Home
+{% endif %}
+{% endblock %}
 
 {% block body_header %}
 Goats
 {% endblock %}
 
 {% block body_core %}
-<div class="backg" style="background-color:#BBD9D5;padding-top:15px;padding-bottom:15px;">
+<div class="goat_form">
   <form method="POST" action="/goats/search" enctype="multipart/form-data" id="goatform" name="goatform">
-    <p style="text-align: center;">
+    <p>
       <label>Breed</label>
       <select name="breed_name">
          <option value = "">Any</option>
@@ -45,9 +51,9 @@ Goats
       <input type=text list=colors
       name="color" placeholder="Select Color">
         <datalist id=colors name="color_datalist">
-          <option value="white">White</<option>
-          <option value="black">Black</<option>
-          <option value="grey">Grey</option>
+          <option value="White">
+          <option value="Black">
+          <option value="Grey">
         </datalist>
       </input>
 
@@ -62,7 +68,7 @@ Goats
     </div>
   </form>
 </div>
-<div style="background-color:#CCE6E3;padding-top:20px;padding-left:50px;padding-bottom:20px;">
+<div class="show_animals">
   {% for goat in goats %}
   <div class="row">
     <div class="col-lg-4 col-md-6 mb-4">
@@ -71,17 +77,20 @@ Goats
       <div class="card-body">
       {% for img in imgs if goat.img_id == img.id %}
         <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-        width=80>
+        class="mini_img">
         {% endfor %}
     {{ goat.name }}</div></a>
   </div>
   </div>
   </div>
   {% endfor %}
+</div>
+
 {% if goat %}
+<div class="profile">
 {% if img %}
     <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-    alt="{{ goat.name }}" width=200>
+    alt="{{ goat.name }}" class="show_img">
     {% endif %}
   <h4>Name: {{ goat.name }}</h4>
   <h5>Price: {{ goat.price }} €</h5>
@@ -105,8 +114,8 @@ Goats
     <input type="hidden" name="id" value="{{ goat.id }}">
     <input type="submit" value="Update">
   </form>
-{% endif %}
 </div>
+{% endif %}
 {% endblock %}
 
 {% block body_footer %} {% endblock %}
