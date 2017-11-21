@@ -72,6 +72,16 @@
 
   </p>
 
+</p>
+{% if img %}
+    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+    alt="{{ goat.name }}" width=200>
+    {% endif %}
+    <input type="hidden" name="id" value="{{ goat.id }}">
+      <label>Add image (single): </label><br/>
+      <input type="file" name="image"/>
+    <p>
+
   <p>
     <input type="hidden" name="id" value="{{ goat.id }}">
     <input type="submit"/>

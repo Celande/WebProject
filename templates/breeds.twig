@@ -8,9 +8,6 @@
 
 {% block body_core %}
 <div style="background-color:#CCE6E3;padding-top:25px;padding-left:50px;padding-bottom:20px;">
-  {% if name %}
-    <h2>Hello {{name}}</h2>
-  {% endif %}
     {% for breed in breeds %}
     <div class="row">
         <div class="col-lg-4 col-md-6 mb-4">
@@ -19,7 +16,7 @@
         <h2>  <a href="/breeds/{{ breed.id }}">
         {% for img in imgs if breed.img_id == img.id %}
         <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-        alt="{{ breed.name }}" width=80>
+        width=80>
         {% endfor %}
         {{ breed.name }}</a></h2></div></div>
       </div>

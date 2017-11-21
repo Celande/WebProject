@@ -16,22 +16,25 @@ class CommonController
     protected $view;
     protected $logger;
     protected $table;
-    protected $img;
+    protected $imgDir;
 
     /** __construct
     * Initialization of the class
     * @param $view
     * @param $logger
     * @param $table
+    * @param $imgDir
     **/
     public function __construct(
         Twig $view,
         LoggerInterface $logger,
-        Builder $table
+        Builder $table,
+        string $imgDir
     ) {
         $this->view = $view;
         $this->logger = $logger;
         $this->table = $table;
+        $this->imgDir = $imgDir;
     }
 
     /** __invoke
