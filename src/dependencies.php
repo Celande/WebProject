@@ -30,7 +30,7 @@ $container['logger'] = function ($c) {
 
 // Img path
 $container['img'] = function ($c) {
-  $img = __DIR__ . '/../img/';
+  $img = 'img/';
   return $img;
 };
 
@@ -40,7 +40,7 @@ $container['img_breed'] = function ($c) {
 };
 
 $container['img_goat'] = function ($c) {
-  $img = __DIR__ . '/../img/goat/';
+  $img = 'img/goat/';
   return $img;
 };
 
@@ -91,16 +91,18 @@ $container['view'] = function ($container) {
 $container[App\Controllers\BreedController::class] = function ($c) {
   $view = $c->get('view');
   $logger = $c->get('logger');
-  $table = $c->get('db')->table('breed'); // I have 2 tables: goat and breed
-  return new App\Controllers\BreedController($view, $logger, $table);
+  $table = $c->get('db')->table('breed');
+  $imgDir = $c->get('img_breed');
+  return new App\Controllers\BreedController($view, $logger, $table, $imgDir);
 };
 
 // Controller of the goat table
 $container[App\Controllers\GoatController::class] = function ($c) {
   $view = $c->get('view');
   $logger = $c->get('logger');
-  $table = $c->get('db')->table('goat'); // I have 2 tables: goat and breed
-  return new App\Controllers\GoatController($view, $logger, $table);
+  $table = $c->get('db')->table('goat');
+  $imgDir = $c->get('img_goat');
+  return new App\Controllers\GoatController($view, $logger, $table, $imgDir);
 };
 
 //Override the default Not Found Handler

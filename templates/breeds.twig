@@ -7,15 +7,11 @@
 {% endblock %}
 
 {% block body_core %}
-  {% if name %}
-    <h2>Hello {{name}}</h2>
-  {% endif %}
-
     {% for breed in breeds %}
       <h2><a href="/breeds/{{ breed.id }}">
         {% for img in imgs if breed.img_id == img.id %}
         <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-        alt="{{ breed.name }}" width=80>
+        width=80>
         {% endfor %}
         {{ breed.name }}</a></h2>
     {% endfor %}

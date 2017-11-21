@@ -17,10 +17,10 @@ use App\Models\Goat;
   **/
 function create_table (Capsule $capsule, $img_breed, $img_goat){
   /*** ***** Breed Table ***** ***/
-  $capsule::schema()->dropIfExists('goat'); // because of foreign key
-  $capsule::schema()->dropIfExists('breed');
+  //$capsule::schema()->dropIfExists('goat'); // because of foreign key
   $capsule::schema()->dropIfExists('race');
-  $capsule::schema()->dropIfExists('image');
+  //$capsule::schema()->dropIfExists('breed');
+  //$capsule::schema()->dropIfExists('image');
 
   // Create img table
   if(!$capsule::schema()->hasTable('image')){
@@ -31,6 +31,9 @@ function create_table (Capsule $capsule, $img_breed, $img_goat){
       $table->enum('type',['breed', 'goat']);
       $table->integer('num');
       $table->enum('ext', ['jpg', 'jpeg', 'png'])->comment('extension');
+
+      $table->timestamp('created_at')->nullable();
+      $table->timestamp('updated_at')->nullable();
     });
 
     // Fill the image table
