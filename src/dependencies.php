@@ -34,8 +34,8 @@ $container['img'] = function ($c) {
   return $img;
 };
 
-$container['img_race'] = function ($c) {
-  $img = 'img/race/';
+$container['img_breed'] = function ($c) {
+  $img = 'img/breed/';
   return $img;
 };
 
@@ -55,7 +55,7 @@ $container['db'] = function ($container) {
   $capsule->bootEloquent();
 
   // Create the tables in the DB
-  $capsule = create_table($capsule, $container->get('img_race'),$container->get('img_goat'));
+  $capsule = create_table($capsule, $container->get('img_breed'),$container->get('img_goat'));
 
   // Catch exceptions
   $capsule->getContainer()->singleton(
@@ -87,19 +87,19 @@ $container['view'] = function ($container) {
   return $view;
 };
 
-// Controller of the race table
-$container[App\Controllers\RaceController::class] = function ($c) {
+// Controller of the breed table
+$container[App\Controllers\BreedController::class] = function ($c) {
   $view = $c->get('view');
   $logger = $c->get('logger');
-  $table = $c->get('db')->table('race'); // I have 2 tables: goat and race
-  return new App\Controllers\RaceController($view, $logger, $table);
+  $table = $c->get('db')->table('breed'); // I have 2 tables: goat and breed
+  return new App\Controllers\BreedController($view, $logger, $table);
 };
 
 // Controller of the goat table
 $container[App\Controllers\GoatController::class] = function ($c) {
   $view = $c->get('view');
   $logger = $c->get('logger');
-  $table = $c->get('db')->table('goat'); // I have 2 tables: goat and race
+  $table = $c->get('db')->table('goat'); // I have 2 tables: goat and breed
   return new App\Controllers\GoatController($view, $logger, $table);
 };
 

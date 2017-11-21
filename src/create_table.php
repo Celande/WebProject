@@ -7,19 +7,18 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use \Illuminate\Database\Schema\Blueprint as Blueprint;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Race;
+use App\Models\Breed;
 use App\Models\Goat;
-
-// TODO: created_at and updated_at not working (NULL in DB)
 
 /** create_table
   * Create the tables in the DB
   * @param Capsule $capsule
   * @return Capsule $capsule
   **/
-function create_table (Capsule $capsule, $img_race, $img_goat){
-  /*** ***** Race Table ***** ***/
+function create_table (Capsule $capsule, $img_breed, $img_goat){
+  /*** ***** Breed Table ***** ***/
   $capsule::schema()->dropIfExists('goat'); // because of foreign key
+  $capsule::schema()->dropIfExists('breed');
   $capsule::schema()->dropIfExists('race');
   $capsule::schema()->dropIfExists('image');
 
@@ -29,29 +28,29 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       $table->increments('id');
 
       $table->string('path');
-      $table->enum('type',['race', 'goat']);
+      $table->enum('type',['breed', 'goat']);
       $table->integer('num');
       $table->enum('ext', ['jpg', 'jpeg', 'png'])->comment('extension');
     });
 
     // Fill the image table
     $capsule::table('image')->insert([
-      'path' => $img_race,
-      'type' => 'race',
+      'path' => $img_breed,
+      'type' => 'breed',
       'num' => '1',
       'ext' => 'jpg'
     ]);
 
     $capsule::table('image')->insert([
-      'path' => $img_race,
-      'type' => 'race',
+      'path' => $img_breed,
+      'type' => 'breed',
       'num' => '2',
       'ext' => 'jpg'
     ]);
 
     $capsule::table('image')->insert([
-      'path' => $img_race,
-      'type' => 'race',
+      'path' => $img_breed,
+      'type' => 'breed',
       'num' => '3',
       'ext' => 'jpg'
     ]);
@@ -78,10 +77,10 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
     ]);
   }
 
-  // Create race table
-  if (!$capsule::schema()->hasTable('race')) {
+  // Create breed table
+  if (!$capsule::schema()->hasTable('breed')) {
 
-    $capsule::schema()->create('race', function (Blueprint $table) {
+    $capsule::schema()->create('breed', function (Blueprint $table) {
       $table->increments('id'); // already create the integer and the primary key
 
       $table->string('name');
@@ -99,8 +98,8 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       $table->foreign('img_id')->references('id')->on('image');
     });
 
-    // Fill the race table
-    $capsule::table('race')->insert([
+    // Fill the breed table
+    $capsule::table('breed')->insert([
       'name' => 'Saanen',
       'height' => '85',
       'weight' => '72.5',
@@ -112,7 +111,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '1'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Pygmy goat',
       'height' => '50',
       'weight' => '30',
@@ -122,7 +121,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '2'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Angora',
       'height' => '65',
       'weight' => '45',
@@ -133,7 +132,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-  $capsule::table('race')->insert([
+  $capsule::table('breed')->insert([
       'name' => 'Thüringer goat',
       'height' => '80',
       'weight' => '60',
@@ -144,7 +143,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-  $capsule::table('race')->insert([
+  $capsule::table('breed')->insert([
       'name' => 'Bunte Deutsche Edelziege',
       'height' => '80',
       'weight' => '75',
@@ -155,7 +154,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-  $capsule::table('race')->insert([
+  $capsule::table('breed')->insert([
       'name' => 'Weiße Deutsche Edelziege',
       'height' => '80',
       'weight' => '75',
@@ -167,7 +166,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-  $capsule::table('race')->insert([
+  $capsule::table('breed')->insert([
       'name' => 'Appenzell goat',
       'height' => '0',
       'weight' => '0',
@@ -177,7 +176,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-  $capsule::table('race')->insert([
+  $capsule::table('breed')->insert([
       'name' => 'Gray rays goat',
       'height' => '0',
       'weight' => '0',
@@ -187,7 +186,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-  $capsule::table('race')->insert([
+  $capsule::table('breed')->insert([
       'name' => 'Alpes goat',
       'height' => '0',
       'weight' => '75',
@@ -198,7 +197,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-  $capsule::table('race')->insert([
+  $capsule::table('breed')->insert([
       'name' => 'Peacock goat',
       'height' => '60',
       'weight' => '75',
@@ -210,7 +209,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-  $capsule::table('race')->insert([
+  $capsule::table('breed')->insert([
       'name' => 'Booted goat',
       'height' => '0',
       'weight' => '0',
@@ -220,7 +219,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Toggenbourg goat',
       'height' => '75',
       'weight' => '55',
@@ -232,7 +231,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Valais black collar goat',
       'height' => '80',
       'weight' => '55',
@@ -243,7 +242,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Tennessee goat',
       'height' => '0',
       'weight' => '0',
@@ -253,7 +252,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Bush goat',
       'height' => '0',
       'weight' => '0',
@@ -263,7 +262,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Kiko',
       'height' => '0',
       'weight' => '0',
@@ -273,7 +272,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Poitevine',
       'height' => '75',
       'weight' => '70',
@@ -285,7 +284,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Corse',
       'height' => '0',
       'weight' => '50',
@@ -295,7 +294,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Ditches goat',
       'height' => '0',
       'weight' => '0',
@@ -307,7 +306,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
 
     // TO FINISH
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Lorraine goat',
       'height' => '0',
       'weight' => '0',
@@ -317,7 +316,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Massif Central goat',
       'height' => '0',
       'weight' => '0',
@@ -327,7 +326,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Provence goat',
       'height' => '0',
       'weight' => '0',
@@ -337,7 +336,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Pyrenees goat',
       'height' => '0',
       'weight' => '0',
@@ -347,7 +346,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Rove goat',
       'height' => '0',
       'weight' => '0',
@@ -357,7 +356,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Catalonia goat',
       'height' => '0',
       'weight' => '0',
@@ -367,7 +366,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Savoie goat',
       'height' => '0',
       'weight' => '0',
@@ -377,7 +376,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'img_id' => '3'
     ]);
 
-    $capsule::table('race')->insert([
+    $capsule::table('breed')->insert([
       'name' => 'Sundgau goat',
       'height' => '0',
       'weight' => '0',
@@ -397,7 +396,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       $table->string('name');
       $table->float('price')->comment('€');
       $table->date('birthdate');
-      $table->integer('race_id')->unsigned();
+      $table->integer('breed_id')->unsigned();
       $table->enum('gender', ['male', 'female']);
       $table->string('localisation');
       $table->string('identification');
@@ -408,7 +407,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       //$table->touch();
       // need updated_at
 
-      $table->foreign('race_id')->references('id')->on('race');
+      $table->foreign('breed_id')->references('id')->on('breed');
       $table->foreign('img_id')->references('id')->on('image');
     });
 
@@ -417,7 +416,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'name' => 'Pupuce',
       'price' => '100',
       'birthdate' => '2017-08-30',
-      'race_id' => '1',
+      'breed_id' => '1',
       'gender' => 'female',
       'localisation' => 'Lyon - France',
       'identification' => 'FR 001 001 00001',
@@ -430,7 +429,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'name' => 'George',
       'price' => '200',
       'birthdate' => '2014-02-14',
-      'race_id' => '2',
+      'breed_id' => '2',
       'gender' => 'male',
       'localisation' => 'Langre - France',
       'identification' => 'FR 002 002 00002',
@@ -443,7 +442,7 @@ function create_table (Capsule $capsule, $img_race, $img_goat){
       'name' => 'Laurel',
       'price' => '300.5',
       'birthdate' => '2013-03-15',
-      'race_id' => '3',
+      'breed_id' => '3',
       'gender' => 'female',
       'localisation' => 'Chaumont - France',
       'identification' => 'FR 003 003 00003',

@@ -5,11 +5,11 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 /* https://laravel.com/docs/5.5/eloquent#eloquent-model-conventions */
 
-$app->group('/races', function (){{
-  // Get all goat races from the database
-  $this->get('', 'App\Controllers\RaceController:show_races')->setName('show_races');
-  // Get info on one goat race from the database
-  $this->get('/{id}', 'App\Controllers\RaceController:show_race');
+$app->group('/breeds', function (){{
+  // Get all goat breeds from the database
+  $this->get('', 'App\Controllers\BreedController:show_breeds');
+  // Get info on one goat breed from the database
+  $this->get('/{id}', 'App\Controllers\BreedController:show_breed');
 }});
 
 $app->group('/goats', function(){
@@ -43,6 +43,7 @@ $app->get('/failure', function (Request $request, Response $response) {
 });
 
 // Home page
+// TODO: Redirect to goats
 $app->get('/home', function (Request $request, Response $response) {
   $this->logger->addInfo("Route /home");
   return $this->view->render($response, 'home.twig');
@@ -64,6 +65,7 @@ $app->get('/405', function (Request $request, Response $response) {
 });
 
 // Home page
+// TODO: Redirect to goats
 $app->get('/', function (Request $request, Response $response) {
   $this->logger->addInfo("Route /");
   return $this->view->render($response, 'home.twig');

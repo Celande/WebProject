@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Goat;
-use App\Models\Race;
+use App\Models\Breed;
 use App\Models\Image;
 use App\Controllers\CommonController as CommonController;
 use Slim\Views\Twig;
@@ -32,11 +32,11 @@ class GoatController extends CommonController
 
     // Get all goats from the DB
     $goats = Goat::get();
-    $races = Race::get();
+    $breeds = Breed::get();
     $imgs = Image::where('type', 'like', 'goat')->get();
 
     return $this->view->render($response, 'home.twig', array('goats' => $goats,
-    'races' => $races, 'imgs' => $imgs));
+    'breeds' => $breeds, 'imgs' => $imgs));
   }
 
   /** show_goat
@@ -57,21 +57,21 @@ class GoatController extends CommonController
       parent::not_found($request, $response, $args);
     }
 
-    // Get the race according to the id to show the race name
-    $race = Race::find($goat->race_id);
+    // Get the breed according to the id to show the breed name
+    $breed = Breed::find($goat->breed_id);
     $img = Image::find($goat['img_id']);
 
     // Get the age according to the birthdate
     $age = $this->getAge($goat->birthdate);
 
-    $races = Race::get();
+    $breeds = Breed::get();
 
     return $this->view->render($response, 'home.twig',
     array('goat' => $goat,
     'age' => $age,
-    'race_name' => $race->name,
+    'breed_name' => $breed->name,
     'img' => $img,
-    'races' => $races
+    'breeds' => $breeds
   ));
 }
 
@@ -90,10 +90,10 @@ public function add_goat(Request $request, Response $response, $args){
   if($request->isGet()) {
     $this->logger->addInfo("Route /goats/add - get");
 
-    // Get the list of race for the form
-    $races = Race::get();
+    // Get the list of breed for the form
+    $breeds = Breed::get();
     // Return the form
-    return $this->view->render($response, 'add_goat.twig', array('races' => $races));
+    return $this->view->render($response, 'add_goat.twig', array('breeds' => $breeds));
 
   }
   // POST method
@@ -108,8 +108,8 @@ public function add_goat(Request $request, Response $response, $args){
       $array[$key] = $value;
     }
 
-    // Get the race id from the race name
-    $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
+    // Get the breed id from the breed name
+    $array['breed_id'] = Breed::select('id')->where('name', 'like', $array['breed_name'])->get()[0]->id;
 
     // Update the dates
     $array['created_at'] = new Datetime(); // ->format('Y-m-d')
@@ -170,12 +170,12 @@ public function update_goat(Request $request, Response $response, $args){
     // Get the goat according to the id
     $id = $request->getQueryParams()['id'];
     $goat = Goat::find(intval($id));
-    // Get the race according to the id
-    $race = Race::find($goat->race_id);
+    // Get the breed according to the id
+    $breed = Breed::find($goat->breed_id);
     // Return the form
     return $this->view->render($response, 'update_goat.twig', [
       'goat' => $goat,
-      'race_name' => $race->name]);
+      'breed_name' => $breed->name]);
 
     }
     // POST method
@@ -189,8 +189,8 @@ public function update_goat(Request $request, Response $response, $args){
       foreach($data as $key => $value){
         $array[$key] = $value;
       }
-      // Get the race id according to the race name
-      $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
+      // Get the breed id according to the breed name
+      $array['breed_id'] = Breed::select('id')->where('name', 'like', $array['breed_name'])->get()[0]->id;
 
       // Update the dates
       $array['updated_at'] = new Datetime();
@@ -221,14 +221,14 @@ public function update_goat(Request $request, Response $response, $args){
       $array[$key] = $value;
     }
 
-    $array['race_id'] = Race::select('id')->where('name', 'like', $array['race_name'])->get()[0]->id;
+    $array['breed_id'] = Breed::select('id')->where('name', 'like', $array['breed_name'])->get()[0]->id;
 
     // No Gender
     if($array['gender'] == "" && $array['exploitation'] != ""){
       $goats = Goat::where('price', '<=', $array['price'])
-                  ->where('race_id', $array['race_id'])
-                  ->whereHas('race', function($raceQuery) use($array){
-                      $raceQuery->where('id', '=', $array['race_id'])
+                  ->where('breed_id', $array['breed_id'])
+                  ->whereHas('breed', function($breedQuery) use($array){
+                      $breedQuery->where('id', '=', $array['breed_id'])
                                 ->where('height', '>=', $array['height'])
                                 ->where('weight', '>=', $array['weight'])
                                 ->where('color', 'like', '%'.$array['color'].'%')
@@ -239,10 +239,10 @@ public function update_goat(Request $request, Response $response, $args){
     // No Exploitation
     else if($array['exploitation'] == "" && $array['gender'] != ""){
       $goats = Goat::where('price', '<=', $array['price'])
-                  ->where('race_id', $array['race_id'])
+                  ->where('breed_id', $array['breed_id'])
                   ->where('gender', $array['gender'])
-                  ->whereHas('race', function($raceQuery) use($array){
-                      $raceQuery->where('id', '=', $array['race_id'])
+                  ->whereHas('breed', function($breedQuery) use($array){
+                      $breedQuery->where('id', '=', $array['breed_id'])
                                 ->where('height', '>=', $array['height'])
                                 ->where('weight', '>=', $array['weight'])
                                 ->where('color', 'like', '%'.$array['color'].'%');
@@ -252,9 +252,9 @@ public function update_goat(Request $request, Response $response, $args){
     // No Gender && No Exploitation
     else if($array['exploitation'] == "" && $array['gender'] == ""){
       $goats = Goat::where('price', '<=', $array['price'])
-                  ->where('race_id', $array['race_id'])
-                  ->whereHas('race', function($raceQuery) use($array){
-                      $raceQuery->where('id', '=', $array['race_id'])
+                  ->where('breed_id', $array['breed_id'])
+                  ->whereHas('breed', function($breedQuery) use($array){
+                      $breedQuery->where('id', '=', $array['breed_id'])
                                 ->where('height', '>=', $array['height'])
                                 ->where('weight', '>=', $array['weight'])
                                 ->where('color', 'like', '%'.$array['color'].'%');
@@ -263,10 +263,10 @@ public function update_goat(Request $request, Response $response, $args){
     }
     else{
       $goats = Goat::where('price', '<=', $array['price'])
-                    ->where('race_id', $array['race_id'])
+                    ->where('breed_id', $array['breed_id'])
                     ->where('gender', $array['gender'])
-                    ->whereHas('race', function($raceQuery) use($array){
-                        $raceQuery->where('id', '=', $array['race_id'])
+                    ->whereHas('breed', function($breedQuery) use($array){
+                        $breedQuery->where('id', '=', $array['breed_id'])
                                   ->where('height', '>=', $array['height'])
                                   ->where('weight', '>=', $array['weight'])
                                   ->where('color', 'like', '%'.$array['color'].'%')
@@ -274,8 +274,8 @@ public function update_goat(Request $request, Response $response, $args){
                     })
                     ->get();
     }
-    $races = Race::get();
-    return $this->view->render($response, 'home.twig', array('goats' => $goats,'races' => $races));
+    $breeds = Breed::get();
+    return $this->view->render($response, 'home.twig', array('goats' => $goats,'breeds' => $breeds));
   }
   // ERROR in method
   else{
@@ -292,8 +292,8 @@ public function update_goat(Request $request, Response $response, $args){
     **/
   private function store($array)
   {
-    // Remove race_name from the array
-    unset($array['race_name']);
+    // Remove breed_name from the array
+    unset($array['breed_name']);
 
     // Check if the goat is already in the DB
     // count must be equal to 0
@@ -330,15 +330,15 @@ public function update_goat(Request $request, Response $response, $args){
     **/
   private function update($array)
   {
-    // Remove race_name from the array
-    unset($array['race_name']);
+    // Remove breed_name from the array
+    unset($array['breed_name']);
     // Get the goat according to its id
     $goat = Goat::find(intval($array['id']));
     // Replace the data
     $goat->name = $array['name'];
     $goat->price = $array['price'];
     $goat->birthdate = $array['birthdate'];
-    $goat->race_id = $array['race_id'];
+    $goat->breed_id = $array['breed_id'];
     $goat->gender = $array['gender'];
     $goat->localisation = $array['localisation'];
     $goat->identification = $array['identification'];
