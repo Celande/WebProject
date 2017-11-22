@@ -15,11 +15,14 @@ class NotAllowedHandler extends NotAllowed {
         $this->view = $view;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response) {
-        $methods = {'GET', 'POST'};
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $methods) {
+        $methods = array('GET', 'POST');
         parent::__invoke($request, $response, $methods);
-        $this->view->render($response, '405.twig', array($methods => 'methods'));
-        return $response->withStatus(405);
+        $response->withStatus(405);
+        return $this->view->render($response, '405.twig',
+        array(
+          $methods => 'methods'
+        ));
     }
 }
 

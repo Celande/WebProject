@@ -57,6 +57,7 @@ $app = new \Slim\App($settings);
 // Set up dependencies => containers
 require __DIR__ . '/../src/dependencies.php';
 
+// Routes
 require __DIR__ . '/../src/routes.php';
 
 $app->run();

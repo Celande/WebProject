@@ -17,7 +17,7 @@ class Goat extends Model {
     /** breed
     * Used to set up the relation between the goat table and the breed table
     * Each goat has ONE breed
-  **/
+    **/
     public function breed(){
       return $this->belongsTo('App\Models\Breed'); // breed_id usefull ?
     }

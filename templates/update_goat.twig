@@ -10,78 +10,92 @@ Update a Goat
 <div class="goat_form">
 {% if goat %}
 <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
-
-  <p>
-    <label>Name</label>
-    <input type="text" name="name" value="{{ goat.name }}"required><br>
-  </p>
-
-  <p>
-    <label>Price</label>
-    <input type="number" name="price"
-    step="0.01" min=0 value="{{ goat.price }}"required>€<br>
-  </p>
-
-  <p>
-    <label>Birthdate</label>
-    <input type="date" name="birthdate"
-    value="{{ goat.birthdate }}" onblur="verifBirthdate(this)"><br>
-  </p>
-
-  <p>
-    <label>Breed</label>
-    <input type=text list=breeds
-    name="breed_name" placeholder="Select Breed"
-    value="{{ breed_name }}" required>
-    <datalist id=breeds name="breed_datalist">
-       {% for breed in breeds %}
+<div class="form-group">
+      <div class="form_field">
+        <label class="form-label">Name</label>
+        <input class="form-control" type="text" name="name" value="{{ goat.name }}"required><br>
+      </div>
+      <div class="form_field">
+        <label class="form-label">Price</label>
+        <div class="form-control">
+          <input type="number" name="price"
+          step="0.01" min=0 onblur="verifPrice(this)" value="{{ goat.price }}"required> €<br>
+        </div>
+      </div>
+      <div class="form_field">
+        <label class="form-label">Birthdate</label>
+        <input class="form-control" type="date" name="birthdate" id='birthId'
+        placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)"  value="{{ goat.birthdate }}"><br>
+      </div>
+      <div class="form_field">
+        <labe class="form-label">Breed</label>
+        <input class="form-control" type=text list=breeds
+        name="breed_name" placeholder="Select Breed" >
+        <datalist id=breeds name="breed_datalist"
+        value="{{ breed_name }}" required>
+          {% for breed in breeds %}
           <option value="{{ breed.name }}">
-        {% endfor %}
-    </datalist>
-  </p>
-
-  <p>
-    <label>Gender</label><br>
-    {% if goat.gender == "female" %}
-    <input type="radio" name="gender" value="female" checked required> Female<br>
-    <input type="radio" name="gender" value="male"> Male<br>
+            {% endfor %}
+          </datalist>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form_field">
+          <label class="form-label">Gender</label><br>
+          <div class="radio_field">
+            {% if goat.gender == "female" %}
+    <input class="form-check-input" type="radio" name="gender" value="female" checked required> Female<br>
+    <input class="form-check-input" type="radio" name="gender" value="male"> Male<br>
     {% else %}
-    <input type="radio" name="gender" value="female" required> Female<br>
-    <input type="radio" name="gender" value="male" checked> Male<br>
+    <input class="form-check-input" type="radio" name="gender" value="female" required> Female<br>
+    <input class="form-check-input" type="radio" name="gender" value="male" checked> Male<br>
     {% endif %}
-  <p>
-    <label>Localisation</label>
-    <input type="text" name="localisation"
-    value="{{ goat.localisation }}" required><br>
-  </p>
-  <p>
-    <label>Identification</label>
-    <input type="text" name="identification"
-    value="{{ goat.identification }}" onblur="verifIdentification(this)" placeholder="XXX 000 000 00000"><br>
-  </p>
-  <p>
-    <label>Description</label><br>
-    <textarea name="description" form="goatform"
-    rows="4" cols="50"
-    placeholder="{{ goat.description }}"
+    </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form_field">
+          <label class="form-label">Localisation</label>
+          <input class="form-control" type="text"
+          name="localisation" value="{{ goat.localisation }}"><br>
+        </div>
+
+        <div class="form_field">
+          <label class="form-label">Identification</label>
+          <input class="form-control" type="text" name="identification"
+          onblur="verifIdentification(this)"
+          value="{{ goat.identification }}" placeholder="XXX 000 000 00000" ><br>
+
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form_field">
+          <label class="form-label">Description</label><br>
+          <textarea class="form-control" name="description" form="goatform"
+          rows="4" cols="50" placeholder="{{ goat.description }}"
     value="{{ goat.description }}"></textarea>
-  </p>
-
-<p>
-{% if img %}
-    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-    alt="{{ goat.name }}" class="show_img">
-    {% endif %}
-    <input type="hidden" name="id" value="{{ goat.id }}">
-      <label>Add image (single): </label><br/>
-      <input type="file" name="image"/>
-    </p>
+        </div>
+      </div>
 
 
-  <p>
-    <input type="hidden" name="id" value="{{ goat.id }}">
-    <input type="submit"/>
-  </p>
+      <div class="form-group">
+        <div class="form_field">
+        {% if img %}
+        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+        alt="{{ goat.name }}" class="show_img">
+        {% endif %}
+        <input type="hidden" name="id" value="{{ goat.id }}">
+        <label for="files" class="btn btn-primary">Change image</label>
+        <input id="files" style="display: none;" class="form-control" type="file" name="image"/>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <div class="search_button">
+        <input class="btn btn-primary" type="submit" value="Update"/>
+      </div>
+    </div>
 </form>
 {% else %}
   <h3> ERROR </h3>

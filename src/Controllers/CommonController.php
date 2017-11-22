@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Image;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
 use Illuminate\Database\Query\Builder;
@@ -54,23 +55,23 @@ class CommonController
         return $response;
     }
 
-    /** not_found
+    /** notFound
     * Redirect to the 404 page
     * @param Request $request
     * @param Response $response
     * @param $args
     **/
-    protected function not_found(Request $request, Response $response, $args){
+    protected function notFound(Request $request, Response $response, $args){
       return $response->withRedirect('/404');
     }
 
-    /** not_allowed
+    /** notAllowed
     * Redirect to the 405 page
     * @param Request $request
     * @param Response $response
     * @param $args
     **/
-    protected function not_allowed(Request $request, Response $response, $args){
+    protected function notAllowed(Request $request, Response $response, $args){
       return $response->withRedirect('/405');
     }
 

@@ -8,120 +8,148 @@ Add a Goat
 
 {% block body_core %}
 <div class="goat_form">
-<form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
-
-  <p>
-    <label>Name</label>
-      <input type="text" name="name" required><br>
-    </p>
-    <p>
-      <label>Price</label>
-      <input type="number" name="price"
-      step="0.01" min=0 onblur="verifPrice(this)">€<br>
-    </p>
-    <p>
-      <label>Birthdate</label>
-      <input type="date" name="birthdate" id='birthId' placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)"><br>
-    </p>
-    <p>
-      <label>Breed</label>
-      <input type=text list=breeds
-      name="breed_name" placeholder="Select Breed" required>
-      <datalist id=breeds name="breed_datalist">
-        {% for breed in breeds %}
+  <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
+    <div class="form-group">
+      <div class="form_field">
+        <label class="form-label">Name</label>
+        <input class="form-control" type="text" name="name" required><br>
+      </div>
+      <div class="form_field">
+        <label class="form-label">Price</label>
+        <div class="form-control">
+          <input type="number" name="price"
+          step="0.01" min=0 onblur="verifPrice(this)"> €<br>
+        </div>
+      </div>
+      <div class="form_field">
+        <label class="form-label">Birthdate</label>
+        <input class="form-control" type="date" name="birthdate" id='birthId'
+        placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)" required><br>
+      </div>
+      <div class="form_field">
+        <labe class="form-label">Breed</label>
+        <input class="form-control" type=text list=breeds
+        name="breed_name" placeholder="Select Breed" required>
+        <datalist id=breeds name="breed_datalist">
+          {% for breed in breeds %}
           <option value="{{ breed.name }}">
-        {% endfor %}
-      </datalist>
-    </p>
-    <p>
-      <label>Gender</label><br>
-      <input type="radio" name="gender" value="female" required> Female<br>
-      <input type="radio" name="gender" value="male"> Male<br>
-    </p>
-    <p>
-      <label>Localisation</label>
-      <input type="text" name="localisation"><br>
-    </p>
+            {% endfor %}
+          </datalist>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form_field">
+          <label class="form-label">Gender</label><br>
+          <div class="radio_field">
+            <input class="form-check-input" type="radio" name="gender" value="female" required> Female<br>
+            <input class="form-check-input" type="radio" name="gender" value="male"> Male<br>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form_field">
+          <label class="form-label">Localisation</label>
+          <input class="form-control" type="text" name="localisation"><br>
+        </div>
 
-              <p>
-                <label>Identification</label>
-                <input type="text" name="identification" onblur="verifIdentification(this)" placeholder="XXX 000 000 00000"><br>
-              </p>
+        <div class="form_field">
+          <label class="form-label">Identification</label>
+          <input class="form-control" type="text" name="identification"
+          onblur="verifIdentification(this)" placeholder="XXX 000 000 00000" required><br>
 
-              <p>
-                <label>Description</label><br>
-                <textarea name="description" form="goatform"
-                rows="4" cols="50" placeholder="Enter text here..."></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form_field">
+          <label class="form-label">Description</label><br>
+          <textarea class="form-control" name="description" form="goatform"
+          rows="4" cols="50" placeholder="Enter text here..."></textarea>
+        </div>
+      </div>
 
-              </p>
 
-              <p>
-{% if img %}
-    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-    alt="{{ goat.name }}" class="show_img">
-    {% endif %}
-    <input type="hidden" name="id" value="{{ goat.id }}">
-      <label>Add image (single): </label><br/>
-      <input type="file" name="image"/>
-    </p>
+      <div class="form-group">
+        <div class="form_field">
+        {% if img %}
+        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+        alt="{{ goat.name }}" class="show_img">
+        {% endif %}
+        <input type="hidden" name="id" value="{{ goat.id }}">
+        <label for="files" class="btn btn-primary">Add image</label>
+        <input id="files" style="display: none;" class="form-control" type="file" name="image"/>
+      </div>
+    </div>
 
-              <p>
-                <input type="submit" value="Sell"/>
-              </p>
-            </form>
+
+    <div class="form-group">
+      <div class="search_button">
+        <input class="btn btn-primary" type="submit" value="Sell"/>
+      </div>
+    </div>
+
+  </form>
 </div>
 
 <script>
-  function verifIdentification(champ)
-  {
-    var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
-    if (regex.test(champ.value)){
-      return true;
-    }
-    else {
-      return false;
-    }
+function verifIdentification(champ)
+{
+  var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
+  if (regex.test(champ.value)){
+    return true;
   }
-  function verifPrice(champ)
-  {
-    if (champ.value>999999.99)
-    {
-      return false;
-    }
-    else {
-      return true;
-    }
+  else {
+    return false;
   }
-  function verifBirthdate()
+}
+function verifPrice(champ)
+{
+  if (champ.value>999999.99)
   {
-    var birth=new Date(document.getElementById('birthId').value);
-    var today=new Date();
-    if (today.getYear()<birth.getYear()){
-      return false;
-    }
-    if (today.getMonth()<birth.getMonth()){
-      return false;
-    }
-    if (today.getDate()<birth.getDate()){
-      return false;
-    }
-    else {
-      return true;
-    }
+    return false;
   }
-  function verifForm(f)
+  else {
+    return true;
+  }
+}
+function verifBirthdate()
+{
+  var birth=new Date(document.getElementById('birthId').value);
+  var today=new Date();
+  if (today.getYear()<birth.getYear()){
+    return false;
+  }
+  if (today.getMonth()<birth.getMonth()){
+    return false;
+  }
+  if (today.getDate()<birth.getDate()){
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+//TODO : Test
+function verifForm(f)
+{
+  var IdentificationOk = verifIdentification(f.identification);
+  var BirthdateOk = verifBirthdate();
+  var PriceOk = verifPrice(f.price);
+  if(IdentificationOk && BirthdateOk && PriceOk)
+  return true;
+  else
   {
-     var IdentificationOk = verifIdentification(f.identification);
-     var BirthdateOk = verifBirthdate();
-     var PriceOk = verifPrice(f.price);
-     if(IdentificationOk&&BirthdateOk&&PriceOk)
-      return true;
-     else
-     {
-        alert("Please fill the fields correctly.");
-        return false;
-     }
+    if(!IdentificationOk){
+      alert("Please fill the identification field correctly.");
+    } else if(!BirthdateOk){
+      alert("Please fill the birthdate field correctly.");
+    } else if(!PriceOk){
+      alert("Please fill the price field correctly.");
+    } else {
+      alert("Please fill the fields correctly.");
+    }
+    return false;
   }
+}
 </script>
 {% endblock %}
 {% block body_footer %} {% endblock %}

@@ -6,8 +6,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Model;
 
-/** Breed
-  * Model used for the breed table
+/** Image
+  * Model used for the image table
   **/
 class Image extends Model {
 
@@ -18,18 +18,18 @@ class Image extends Model {
 
     /** goat
     * Used to set the relation between the breed table and the goat table
-    * Each goat has ONE breed
+    * Each image has ONE goat
   **/
     public function goat(){
-      $this->belongsTo('App\Models\Goat', 'img_id'); // breed_id usefull ?
+      $this->belongsTo('App\Models\Goat', 'img_id');
     }
 
     /** breed
     * Used to set the relation between the breed table and the goat table
-    * Each goat has ONE breed
+    * Each image has ONE breed
   **/
     public function breed(){
-      $this->belongsTo('App\Models\Breed', 'img_id'); // breed_id usefull ?
+      $this->belongsTo('App\Models\Breed', 'img_id');
     }
 
 }

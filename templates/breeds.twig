@@ -3,7 +3,7 @@
 {% block page_title %} Breeds {% endblock %}
 
 {% block body_header %}
-<h1>Breeds</h1>
+Breeds
 {% endblock %}
 
 {% block body_core %}
@@ -32,20 +32,28 @@
     {% endif %}
     <p></p>
     <h4>Breed: {{ breed.name }}</h4>
-    <h5>Height: {{ breed.height }} cm</h5>
-    <h5>Weight: {{ breed.weight }} kg</h5>
-    <h5>Color: {{ breed.color }}</h5>
-    <h5>Origin: {{ breed.origin }}</h5>
+    <h5>Height: {% if breed.height != 0 %}
+                  {{ breed.height }} cm
+                {% else %}
+                  N/A
+                {% endif %}</h5>
+    <h5>Weight: {% if breed.weight != 0 %}
+                  {{ breed.weight }} kg
+                {% else %}
+                  N/A
+                {% endif %}</h5>
+    <h5>Color: {{ breed.color|capitalize }}</h5>
+    <h5>Origin: {{ breed.origin|capitalize }}</h5>
     {% if breed.hair_growth %}
       <h5>Hair growth: {{ breed.hair_growth }} cm/month</h5>
     {% endif %}
     {% if breed.milk_by_lactation %}
-      <h5>Milk by lactation: {{ breed.milk_by_lactation }} l</h5>
+      <h5>Milk by lactation: {{ breed.milk_by_lactation }} L</h5>
     {% endif %}
     {% if breed.duration_of_lactation %}
-      <h5>Duration of lactation: {{ breed.duration_of_lactation }} month</h5>
+      <h5>Duration of lactation: {{ breed.duration_of_lactation }} months</h5>
     {% endif %}
-    <h5>Exploitation: {{ breed.exploitation }}</h5>
+    <h5>Exploitation: {{ breed.exploitation|capitalize }}</h5>
   </div>
   {% endif %}
 

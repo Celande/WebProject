@@ -8,6 +8,7 @@ use \Illuminate\Database\Schema\Blueprint as Blueprint;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use App\Handlers\NotFoundHandler;
+use App\Handlers\NotAllowedHandler;
 
 require_once __DIR__ . '/../src/create_table.php';
 
@@ -29,11 +30,6 @@ $container['logger'] = function ($c) {
 };
 
 // Img path
-$container['img'] = function ($c) {
-  $img = 'img/';
-  return $img;
-};
-
 $container['img_breed'] = function ($c) {
   $img = 'img/breed/';
   return $img;
@@ -114,7 +110,8 @@ $container['notFoundHandler'] = function ($c) {
     });
 };
 
-$c['notAllowedHandler'] = function ($c) {
+//Override the default Not Allowed Handler
+$container['notAllowedHandler'] = function ($c) {
     return new NotAllowedHandler($c->get('view'), function ($request, $response) use ($c) {
         return $c['response']
             ->withStatus(405);

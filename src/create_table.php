@@ -37,221 +37,221 @@ function create_table (Capsule $capsule, $img_breed, $img_goat){
     });
 
     // Fill the image table
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 1
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '1',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 2
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '2',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 3
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '3',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 4
       'path' => $img_goat,
       'type' => 'goat',
       'num' => '1',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 5
       'path' => $img_goat,
       'type' => 'goat',
       'num' => '2',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 6
       'path' => $img_goat,
       'type' => 'goat',
       'num' => '3',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 7
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '4',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 8
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '5',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 9
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '6',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 10
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '7',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 11
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '8',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 12
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '9',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 13
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '10',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 14
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '11',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 15
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '12',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 16
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '13',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 17
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '14',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 18
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '15',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 19
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '16',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 20
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '17',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 21
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '18',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 22
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '19',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 23
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '20',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 24
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '21',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 25
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '22',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 26
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '23',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 27
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '24',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 28
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '25',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 29
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '26',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
+    $capsule::table('image')->insert([ // 30
       'path' => $img_breed,
       'type' => 'breed',
       'num' => '27',
       'ext' => 'jpg'
     ]);
 
-    $capsule::table('image')->insert([
-      'path' => $img_breed,
-      'type' => 'breed',
-      'num' => '28',
-      'ext' => 'jpg'
+    $capsule::table('image')->insert([ // 31
+      'path' => $img_goat,
+      'type' => 'goat',
+      'num' => '0',
+      'ext' => 'png'
     ]);
   }
 

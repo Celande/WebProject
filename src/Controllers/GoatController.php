@@ -22,41 +22,48 @@ class GoatController extends CommonController
 {
   /*** ***** Route method ***** ***/
 
-  /** show_goats
+  /** showGoats
   * List all the goats in the DB
   * @param Request $request
   * @param Response $response
   * @param $args
   * @return $view
   **/
-  public function show_goats(Request $request, Response $response, $args){
+  public function showGoats(Request $request, Response $response, $args){
     $this->logger->addInfo("Route /goats");
 
     // Get all goats from the DB
     $goats = Goat::get();
+    // Get all breeds from the DB
     $breeds = Breed::get();
+    // Get all images from the DB for the goats
     $imgs = Image::where('type', 'like', 'goat')->get();
 
-    return $this->view->render($response, 'home.twig', array('goats' => $goats,
-    'breeds' => $breeds, 'imgs' => $imgs));
+    return $this->view->render($response, 'home.twig',
+    array(
+      'goats' => $goats,
+      'breeds' => $breeds,
+      'imgs' => $imgs
+    ));
   }
 
-  /** show_goat
+  /** showGoat
   * Show the data of the goat corresponding to the id
   * @param Request $request
   * @param Response $response
   * @param $args
   * @return $view
   **/
-  public function show_goat(Request $request, Response $response, $args){
+  public function showGoat(Request $request, Response $response, $args){
     $this->logger->addInfo("Route /goats/{id}");
 
+    // Get the goat according to the id
     $id = $request->getAttribute('id');
     $goat = Goat::find($id);
 
     // Can't find the goat then 404
     if(!$goat){
-      parent::not_found($request, $response, $args);
+      parent::notFound($request, $response, $args);
     }
 
     // Get the breed according to the id to show the breed name
@@ -65,19 +72,20 @@ class GoatController extends CommonController
 
     // Get the age according to the birthdate
     $age = $this->getAge($goat->birthdate);
-
-    $breeds = Breed::get();
+    // Get all the breeds
+    $breeds = Breed::all();
 
     return $this->view->render($response, 'home.twig',
-    array('goat' => $goat,
-    'age' => $age,
-    'breed_name' => $breed->name,
-    'img' => $img,
-    'breeds' => $breeds
-  ));
+    array(
+      'goat' => $goat,
+      'age' => $age,
+      'breed_name' => $breed->name,
+      'img' => $img,
+      'breeds' => $breeds
+    ));
 }
 
-/** add_goat
+/** addGoat
 * Add a goat to the DB
 * GET: show the form
 * POST: add the goat if the identification doesn't already exist
@@ -87,15 +95,18 @@ class GoatController extends CommonController
 * @param $args
 * @return $view
 **/
-public function add_goat(Request $request, Response $response, $args){
+public function addGoat(Request $request, Response $response, $args){
   // GET method
   if($request->isGet()) {
     $this->logger->addInfo("Route /goats/add - get");
 
     // Get the list of breed for the form
-    $breeds = Breed::get();
+    $breeds = Breed::all();
     // Return the form
-    return $this->view->render($response, 'add_goat.twig', array('breeds' => $breeds));
+    return $this->view->render($response, 'add_goat.twig',
+    array(
+      'breeds' => $breeds
+    ));
 
   }
   // POST method
@@ -111,23 +122,36 @@ public function add_goat(Request $request, Response $response, $args){
     }
 
     // Get the breed id from the breed name
-    $array['breed_id'] = Breed::select('id')->where('name', 'like', $array['breed_name'])->get()[0]->id;
+    $array['breed_id'] = Breed::where('name', 'like', $array['breed_name'])
+                                ->first()
+                                ->id;
 
     // Update the dates
-    $array['created_at'] = new Datetime(); // ->format('Y-m-d')
+    $array['created_at'] = new Datetime();
     $array['updated_at'] = new Datetime();
 
     // Add Image
-    $uploadedFiles = $request->getUploadedFiles();
+    // Default image
+    $array['img_id'] = Image::where('type', 'like', 'goat')
+                          ->where('num', '=', '0')
+                          ->first()
+                          ->id;
 
+    // Upload image
+    $uploadedFiles = $request->getUploadedFiles();
     $uploadedFile = $uploadedFiles['image'];
+
     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+      // Get the file
       $result = $this->moveUploadedFile($this->imgDir, $uploadedFile);
+      // Check that it exists
       if($result['filename'] == NULL || $result['id'] == NULL){
         return $response->withRedirect('/failure');
       }
-
-      $array['img_id'] = $result['id'];
+      // Add image to goat
+      if($result['id'] != NULL){
+        $array['img_id'] = $result['id'];
+      }
     }
 
     // If the goat was correctly added, you can redirect
@@ -139,18 +163,18 @@ public function add_goat(Request $request, Response $response, $args){
   }
   // ERROR in method
   else{
-    return parent::not_allowed($request, $response, $args);
+    return parent::notAllowed($request, $response, $args);
   }
 }
 
-/** remove_goat
+/** removeGoat
 * Defoult behavior
 * @param Request $request
 * @param Response $response
 * @param $args
 * @return $view
 **/
-public function remove_goat(Request $request, Response $response, $args){
+public function removeGoat(Request $request, Response $response, $args){
   $this->logger->addInfo("Route /goats/remove");
 
   // Get data from the post method
@@ -168,7 +192,7 @@ public function remove_goat(Request $request, Response $response, $args){
   return $response->withRedirect('/failure');
 }
 
-/** update_goat
+/** updateGoat
 * Update a goat in the DB
 * GET: Return the form
 * POST: Update the data on the goat in the DB
@@ -177,7 +201,7 @@ public function remove_goat(Request $request, Response $response, $args){
 * @param $args
 * @return $view
 **/
-public function update_goat(Request $request, Response $response, $args){
+public function updateGoat(Request $request, Response $response, $args){
   // GET method
   if($request->isGet()) {
     $this->logger->addInfo("Route /goats/update - get");
@@ -187,9 +211,11 @@ public function update_goat(Request $request, Response $response, $args){
     $goat = Goat::find(intval($id));
     // Get the breed according to the id
     $breed = Breed::find($goat->breed_id);
-    $img = Image::find($goat['img_id']);
+    // Get the image according to the id
+    $img = Image::find($goat->id);
     // Return the form
-    return $this->view->render($response, 'update_goat.twig', array(
+    return $this->view->render($response, 'update_goat.twig',
+    array(
       'goat' => $goat,
       'breed_name' => $breed->name,
       'img' => $img
@@ -208,7 +234,9 @@ public function update_goat(Request $request, Response $response, $args){
       $array[$key] = $value;
     }
     // Get the breed id according to the breed name
-    $array['breed_id'] = Breed::select('id')->where('name', 'like', $array['breed_name'])->get()[0]->id;
+    $array['breed_id'] = Breed::where('name', 'like', $array['breed_name'])
+                                ->first()
+                                ->id;
 
     // Update the dates
     $array['updated_at'] = new Datetime();
@@ -218,6 +246,7 @@ public function update_goat(Request $request, Response $response, $args){
 
     $uploadedFile = $uploadedFiles['image'];
     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+
       $result = $this->moveUploadedFile($this->imgDir, $uploadedFile);
       if($result['filename'] == NULL || $result['id'] == NULL){
         return $response->withRedirect('/failure');
@@ -225,8 +254,6 @@ public function update_goat(Request $request, Response $response, $args){
 
       $array['img_id'] = $result['id'];
     }
-
-    $img = Image::find($array['img_id']);
 
     // If the goat was correctly updated, redirect to success page
     if($this->update($array)){
@@ -237,11 +264,19 @@ public function update_goat(Request $request, Response $response, $args){
   }
   // ERROR in method
   else{
-    return parent::not_allowed($request, $response, $args);
+    return parent::notAllowed($request, $response, $args);
   }
 }
 
-public function search_goat(Request $request, Response $response, $args){
+/** searchGoat
+* Search for a goat
+* POST: Use the form to retrieve the goats
+* @param Request $request
+* @param Response $response
+* @param $args
+* @return $view
+**/
+public function searchGoat(Request $request, Response $response, $args){
   // POST method
   if($request->isPost()) {
     $this->logger->addInfo("Route /goats/search - post");
@@ -254,8 +289,11 @@ public function search_goat(Request $request, Response $response, $args){
       $array[$key] = $value;
     }
 
-    $array['breed_id'] = Breed::select('id')->where('name', 'like', $array['breed_name'])->get()[0]->id;
+    $array['breed_id'] = Breed::where('name', 'like', $array['breed_name'])
+                                ->first()
+                                ->id;
 
+    // Get the date from the age
     $date = new DateTime();
     if($array['age'] != NULL){
       $date->sub(new DateInterval('P'.$array['age'].'M'));
@@ -264,18 +302,18 @@ public function search_goat(Request $request, Response $response, $args){
     }
 
     if($array['price'] == NULL){
-      $array['price'] = 999999.99;
+      $array['price'] = 999999.99; // Max price
     }
 
     if($array['height'] == NULL){
-      $array['height'] = 0;
+      $array['height'] = 0; // Min height
     }
 
     if($array['weight'] == NULL){
-      $array['weight'] = 0;
+      $array['weight'] = 0; // Min weight
     }
 
-    $array['color'] = strtolower($array['color']);
+    $array['color'] = strtolower($array['color']); // LowerCase
 
     // No Race && Gender
     if($array['breed_id'] == "" && $array['gender'] == "" && $array['exploitation'] != ""){
@@ -351,16 +389,22 @@ public function search_goat(Request $request, Response $response, $args){
       })
       ->get();
     }
-    $breeds = Breed::get();
-    $imgs = Image::get();
-    return $this->view->render($response, 'home.twig', array('goats' => $goats,
-    'breeds' => $breeds,
-    'imgs' => $imgs
-  ));
+
+    // Get breeds
+    $breeds = Breed::all();
+    // Get images
+    $imgs = Image::all();
+
+    return $this->view->render($response, 'home.twig',
+    array(
+      'goats' => $goats,
+      'breeds' => $breeds,
+      'imgs' => $imgs
+    ));
   }
   // ERROR in method
   else{
-    return parent::not_allowed($request, $response, $args);
+    return parent::notAllowed($request, $response, $args);
   }
 }
 
@@ -397,8 +441,9 @@ private function delete($id){
   // Get the goat from the DB
   $goat = Goat::find($id);
   $imgId = $goat->img_id;
-  // Deleted the goat
+  // Delete the goat
   if($goat->delete()){
+    // Delete the image
     if($this->deleteImg($imgId)){
       return TRUE;
     }
@@ -431,6 +476,7 @@ private function update($array)
   $goat->img_id = $array['img_id'];
   // Goat was updated
   if($goat->save()){
+    // Delete old image
     if($imgToRemove != NULL){
       $this->deleteImg($imgToRemove);
       return TRUE;
@@ -440,12 +486,30 @@ private function update($array)
   return FALSE;
 }
 
+/** deleteImg
+* Delete the image in the DB and delete the file
+* @param $id
+* @return boolean
+**/
 private function deleteImg($id){
+  // Don't delete default image
+  if($id == Image::where('type', 'like', 'goat')
+                          ->where('num', '=', '0')
+                          ->first()
+                          ->id
+                        ){
+    return true;
+  }
+
+  // Get image
   $img = Image::find($id);
-  echo " IMG ID : " . $id;
+  // Get file
   $file = "public/".$img->path.$img->type.$img->num.".".$img->ext;
+
   if (file_exists($file)) {
+    // Delete DB
     if($img->delete()){
+      // Delete file
       unlink($file);
       return true;
     }
@@ -494,32 +558,37 @@ public function getAge($birthdate){
 private function moveUploadedFile($directory, UploadedFile $uploadedFile)
 {
   $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
-  //$basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
   $basename = "";
   // No image except for the default
   if(Image::where('type', 'like', 'goat')->get()->count() == 1){
     $basename = "goat1";
   } else {
-    $last_num = Image::where('type', 'like', 'goat')
+    // Get last entry
+    $lastNum = Image::where('type', 'like', 'goat')
     ->orderBy('num', 'desc')
     ->first();
-    $num = $last_num->num + 1;
+    $num = $lastNum->num + 1;
     $basename = "goat".$num;
   }
+  // Create filename
   $filename = sprintf('%s.%0.8s', $basename, $extension);
 
+  // Upload file
   $uploadedFile->moveTo("public/" . $directory . DIRECTORY_SEPARATOR . $filename);
 
-  // Add to DB
+  // Create object
   $image = new Image;
   $image->path = $directory;
   $image->type = 'goat';
   $image->num = $num;
   $image->ext = $extension;
 
+  // Result returned
   $result = array();
   $result['filename'] = NULL;
-  $result['lastId'] = NULL;
+  $result['id'] = NULL;
+
+  // Add to DB
   if($image->save()){
     $result['filename'] = $filename;
     $result['id'] = $image->id;

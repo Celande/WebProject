@@ -103,6 +103,7 @@
   background-color:#BBD9D5;
   padding-top:15px;
   padding-bottom:15px;
+  text-align:center;
 }
 
 .show_animals{
@@ -113,11 +114,11 @@
   text-align:center;
 }
 .mini_img{
-  width:80px;
+  width:10%;
   text-align: left;
 }
 .show_img{
-  width:200px;
+  width:50%;
   text-align: center;
 }
 .profile{
@@ -129,6 +130,23 @@
 }
 .search_button{
   text-align: center;
+}
+.form_field{
+  display: inline-block; /*table-cell;*/
+}
+.radio_field{
+  text-align: left;
+}
+.form-group {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.form-label{
+  font-weight: bold;
+}
+.navbar-title{
+  float: right;
+  color: white;
 }
 p{
   text-align: center;
@@ -2033,10 +2051,6 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 .input-group-lg > select.input-group-addon:not([size]):not([multiple]),
 .input-group-lg > .input-group-btn > select.btn:not([size]):not([multiple]) {
   height: calc(2.875rem + 2px);
-}
-
-.form-group {
-  margin-bottom: 1rem;
 }
 
 .form-text {
