@@ -7,27 +7,27 @@ Update a Goat
 {% endblock %}
 
 {% block body_core %}
-<div class="goat_form">
+<div class="goat-form">
 {% if goat %}
 <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
 <div class="form-group">
-      <div class="form_field">
+      <div class="form-field">
         <label class="form-label">Name</label>
         <input class="form-control" type="text" name="name" value="{{ goat.name }}"required><br>
       </div>
-      <div class="form_field">
+      <div class="form-field">
         <label class="form-label">Price</label>
         <div class="form-control">
           <input type="number" name="price"
           step="0.01" min=0 onblur="verifPrice(this)" value="{{ goat.price }}"required> €<br>
         </div>
       </div>
-      <div class="form_field">
+      <div class="form-field">
         <label class="form-label">Birthdate</label>
         <input class="form-control" type="date" name="birthdate" id='birthId'
         placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)"  value="{{ goat.birthdate }}"><br>
       </div>
-      <div class="form_field">
+      <div class="form-field">
         <labe class="form-label">Breed</label>
         <input class="form-control" type=text list=breeds
         name="breed_name" placeholder="Select Breed" >
@@ -40,9 +40,9 @@ Update a Goat
         </div>
       </div>
       <div class="form-group">
-        <div class="form_field">
+        <div class="form-field">
           <label class="form-label">Gender</label><br>
-          <div class="radio_field">
+          <div class="radio-field">
             {% if goat.gender == "female" %}
     <input class="form-check-input" type="radio" name="gender" value="female" checked required> Female<br>
     <input class="form-check-input" type="radio" name="gender" value="male"> Male<br>
@@ -54,13 +54,13 @@ Update a Goat
         </div>
       </div>
       <div class="form-group">
-        <div class="form_field">
+        <div class="form-field">
           <label class="form-label">Localisation</label>
           <input class="form-control" type="text"
           name="localisation" value="{{ goat.localisation }}"><br>
         </div>
 
-        <div class="form_field">
+        <div class="form-field">
           <label class="form-label">Identification</label>
           <input class="form-control" type="text" name="identification"
           onblur="verifIdentification(this)"
@@ -69,7 +69,7 @@ Update a Goat
         </div>
       </div>
       <div class="form-group">
-        <div class="form_field">
+        <div class="form-field">
           <label class="form-label">Description</label><br>
           <textarea class="form-control" name="description" form="goatform"
           rows="4" cols="50" placeholder="{{ goat.description }}"
@@ -79,10 +79,10 @@ Update a Goat
 
 
       <div class="form-group">
-        <div class="form_field">
+        <div class="form-field">
         {% if img %}
         <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-        alt="{{ goat.name }}" class="show_img">
+        alt="{{ goat.name }}" class="show-img">
         {% endif %}
         <input type="hidden" name="id" value="{{ goat.id }}">
         <label for="files" class="btn btn-primary">Change image</label>
@@ -92,7 +92,7 @@ Update a Goat
 
 
     <div class="form-group">
-      <div class="search_button">
+      <div class="search-button">
         <input class="btn btn-primary" type="submit" value="Update"/>
       </div>
     </div>

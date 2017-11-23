@@ -99,25 +99,25 @@
   box-sizing: border-box;
 }
 
-.goat_form{
+.goat-form{
   background-color:#BBD9D5;
   padding-top:15px;
   padding-bottom:15px;
   text-align:center;
 }
 
-.show_animals{
+.show-animals{
   background-color:#CCE6E3;
   padding-top:20px;
   padding-left:50px;
   padding-bottom:20px;
   text-align:center;
 }
-.mini_img{
+.mini-img{
   width:10%;
   text-align: left;
 }
-.show_img{
+.show-img{
   width:50%;
   text-align: center;
 }
@@ -128,13 +128,13 @@
   padding-bottom:20px;
   text-align:center;
 }
-.search_button{
+.search-button{
   text-align: center;
 }
-.form_field{
+.form-field{
   display: inline-block; /*table-cell;*/
 }
-.radio_field{
+.radio-field{
   text-align: left;
 }
 .form-group {

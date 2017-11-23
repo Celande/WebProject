@@ -7,7 +7,7 @@ Breeds
 {% endblock %}
 
 {% block body_core %}
-<div class="show_animals">
+<div class="show-animals">
     {% for breed in breeds %}
     <div class="row">
         <div class="col-lg-4 col-md-6 mb-4">
@@ -16,7 +16,7 @@ Breeds
         <h2>  <a href="/breeds/{{ breed.id }}">
         {% for img in imgs if breed.img_id == img.id %}
         <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-        class="mini_img">
+        class="mini-img">
         {% endfor %}
         {{ breed.name }}</a></h2></div></div>
       </div>
@@ -28,7 +28,7 @@ Breeds
   <div class="profile">
   {% if img %}
     <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-    alt="{{ breed.name }}" class="show_img">
+    alt="{{ breed.name }}" class="show-img">
     {% endif %}
     <p></p>
     <h4>Breed: {{ breed.name }}</h4>

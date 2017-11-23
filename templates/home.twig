@@ -13,10 +13,10 @@ Goats
 {% endblock %}
 
 {% block body_core %}
-<div class="goat_form">
+<div class="goat-form">
   <form method="POST" action="/goats/search" enctype="multipart/form-data" id="goatform" name="goatform">
     <div class="form-group">
-      <div class="form_field">
+      <div class="form-field">
         <label class="form-label">Breed</label>
         <select class="form-control" name="breed_name">
           <option value = "">Any</option>
@@ -25,7 +25,7 @@ Goats
           {% endfor %}
         </select>
       </div>
-      <div class="form_field">
+      <div class="form-field">
         <label class="form-label">Gender</label>
         <select class="form-control" name="gender">
           <option value = "">Any</option>
@@ -33,7 +33,7 @@ Goats
           <option value="female">Female</option>
         </select>
       </div>
-      <div class="form_field">
+      <div class="form-field">
         <label class="form-label">Exploitation</label>
         <select class="form-control" name="exploitation">
           <option value = "">Any</option>
@@ -47,13 +47,13 @@ Goats
       </div>
     </div>
     <div class="form-group">
-      <div class="form_field">
+      <div class="form-field">
         <div class="form-control">
           <input type="number" name="height" placeholder="Height"
           step="0.01" min=0> cm
         </div>
       </div>
-      <div class="form_field">
+      <div class="form-field">
         <div class="form-control">
           <input type="number" name="weight" placeholder="Weight"
           step="0.01" min=0> kg
@@ -61,7 +61,7 @@ Goats
       </div>
     </div>
     <div class="form-group">
-      <div class="form_field">
+      <div class="form-field">
         <input class="form-control" type=text list=colors
         name="color" placeholder="Select Color">
         <datalist id=colors name="color_datalist">
@@ -71,13 +71,13 @@ Goats
         </datalist>
       </input>
     </div>
-    <div class="form_field">
+    <div class="form-field">
     <div class="form-control">
       <input type="number" name="price" min="0"
       max="99999.99" placeholder="0-999 999"> €
     </div>
   </div>
-    <div class="form_field">
+    <div class="form-field">
       <div class="form-control">
         <input class="no-border" type="number" name="age" placeholder="Age"
         step="1" min=0> month(s)
@@ -85,13 +85,13 @@ Goats
     </div>
   </div>
   <div class="form-group">
-    <div class="search_button">
+    <div class="search-button">
       <input class="btn btn-primary" type="submit" value="Search"/>
     </div>
   </div>
 </form>
 </div>
-<div class="show_animals">
+<div class="show-animals">
   {% for goat in goats %}
   <div class="row">
     <div class="col-lg-4 col-md-6 mb-4">
@@ -100,7 +100,7 @@ Goats
           <div class="card-body">
             {% for img in imgs if goat.img_id == img.id %}
             <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-            class="mini_img">
+            class="mini-img">
             {% endfor %}
             {{ goat.name }}</div></a>
           </div>
@@ -112,7 +112,7 @@ Goats
     {% if goat %}
     <div class="profile">
       {% if img %}
-      <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}" class="show_img">
+      <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}" class="show-img">
       {% endif %}
       <h4>Name: {{ goat.name }}</h4>
       <h5>Price: {{ goat.price }} €</h5>
