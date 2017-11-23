@@ -118,7 +118,7 @@ Goats
       <h5>Price: {{ goat.price }} €</h5>
       <h5>Age: {{ age }}</h5>
       <h5>Birthdate: {{ goat.birthdate|date("d/m/Y") }}</h5>
-      <h5>Breed: {{ breed_name }}</h5>
+      <h5>Breed: <a href="/breeds/{{ breed.id }}">{{ breed.name }}</a></h5>
       <h5>Gender: {{ goat.gender|capitalize }}</h5>
       <h5>Localisation: {{ goat.localisation|capitalize }}</h5>
       <h5>Description: {{ goat.description|capitalize }}</h5>

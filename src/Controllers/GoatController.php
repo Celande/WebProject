@@ -79,7 +79,7 @@ class GoatController extends CommonController
     array(
       'goat' => $goat,
       'age' => $age,
-      'breed_name' => $breed->name,
+      'breed' => $breed,
       'img' => $img,
       'breeds' => $breeds
     ));
