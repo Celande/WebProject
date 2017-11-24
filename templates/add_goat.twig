@@ -12,19 +12,21 @@ Add a Goat
     <div class="form-group">
       <div class="form-field">
         <label class="form-label">Name</label>
-        <input class="form-control" type="text" name="name" required><br>
+        <input class="form-control" type="text" name="name" required>
       </div>
       <div class="form-field">
         <label class="form-label">Price</label>
         <div class="form-control">
           <input type="number" name="price"
-          step="0.01" min=0 onblur="verifPrice(this)"> €<br>
+          step="0.01" min=0 onblur="verifPrice(this)"> €
         </div>
       </div>
+    </div>
+      <div class="form-group">
       <div class="form-field">
         <label class="form-label">Birthdate</label>
         <input class="form-control" type="date" name="birthdate" id='birthId'
-        placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)" required><br>
+        placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)" required>
       </div>
       <div class="form-field">
         <labe class="form-label">Breed</label>
@@ -83,7 +85,7 @@ Add a Goat
 
     <div class="form-group">
       <div class="search-button">
-        <input class="btn btn-primary" type="submit" value="Sell"/>
+        <input style="background-color: green; border-color: green;"class="btn btn-primary" type="submit" value="Sell"/>
       </div>
     </div>
 

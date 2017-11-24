@@ -13,26 +13,28 @@ Update a Goat
 <div class="form-group">
       <div class="form-field">
         <label class="form-label">Name</label>
-        <input class="form-control" type="text" name="name" value="{{ goat.name }}"required><br>
+        <input class="form-control" type="text" name="name" value="{{ goat.name }}"required>
       </div>
       <div class="form-field">
         <label class="form-label">Price</label>
         <div class="form-control">
           <input type="number" name="price"
-          step="0.01" min=0 onblur="verifPrice(this)" value="{{ goat.price }}"required> €<br>
+          step="0.01" min=0 onblur="verifPrice(this)" value="{{ goat.price }}"required> €
         </div>
       </div>
+    </div>
+      <div class="form-group">
       <div class="form-field">
         <label class="form-label">Birthdate</label>
         <input class="form-control" type="date" name="birthdate" id='birthId'
-        placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)"  value="{{ goat.birthdate }}"><br>
+        placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)"  value="{{ goat.birthdate }}">
       </div>
       <div class="form-field">
         <labe class="form-label">Breed</label>
-        <input class="form-control" type=text list=breeds
+        <input value="{{ breed_name }}" class="form-control" type=text list=breeds
         name="breed_name" placeholder="Select Breed" >
         <datalist id=breeds name="breed_datalist"
-        value="{{ breed_name }}" required>
+        required>
           {% for breed in breeds %}
           <option value="{{ breed.name }}">
             {% endfor %}
@@ -93,7 +95,7 @@ Update a Goat
 
     <div class="form-group">
       <div class="search-button">
-        <input class="btn btn-primary" type="submit" value="Update"/>
+        <input style="background-color: green; border-color: green;" class="btn btn-primary" type="submit" value="Update"/>
       </div>
     </div>
 </form>

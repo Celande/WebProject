@@ -21,7 +21,7 @@ class Image extends Model {
     * Each image has ONE goat
   **/
     public function goat(){
-      $this->belongsTo('App\Models\Goat', 'img_id');
+      $this->belongsTo('App\Models\Goat');
     }
 
     /** breed
@@ -29,7 +29,7 @@ class Image extends Model {
     * Each image has ONE breed
   **/
     public function breed(){
-      $this->belongsTo('App\Models\Breed', 'img_id');
+      $this->belongsTo('App\Models\Breed');
     }
 
 }

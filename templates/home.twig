@@ -91,9 +91,10 @@ Goats
   </div>
 </form>
 </div>
+
 <div class="show-animals">
-  {% for goat in goats %}
   <div class="row">
+  {% for goat in goats %}
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card h-100">
         <a href="/goats/{{ goat.id }}">
@@ -102,11 +103,25 @@ Goats
             <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
             class="mini-img">
             {% endfor %}
-            {{ goat.name }}</div></a>
+            <h4 class="card-title">{{ goat.name }}</h4></a>
+            <h5>{{ goat.price }} €</h5>
+            <p class="card-text">{{ goat.gender|capitalize }}<br>{{ goat.breed.name }}<br>{{ ages[goat.id] }}</p>
+            <div class="card-footer">
+            <form method="POST" action="/goats/remove">
+              <input style="float: right; background-color: red; border-color: red;" class="btn btn-primary" type="submit" value="Remove">
+              <input type="hidden" name="id" value="{{ goat.id }}">
+            </form>
+
+            <form method="GET" action="/goats/update">
+              <input type="hidden" name="id" value="{{ goat.id }}">
+              <input style="float: left; background-color: yellow; border-color: yellow; color: black;" class="btn btn-primary" type="submit" value="Update">
+            </form>
+          </div>
           </div>
         </div>
-      </div>
+        </div>
       {% endfor %}
+    </div>
     </div>
 
     {% if goat %}
@@ -118,7 +133,7 @@ Goats
       <h5>Price: {{ goat.price }} €</h5>
       <h5>Age: {{ age }}</h5>
       <h5>Birthdate: {{ goat.birthdate|date("d/m/Y") }}</h5>
-      <h5>Breed: <a href="/breeds/{{ breed.id }}">{{ breed.name }}</a></h5>
+      <h5>Breed: <a href="/breeds/{{ goat.breed.id }}">{{ goat.breed.name }}</a></h5>
       <h5>Gender: {{ goat.gender|capitalize }}</h5>
       <h5>Localisation: {{ goat.localisation|capitalize }}</h5>
       <h5>Description: {{ goat.description|capitalize }}</h5>
@@ -129,14 +144,14 @@ Goats
       <h5>Updated at: {{ goat.updated_at|date("d/m/Y") }}</h5><br>
       <div class="form-group">
       <form method="POST" action="/goats/remove">
-        <input style="float: right;" class="btn btn-primary" type="submit" value="Remove">
-        <input type="hidden" name="id" value="{{ goat.id }}">
-      </form>
+              <input style="float: right; background-color: red; border-color: red;" class="btn btn-primary" type="submit" value="Remove">
+              <input type="hidden" name="id" value="{{ goat.id }}">
+            </form>
 
-      <form method="GET" action="/goats/update">
-        <input type="hidden" name="id" value="{{ goat.id }}">
-        <input style="float: left;" class="btn btn-primary" type="submit" value="Update">
-      </form>
+            <form method="GET" action="/goats/update">
+              <input type="hidden" name="id" value="{{ goat.id }}">
+              <input style="float: left; background-color: yellow; border-color: yellow; color: black;" class="btn btn-primary" type="submit" value="Update">
+            </form>
     </div>
     </div>
     {% endif %}

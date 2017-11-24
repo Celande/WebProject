@@ -24,4 +24,8 @@ class Breed extends Model {
       return $this->hasMany('App\Models\Goat');
     }
 
+    public function image(){
+      return $this->hasOne('App\Models\Image');
+    }
+
 }

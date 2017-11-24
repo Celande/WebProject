@@ -19,7 +19,11 @@ class Goat extends Model {
     * Each goat has ONE breed
     **/
     public function breed(){
-      return $this->belongsTo('App\Models\Breed'); // breed_id usefull ?
+      return $this->belongsTo('App\Models\Breed');
+    }
+
+    public function image(){
+      return $this->hasOne('App\Models\Image');
     }
 
 }

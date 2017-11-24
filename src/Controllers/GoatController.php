@@ -34,16 +34,22 @@ class GoatController extends CommonController
 
     // Get all goats from the DB
     $goats = Goat::get();
-    // Get all breeds from the DB
-    $breeds = Breed::get();
     // Get all images from the DB for the goats
     $imgs = Image::where('type', 'like', 'goat')->get();
+    // Get all the breeds
+    $breeds = Breed::all();
+    // Get ages
+    $ages = array();
+    foreach($goats as $goat){
+      $ages[$goat->id] = $this->getAge($goat->birthdate);
+    }
 
     return $this->view->render($response, 'home.twig',
     array(
       'goats' => $goats,
       'breeds' => $breeds,
-      'imgs' => $imgs
+      'imgs' => $imgs,
+      'ages' => $ages
     ));
   }
 
@@ -66,8 +72,7 @@ class GoatController extends CommonController
       parent::notFound($request, $response, $args);
     }
 
-    // Get the breed according to the id to show the breed name
-    $breed = Breed::find($goat->breed_id);
+    // Get the image according to the id
     $img = Image::find($goat['img_id']);
 
     // Get the age according to the birthdate
@@ -79,7 +84,6 @@ class GoatController extends CommonController
     array(
       'goat' => $goat,
       'age' => $age,
-      'breed' => $breed,
       'img' => $img,
       'breeds' => $breeds
     ));
@@ -295,11 +299,10 @@ public function searchGoat(Request $request, Response $response, $args){
 
     // Get the date from the age
     $date = new DateTime();
-    if($array['age'] != NULL){
-      $date->sub(new DateInterval('P'.$array['age'].'M'));
-    } else {
+    if($array['age'] == NULL){
       $array['age'] = 3000; // 250 years old
     }
+    $date->sub(new DateInterval('P'.$array['age'].'M'));
 
     if($array['price'] == NULL){
       $array['price'] = 999999.99; // Max price
@@ -318,27 +321,27 @@ public function searchGoat(Request $request, Response $response, $args){
     // No Race && Gender
     if($array['breed_id'] == "" && $array['gender'] == "" && $array['exploitation'] != ""){
       $goats = Goat::where('price', '<=', $array['price'])
-      ->whereDate('birthdate', '<=', $date)
+      ->whereDate('birthdate', '>=', $date)
       ->get();
     }
     // No Race && Exploitation
     else if($array['breed_id'] == "" && $array['exploitation'] == "" && $array['gender'] != ""){
       $goats = Goat::where('price', '<=', $array['price'])
       ->where('gender', $array['gender'])
-      ->whereDate('birthdate', '<=', $date)
+      ->whereDate('birthdate', '>=', $date)
       ->get();
     }
     // No Race && Gender && No Exploitation
     else if($array['breed_id'] == "" && $array['exploitation'] == "" && $array['gender'] == ""){
       $goats = Goat::where('price', '<=', $array['price'])
-      ->whereDate('birthdate', '<=', $date)
+      ->whereDate('birthdate', '>=', $date)
       ->get();
     }
     // No Gender
     else if($array['gender'] == "" && $array['exploitation'] != ""){
       $goats = Goat::where('price', '<=', $array['price'])
       ->where('breed_id', $array['breed_id'])
-      ->whereDate('birthdate', '<=', $date)
+      ->whereDate('birthdate', '>=', $date)
       ->whereHas('breed', function($breedQuery) use($array){
         $breedQuery->where('id', '=', $array['breed_id'])
         ->where('height', '>=', $array['height'])
@@ -353,7 +356,7 @@ public function searchGoat(Request $request, Response $response, $args){
       $goats = Goat::where('price', '<=', $array['price'])
       ->where('breed_id', $array['breed_id'])
       ->where('gender', $array['gender'])
-      ->whereDate('birthdate', '<=', $date)
+      ->whereDate('birthdate', '>=', $date)
       ->whereHas('breed', function($breedQuery) use($array){
         $breedQuery->where('id', '=', $array['breed_id'])
         ->where('height', '>=', $array['height'])
@@ -366,7 +369,7 @@ public function searchGoat(Request $request, Response $response, $args){
     else if($array['exploitation'] == "" && $array['gender'] == ""){
       $goats = Goat::where('price', '<=', $array['price'])
       ->where('breed_id', $array['breed_id'])
-      ->whereDate('birthdate', '<=', $date)
+      ->whereDate('birthdate', '>=', $date)
       ->whereHas('breed', function($breedQuery) use($array){
         $breedQuery->where('id', '=', $array['breed_id'])
         ->where('height', '>=', $array['height'])
@@ -379,7 +382,7 @@ public function searchGoat(Request $request, Response $response, $args){
       $goats = Goat::where('price', '<=', $array['price'])
       ->where('breed_id', $array['breed_id'])
       ->where('gender', $array['gender'])
-      ->whereDate('birthdate', '<=', $date)
+      ->whereDate('birthdate', '>=', $date)
       ->whereHas('breed', function($breedQuery) use($array){
         $breedQuery->where('id', '=', $array['breed_id'])
         ->where('height', '>=', $array['height'])
@@ -394,12 +397,18 @@ public function searchGoat(Request $request, Response $response, $args){
     $breeds = Breed::all();
     // Get images
     $imgs = Image::all();
+    // Get ages
+    $ages = array();
+    foreach($goats as $goat){
+      $ages[$goat->id] = $this->getAge($goat->birthdate);
+    }
 
     return $this->view->render($response, 'home.twig',
     array(
       'goats' => $goats,
       'breeds' => $breeds,
-      'imgs' => $imgs
+      'imgs' => $imgs,
+      'ages' => $ages
     ));
   }
   // ERROR in method
@@ -506,13 +515,17 @@ private function deleteImg($id){
   // Get file
   $file = "public/".$img->path.$img->type.$img->num.".".$img->ext;
 
-  if (file_exists($file)) {
-    // Delete DB
-    if($img->delete()){
-      // Delete file
-      unlink($file);
-      return true;
+  if($img != NULL){
+    if (file_exists($file)) {
+      // Delete DB
+      if($img->delete()){
+        // Delete file
+        unlink($file);
+        return true;
+      }
     }
+  } else {
+    return true;
   }
   return FALSE;
 }
@@ -546,10 +559,11 @@ public function getAge($birthdate){
   if(empty($year) && empty($month)){
     $week = "";
     $w = intval(($interval->d)/7);
-    if(w > 1){
+    if($w > 1){
       return $w . " weeks";
+    } else {
+      return $w . " week";
     }
-    return $w . " week";
   }
   // Return the age with the total number of months
   return $year . $month . "(" . (($interval->y)*12 + ($interval->m)) . " months)";

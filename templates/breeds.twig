@@ -8,20 +8,22 @@ Breeds
 
 {% block body_core %}
 <div class="show-animals">
+  <div class="row">
     {% for breed in breeds %}
-    <div class="row">
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
         <div class="card-body">
-        <h2>  <a href="/breeds/{{ breed.id }}">
+        <a href="/breeds/{{ breed.id }}">
         {% for img in imgs if breed.img_id == img.id %}
         <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
         class="mini-img">
         {% endfor %}
-        {{ breed.name }}</a></h2></div></div>
+        <h4 class="card-title">{{ breed.name }}</h4></a>
       </div>
     </div>
+      </div>
     {% endfor %}
+  </div>
   </div>
 
   {% if breed %}

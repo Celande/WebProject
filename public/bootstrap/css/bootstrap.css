@@ -108,13 +108,14 @@
 
 .show-animals{
   background-color:#CCE6E3;
-  padding-top:20px;
-  padding-left:50px;
-  padding-bottom:20px;
+  padding-top:5%;
+  padding-left:10%;
+  padding-right:10%;
+  padding-bottom:5%;
   text-align:center;
 }
 .mini-img{
-  width:10%;
+  width:30%;
   text-align: left;
 }
 .show-img{
