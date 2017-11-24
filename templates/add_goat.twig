@@ -120,10 +120,10 @@ function verifBirthdate()
   if (today.getYear()<birth.getYear()){
     return false;
   }
-  if (today.getMonth()<birth.getMonth()){
+  else if (today.getYear()==birth.getYear() && today.getMonth()<birth.getMonth()){
     return false;
   }
-  if (today.getDate()<birth.getDate()){
+  if (today.getYear()==birth.getYear() && today.getMonth()==birth.getMonth() && today.getDate()<birth.getDate()){
     return false;
   }
   else {
