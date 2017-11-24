@@ -33,44 +33,8 @@ Goats
           <option value="female">Female</option>
         </select>
       </div>
-      <div class="form-field">
-        <label class="form-label">Exploitation</label>
-        <select class="form-control" name="exploitation">
-          <option value = "">Any</option>
-          <option value="milk">Milk</option>
-          <option value="cheese">Cheese</option>
-          <option value="meat">Meat</option>
-          <option value="hair">Hair</option>
-          <option value="pet">Pet</option>
-          <option value="environment">Environment</option>
-        </select>
-      </div>
     </div>
     <div class="form-group">
-      <div class="form-field">
-        <div class="form-control">
-          <input type="number" name="height" placeholder="Height"
-          step="0.01" min=0> cm
-        </div>
-      </div>
-      <div class="form-field">
-        <div class="form-control">
-          <input type="number" name="weight" placeholder="Weight"
-          step="0.01" min=0> kg
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="form-field">
-        <input class="form-control" type=text list=colors
-        name="color" placeholder="Select Color">
-        <datalist id=colors name="color_datalist">
-          <option value="White"></option>
-          <option value="Black"></option>
-          <option value="Grey"></option>
-        </datalist>
-      </input>
-    </div>
     <div class="form-field">
     <div class="form-control">
       <input type="number" name="price" min="0"
@@ -105,7 +69,7 @@ Goats
             {% endfor %}
             <h4 class="card-title">{{ goat.name }}</h4></a>
             <h5>{{ goat.price }} €</h5>
-            <p class="card-text">{{ goat.gender|capitalize }}<br>{{ goat.breed.name }}<br>{{ ages[goat.id] }}</p>
+            <p class="card-text">{{ goat.gender|capitalize }}<br><a href="/breeds/{{ goat.breed.id }}">{{ goat.breed.name }}</a><br>{{ ages[goat.id] }}</p>
             <div class="card-footer">
             <form method="POST" action="/goats/remove">
               <input style="float: right; background-color: red; border-color: red;" class="btn btn-primary" type="submit" value="Remove">
