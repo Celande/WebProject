@@ -1439,3 +1439,15 @@
 [2017-11-24 09:09:28] slim-app.INFO: Route /goats [] {"uid":"60c1083"}
 [2017-11-24 09:09:28] slim-app.INFO: Route / [] {"uid":"f7793d8"}
 [2017-11-24 09:09:28] slim-app.INFO: Route /goats [] {"uid":"cf92d50"}
+[2017-11-24 09:32:12] slim-app.INFO: Route /home [] {"uid":"1f7339d"}
+[2017-11-24 09:32:18] slim-app.INFO: Route /goats [] {"uid":"ce6dcab"}
+[2017-11-24 09:32:46] slim-app.INFO: Route /breeds [] {"uid":"ab18553"}
+[2017-11-24 09:40:09] slim-app.INFO: Route /goats/add - get [] {"uid":"3f86f68"}
+[2017-11-24 09:43:32] slim-app.INFO: Route / [] {"uid":"c6056d5"}
+[2017-11-24 10:01:19] slim-app.INFO: Route /goats [] {"uid":"b48bef9"}
+[2017-11-24 10:02:02] slim-app.INFO: Route /goats [] {"uid":"ed5c695"}
+[2017-11-24 10:22:36] slim-app.INFO: Route /goats [] {"uid":"aa96034"}
+[2017-11-24 10:23:08] slim-app.INFO: Route /goats [] {"uid":"7247f73"}
+[2017-11-24 10:23:17] slim-app.INFO: Route / [] {"uid":"1ba9d46"}
+[2017-11-24 10:23:20] slim-app.INFO: Route /goats [] {"uid":"58b1967"}
+[2017-11-24 10:24:59] slim-app.INFO: Route /goats/add - get [] {"uid":"30408ec"}
