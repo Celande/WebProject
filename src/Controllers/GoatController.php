@@ -216,7 +216,7 @@ public function updateGoat(Request $request, Response $response, $args){
     // Get the breed according to the id
     $breed = Breed::find($goat->breed_id);
     // Get the image according to the id
-    $img = Image::find($goat->id);
+    $img = Image::find($goat->img_id);
     // Return the form
     return $this->view->render($response, 'update_goat.twig',
     array(
@@ -245,18 +245,21 @@ public function updateGoat(Request $request, Response $response, $args){
     // Update the dates
     $array['updated_at'] = new Datetime();
 
-    // Add Image
+    // Upload image
     $uploadedFiles = $request->getUploadedFiles();
-
     $uploadedFile = $uploadedFiles['image'];
-    if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
 
+    if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+      // Get the file
       $result = $this->moveUploadedFile($this->imgDir, $uploadedFile);
+      // Check that it exists
       if($result['filename'] == NULL || $result['id'] == NULL){
         return $response->withRedirect('/failure');
       }
-
-      $array['img_id'] = $result['id'];
+      // Add image to goat
+      if($result['id'] != NULL){
+        $array['img_id'] = $result['id'];
+      }
     }
 
     // If the goat was correctly updated, redirect to success page
