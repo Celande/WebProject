@@ -293,105 +293,7 @@ public function searchGoat(Request $request, Response $response, $args){
       $array[$key] = $value;
     }
 
-    $array['breed_id'] = Breed::where('name', 'like', $array['breed_name'])
-                                ->first()
-                                ->id;
-
-    // Get the date from the age
-    $date = new DateTime();
-    if($array['age'] == NULL){
-      $array['age'] = 3000; // 250 years old
-    }
-    $date->sub(new DateInterval('P'.$array['age'].'M'));
-
-    if($array['price'] == NULL){
-      $array['price'] = 999999.99; // Max price
-    }
-
-    if($array['height'] == NULL){
-      $array['height'] = 0; // Min height
-    }
-
-    if($array['weight'] == NULL){
-      $array['weight'] = 0; // Min weight
-    }
-
-    $array['color'] = strtolower($array['color']); // LowerCase
-
-    // No Race && Gender
-    if($array['breed_id'] == "" && $array['gender'] == "" && $array['exploitation'] != ""){
-      $goats = Goat::where('price', '<=', $array['price'])
-      ->whereDate('birthdate', '>=', $date)
-      ->get();
-    }
-    // No Race && Exploitation
-    else if($array['breed_id'] == "" && $array['exploitation'] == "" && $array['gender'] != ""){
-      $goats = Goat::where('price', '<=', $array['price'])
-      ->where('gender', $array['gender'])
-      ->whereDate('birthdate', '>=', $date)
-      ->get();
-    }
-    // No Race && Gender && No Exploitation
-    else if($array['breed_id'] == "" && $array['exploitation'] == "" && $array['gender'] == ""){
-      $goats = Goat::where('price', '<=', $array['price'])
-      ->whereDate('birthdate', '>=', $date)
-      ->get();
-    }
-    // No Gender
-    else if($array['gender'] == "" && $array['exploitation'] != ""){
-      $goats = Goat::where('price', '<=', $array['price'])
-      ->where('breed_id', $array['breed_id'])
-      ->whereDate('birthdate', '>=', $date)
-      ->whereHas('breed', function($breedQuery) use($array){
-        $breedQuery->where('id', '=', $array['breed_id'])
-        ->where('height', '>=', $array['height'])
-        ->where('weight', '>=', $array['weight'])
-        ->where('color', 'like', '%'.$array['color'].'%')
-        ->where('exploitation', $array['exploitation']);
-      })
-      ->get();
-    }
-    // No Exploitation
-    else if($array['exploitation'] == "" && $array['gender'] != ""){
-      $goats = Goat::where('price', '<=', $array['price'])
-      ->where('breed_id', $array['breed_id'])
-      ->where('gender', $array['gender'])
-      ->whereDate('birthdate', '>=', $date)
-      ->whereHas('breed', function($breedQuery) use($array){
-        $breedQuery->where('id', '=', $array['breed_id'])
-        ->where('height', '>=', $array['height'])
-        ->where('weight', '>=', $array['weight'])
-        ->where('color', 'like', '%'.$array['color'].'%');
-      })
-      ->get();
-    }
-    // No Gender && No Exploitation
-    else if($array['exploitation'] == "" && $array['gender'] == ""){
-      $goats = Goat::where('price', '<=', $array['price'])
-      ->where('breed_id', $array['breed_id'])
-      ->whereDate('birthdate', '>=', $date)
-      ->whereHas('breed', function($breedQuery) use($array){
-        $breedQuery->where('id', '=', $array['breed_id'])
-        ->where('height', '>=', $array['height'])
-        ->where('weight', '>=', $array['weight'])
-        ->where('color', 'like', '%'.$array['color'].'%');
-      })
-      ->get();
-    }
-    else{
-      $goats = Goat::where('price', '<=', $array['price'])
-      ->where('breed_id', $array['breed_id'])
-      ->where('gender', $array['gender'])
-      ->whereDate('birthdate', '>=', $date)
-      ->whereHas('breed', function($breedQuery) use($array){
-        $breedQuery->where('id', '=', $array['breed_id'])
-        ->where('height', '>=', $array['height'])
-        ->where('weight', '>=', $array['weight'])
-        ->where('color', 'like', '%'.$array['color'].'%')
-        ->where('exploitation', $array['exploitation']);
-      })
-      ->get();
-    }
+    $goats = $this->getSearchGoat($array);
 
     // Get breeds
     $breeds = Breed::all();
@@ -608,5 +510,75 @@ private function moveUploadedFile($directory, UploadedFile $uploadedFile)
     $result['id'] = $image->id;
   }
   return $result;
+}
+
+private function getSearchGoat($array){
+  $array['breed_id'] = Breed::where('name', 'like', $array['breed_name'])
+                                ->first()
+                                ->id;
+
+    // Get the date from the age
+    $date = new DateTime();
+    if($array['age'] == NULL){
+      $array['age'] = 3000; // 250 years old
+    }
+    $date->sub(new DateInterval('P'.$array['age'].'M'));
+
+    if($array['price'] == NULL){
+      $array['price'] = 999999.99; // Max price
+    }
+
+    $goats = NULL;
+
+    // No Race && Gender
+    if($array['breed_id'] == "" && $array['gender'] == "" && $array['exploitation'] != ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->whereDate('birthdate', '>=', $date)
+      ->get();
+    }
+    // No Race && Exploitation
+    else if($array['breed_id'] == "" && $array['exploitation'] == "" && $array['gender'] != ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->where('gender', $array['gender'])
+      ->whereDate('birthdate', '>=', $date)
+      ->get();
+    }
+    // No Race && Gender && No Exploitation
+    else if($array['breed_id'] == "" && $array['exploitation'] == "" && $array['gender'] == ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->whereDate('birthdate', '>=', $date)
+      ->get();
+    }
+    // Gender
+    else if($array['gender'] == "" && $array['exploitation'] != ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->whereDate('birthdate', '>=', $date)
+      ->where('breed_id', $array['breed_id'])
+      ->get();
+    }
+    // Exploitation
+    else if($array['exploitation'] == "" && $array['gender'] != ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->where('gender', $array['gender'])
+      ->whereDate('birthdate', '>=', $date)
+      ->where('breed_id', $array['breed_id'])
+      ->get();
+    }
+    // Gender && No Exploitation
+    else if($array['exploitation'] == "" && $array['gender'] == ""){
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->whereDate('birthdate', '>=', $date)
+      ->where('breed_id', $array['breed_id'])
+      ->get();
+    }
+    else{
+      $goats = Goat::where('price', '<=', $array['price'])
+      ->whereDate('birthdate', '>=', $date)
+      ->where('gender', $array['gender'])
+      ->where('breed_id', $array['breed_id'])
+      ->get();
+    }
+
+    return $goats;
 }
 }
