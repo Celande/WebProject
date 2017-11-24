@@ -87,6 +87,7 @@ Update a Goat
         alt="{{ goat.name }}" class="show-img">
         {% endif %}
         <input type="hidden" name="id" value="{{ goat.id }}">
+        <input type="hidden" name="img_id" value="{{ goat.img_id }}">
         <label for="files" class="btn btn-primary">Change image</label>
         <input id="files" style="display: none;" class="form-control" type="file" name="image"/>
       </div>
