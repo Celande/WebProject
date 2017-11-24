@@ -67,9 +67,8 @@ $container['view'] = function ($container) {
   $templates = __DIR__ . '/../templates/';
   $cache = __DIR__ . '/tmp/views/';
 
-  /* Use the cache to not load again and again the same page
+  /* Use the cache to not load again and again the same page */
   $view = new Slim\Views\Twig($templates, compact('cache'));
-  */
 
   /* Use for development */
   $view = new Slim\Views\Twig($templates, array(
