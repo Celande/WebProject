@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Breed;
-use App\Models\Image;
+use App\Controllers\ImageController;
 
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
@@ -27,9 +27,9 @@ class BreedController extends CommonController
     $this->logger->addInfo("Route /breeds");
 
     // Get all breeds from DB
-    $breeds = Breed::get();
+    $breeds = BreedController::getAllBreeds();
     // Get all images from DB
-    $imgs = Image::where('type', 'like', 'breed')->get();
+    $imgs = ImageController::getBreedImages();
 
     return $this->view->render($response, 'breeds.twig',
         array('breeds' => $breeds, 'imgs' => $imgs)
@@ -48,9 +48,9 @@ class BreedController extends CommonController
     // Get the id from request
     $id = $request->getAttribute('id');
     // Get the breed according to the breed id
-    $breed = Breed::find($id);
+    $breed = BreedController::getBreedById($id);
     // Get the image according to the id
-    $img = Image::find($breed->img_id);
+    $img = ImageController::getImageById($breed->img_id);
 
     // Can't find the breed, redirect to 404
     if(!$breed){
@@ -58,5 +58,58 @@ class BreedController extends CommonController
     }
 
     return $this->view->render($response, 'breeds.twig', array('breed' => $breed, 'img' => $img));
+  }
+
+  /** getAllBreeds
+  * Get all breeds
+  * @return Breed[]
+  **/
+  public function getAllBreeds(){
+    return Breed::all();
+  }
+
+  /** getBreedByName
+  * Get a breed according to its name
+  * @param $name
+  * @return Breed
+  **/
+  public function getBreedByName($name){
+    return Breed::where('name', 'like', $name)
+                  ->first();
+  }
+
+  /** addBreed
+  * Add a breed to the DB
+  * @param $name
+  * @return int or NULL
+  **/
+  public function addBreed($name){
+    $name = ucfirst($name);
+    $existingBreed = BreedController::getBreedByName($name);
+    if($existingBreed == NULL){
+      $breed = new Breed;
+      $breed->name = $name;
+      $breed->height = 0;
+      $breed->weight = 0;
+      $breed->color = "N/A";
+      $breed->origin = "N/A";
+
+      if($breed->save()){
+        return $breed->id;
+      }
+
+      return NULL;
+    }
+
+    return $existingBreed;
+  }
+
+  /** getBreedById
+  * Get a breed according to its id
+  * @param int
+  * @return Breed
+  **/
+  public function getBreedById($id){
+    return Breed::find($id);
   }
 }

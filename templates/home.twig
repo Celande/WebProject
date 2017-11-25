@@ -72,13 +72,13 @@ Goats
             <p class="card-text">{{ goat.gender|capitalize }}<br><a href="/breeds/{{ goat.breed.id }}">{{ goat.breed.name }}</a><br>{{ ages[goat.id] }}</p>
             <div class="card-footer">
             <form method="POST" action="/goats/remove">
-              <input style="float: right; background-color: red; border-color: red;" class="btn btn-primary" type="submit" value="Remove">
+              <input class="btn btn-primary" id="remove-btn" type="submit" value="Remove">
               <input type="hidden" name="id" value="{{ goat.id }}">
             </form>
 
             <form method="GET" action="/goats/update">
               <input type="hidden" name="id" value="{{ goat.id }}">
-              <input style="float: left; background-color: yellow; border-color: yellow; color: black;" class="btn btn-primary" type="submit" value="Update">
+              <input class="btn btn-primary" id="update-btn" type="submit" value="Update">
             </form>
           </div>
           </div>
@@ -100,7 +100,7 @@ Goats
       <h5>Breed: <a href="/breeds/{{ goat.breed.id }}">{{ goat.breed.name }}</a></h5>
       <h5>Gender: {{ goat.gender|capitalize }}</h5>
       <h5>Localisation: {{ goat.localisation|capitalize }}</h5>
-      <h5>Description: {{ goat.description|capitalize }}</h5>
+      <h5>Description: {{ goat.description }}</h5>
       {% if goat.identification %}
       <h5>Identification: {{ goat.identification }}</h5>
       {% endif %}
@@ -108,13 +108,13 @@ Goats
       <h5>Updated at: {{ goat.updated_at|date("d/m/Y") }}</h5><br>
       <div class="form-group">
       <form method="POST" action="/goats/remove">
-              <input style="float: right; background-color: red; border-color: red;" class="btn btn-primary" type="submit" value="Remove">
+              <input class="btn btn-primary" id="remove-btn" type="submit" value="Remove">
               <input type="hidden" name="id" value="{{ goat.id }}">
             </form>
 
             <form method="GET" action="/goats/update">
               <input type="hidden" name="id" value="{{ goat.id }}">
-              <input style="float: left; background-color: yellow; border-color: yellow; color: black;" class="btn btn-primary" type="submit" value="Update">
+              <input class="btn btn-primary" id="update-btn" type="submit" value="Update">
             </form>
     </div>
     </div>
