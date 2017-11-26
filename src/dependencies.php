@@ -100,6 +100,14 @@ $container[App\Controllers\GoatController::class] = function ($c) {
   return new App\Controllers\GoatController($view, $logger, $table, $imgDir);
 };
 
+// Controller of the image table
+$container[App\Controllers\ImageController::class] = function ($c) {
+  $view = $c->get('view');
+  $logger = $c->get('logger');
+  $table = $c->get('db')->table('image');
+  return new App\Controllers\ImageController($view, $logger, $table, NULL);
+};
+
 //Override the default Not Found Handler
 /* http://help.slimframework.com/discussions/problems/10851-how-to-add-404-template-in-slim-3 */
 $container['notFoundHandler'] = function ($c) {
