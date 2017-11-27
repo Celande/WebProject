@@ -7,34 +7,34 @@ Add a Goat
 {% endblock %}
 
 {% block body_core %}
-<div class="goat-form">
-  <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
-    <div class="form-group">
-      <div class="form-field">
-        <label class="form-label">Name</label>
-        <input class="form-control" type="text" name="name" required>
-      </div>
-      <div class="form-field">
-        <label class="form-label">Price</label>
-        <div class="form-control">
-          <input type="number" name="price"
-          step="0.01" min=0 onblur="verifPrice(this)"> €
+  <div class="goat-form">
+    <form method="post" enctype="multipart/form-data" id="goatform" name="goatform" onsubmit="return verifForm(this)">
+      <div class="form-group">
+        <div class="form-field">
+          <label class="form-label">Name</label>
+          <input class="form-control" type="text" name="name" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Price</label>
+          <div class="form-control">
+            <input type="number" name="price"
+            step="0.01" min=0 onblur="verifPrice(this)"> €
+          </div>
         </div>
       </div>
-    </div>
       <div class="form-group">
-      <div class="form-field">
-        <label class="form-label">Birthdate</label>
-        <input class="form-control" type="date" name="birthdate" id='birthId'
-        placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)" required>
-      </div>
-      <div class="form-field">
-        <labe class="form-label">Breed</label>
-        <input class="form-control" type=text list=breeds
-        name="breed_name" placeholder="Select Breed" required>
-        <datalist id=breeds name="breed_datalist">
-          {% for breed in breeds %}
-          <option value="{{ breed.name }}">
+        <div class="form-field">
+          <label class="form-label">Birthdate</label>
+          <input class="form-control" type="date" name="birthdate" id='birthId'
+          placeholder="yyyy-mm-dd" onblur="verifBirthdate(this)" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Breed</label>
+          <input class="form-control" type=text list=breeds
+          name="breed_name" placeholder="Select Breed" required>
+          <datalist id=breeds name="breed_datalist">
+            {% for breed in breeds %}
+              <option value="{{ breed.name }}">
             {% endfor %}
           </datalist>
         </div>
@@ -53,12 +53,10 @@ Add a Goat
           <label class="form-label">Localisation</label>
           <input class="form-control" type="text" name="localisation"><br>
         </div>
-
         <div class="form-field">
           <label class="form-label">Identification</label>
           <input class="form-control" type="text" name="identification"
           onblur="verifIdentification(this)" placeholder="XXX 000 000 00000" required><br>
-
         </div>
       </div>
       <div class="form-group">
@@ -68,90 +66,86 @@ Add a Goat
           rows="4" cols="50" placeholder="Enter text here..."></textarea>
         </div>
       </div>
-
-
       <div class="form-group">
         <div class="form-field">
-        {% if img %}
-        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-        alt="{{ goat.name }}" class="show_img">
-        {% endif %}
-        <input type="hidden" name="id" value="{{ goat.id }}">
-        <label for="files" class="btn btn-primary">Add image</label>
-        <input id="files" style="display: none;" class="form-control" type="file" name="image"/>
+          {% if img %}
+            <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+            alt="{{ goat.name }}" class="show_img">
+          {% endif %}
+          <input type="hidden" name="id" value="{{ goat.id }}">
+          <label for="files" class="btn btn-primary">Add image</label>
+          <input id="files" style="display: none;" class="form-control" type="file" name="image"/>
+        </div>
       </div>
-    </div>
-
-
-    <div class="form-group">
-      <div class="search-button">
-        <input style="background-color: green; border-color: green;"class="btn btn-primary" type="submit" value="Sell"/>
+      <div class="form-group">
+        <div class="search-button">
+          <input style="background-color: green; border-color: green;"class="btn btn-primary" type="submit" value="Sell"/>
+        </div>
       </div>
-    </div>
-
-  </form>
-</div>
-
-<script>
-function verifIdentification(champ)
-{
-  var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
-  if (regex.test(champ.value)){
-    return true;
-  }
-  else {
-    return false;
-  }
-}
-function verifPrice(champ)
-{
-  if (champ.value>999999.99)
-  {
-    return false;
-  }
-  else {
-    return true;
-  }
-}
-function verifBirthdate()
-{
-  var birth=new Date(document.getElementById('birthId').value);
-  var today=new Date();
-  if (today.getYear()<birth.getYear()){
-    return false;
-  }
-  if (today.getMonth()<birth.getMonth()){
-    return false;
-  }
-  if (today.getDate()<birth.getDate()){
-    return false;
-  }
-  else {
-    return true;
-  }
-}
-//TODO : Test
-function verifForm(f)
-{
-  var IdentificationOk = verifIdentification(f.identification);
-  var BirthdateOk = verifBirthdate();
-  var PriceOk = verifPrice(f.price);
-  if(IdentificationOk && BirthdateOk && PriceOk)
-  return true;
-  else
-  {
-    if(!IdentificationOk){
-      alert("Please fill the identification field correctly.");
-    } else if(!BirthdateOk){
-      alert("Please fill the birthdate field correctly.");
-    } else if(!PriceOk){
-      alert("Please fill the price field correctly.");
-    } else {
-      alert("Please fill the fields correctly.");
+    </form>
+  </div>
+  <script>
+    function verifIdentification(champ)
+    {
+      var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
+      if (regex.test(champ.value)){
+        return true;
+      }
+      else {
+        return false;
+      }
     }
-    return false;
-  }
-}
-</script>
+    function verifPrice(champ)
+    {
+      if (champ.value>999999.99)
+      {
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
+    function verifBirthdate()
+    {
+      var birth=new Date(document.getElementById('birthId').value);
+      var today=new Date();
+      if (today.getYear()<birth.getYear()){
+        return false;
+      }
+      if (today.getMonth()<birth.getMonth()){
+        return false;
+      }
+      if (today.getDate()<birth.getDate()){
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
+    function verifForm(f)
+    {
+      var IdentificationOk = verifIdentification(f.identification);
+      var BirthdateOk = verifBirthdate();
+      var PriceOk = verifPrice(f.price);
+      if(IdentificationOk && BirthdateOk && PriceOk)
+        return true;
+      else
+      {
+        if(!IdentificationOk){
+          alert("Please fill the identification field correctly.");
+        }
+        else if(!BirthdateOk){
+          alert("Please fill the birthdate field correctly.");
+        }
+        else if(!PriceOk){
+          alert("Please fill the price field correctly.");
+        }
+        else {
+          alert("Please fill the fields correctly.");
+        }
+        return false;
+      }
+    }
+  </script>
 {% endblock %}
 {% block body_footer %} {% endblock %}

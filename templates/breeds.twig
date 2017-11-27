@@ -7,58 +7,55 @@ Breeds
 {% endblock %}
 
 {% block body_core %}
-<div class="show-animals">
-  <div class="row">
-    {% for breed in breeds %}
+  <div class="show-animals">
+    <div class="row">
+      {% for breed in breeds %}
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
-        <div class="card-body">
-        <a href="/breeds/{{ breed.id }}">
-        {% for img in imgs if breed.img_id == img.id %}
-        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-        class="mini-img">
-        {% endfor %}
-        <h4 class="card-title">{{ breed.name }}</h4></a>
-      </div>
+            <div class="card-body">
+              <a href="/breeds/{{ breed.id }}">
+                {% for img in imgs if breed.img_id == img.id %}
+                  <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+                  class="mini-img">
+                {% endfor %}
+                <h4 class="card-title">{{ breed.name }}</h4>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
     </div>
-      </div>
-    {% endfor %}
   </div>
-  </div>
-
   {% if breed %}
-  <div class="profile">
-  {% if img %}
-    <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-    alt="{{ breed.name }}" class="show-img">
-    {% endif %}
-    <p></p>
-    <h4>Breed: {{ breed.name }}</h4>
-    <h5>Height: {% if breed.height != 0 %}
-                  {{ breed.height }} cm
-                {% else %}
-                  N/A
-                {% endif %}</h5>
-    <h5>Weight: {% if breed.weight != 0 %}
-                  {{ breed.weight }} kg
-                {% else %}
-                  N/A
-                {% endif %}</h5>
-    <h5>Color: {{ breed.color|capitalize }}</h5>
-    <h5>Origin: {{ breed.origin|capitalize }}</h5>
-    {% if breed.hair_growth %}
-      <h5>Hair growth: {{ breed.hair_growth }} cm/month</h5>
-    {% endif %}
-    {% if breed.milk_by_lactation %}
-      <h5>Milk by lactation: {{ breed.milk_by_lactation }} L</h5>
-    {% endif %}
-    {% if breed.duration_of_lactation %}
-      <h5>Duration of lactation: {{ breed.duration_of_lactation }} months</h5>
-    {% endif %}
-    <h5>Exploitation: {{ breed.exploitation|capitalize }}</h5>
-  </div>
+    <div class="profile">
+      {% if img %}
+        <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+        alt="{{ breed.name }}" class="show-img">
+      {% endif %}
+      <h4>Breed: {{ breed.name }}</h4>
+      <h5>Height: {% if breed.height != 0 %}
+                    {{ breed.height }} cm
+                  {% else %}
+                    N/A
+                  {% endif %}</h5>
+      <h5>Weight: {% if breed.weight != 0 %}
+                    {{ breed.weight }} kg
+                  {% else %}
+                    N/A
+                  {% endif %}</h5>
+      <h5>Color: {{ breed.color|capitalize }}</h5>
+      <h5>Origin: {{ breed.origin|capitalize }}</h5>
+      {% if breed.hair_growth %}
+        <h5>Hair growth: {{ breed.hair_growth }} cm/month</h5>
+      {% endif %}
+      {% if breed.milk_by_lactation %}
+        <h5>Milk by lactation: {{ breed.milk_by_lactation }} L</h5>
+      {% endif %}
+      {% if breed.duration_of_lactation %}
+        <h5>Duration of lactation: {{ breed.duration_of_lactation }} months</h5>
+      {% endif %}
+      <h5>Exploitation: {{ breed.exploitation|capitalize }}</h5>
+    </div>
   {% endif %}
-
 {% endblock %}
-
 {% block body_footer %} {% endblock %}
