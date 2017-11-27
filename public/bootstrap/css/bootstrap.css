@@ -124,16 +124,17 @@
 }
 .profile{
   background-color:#CCE6E3;
-  padding-top:20px;
-  padding-left:50px;
-  padding-bottom:20px;
+  padding-top:5%;
+  padding-left:10%;
+  padding-bottom:5%;
+  padding-right:10%;
   text-align:center;
 }
 .search-button{
   text-align: center;
 }
 .form-field{
-  display: inline-block; /*table-cell;*/
+  display: inline-block;
 }
 .radio-field{
   text-align: left;
@@ -148,6 +149,26 @@
 .navbar-title{
   float: right;
   color: white;
+}
+#update-btn{
+  float: left;
+  background-color: #FFE766;
+  border-color: #FFE766;
+  color: black;
+}
+#remove-btn{
+  float: right;
+  background-color: #FF5D5D;
+  border-color: #FF5D5D;
+}
+
+#update-btn:hover{
+  background-color: #FFDB1A;
+  border-color: #FFDB1A;
+}
+#remove-btn:hover{
+  background-color: #FF1111;
+  border-color: #FF1111;
 }
 p{
   text-align: center;
@@ -275,7 +296,7 @@ sup {
 }
 
 a {
-  color: #70827f;
+  color: #000047;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;

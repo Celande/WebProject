@@ -16,11 +16,14 @@ use App\Models\Goat;
   * @return Capsule $capsule
   **/
 function create_table (Capsule $capsule, $img_breed, $img_goat){
+
+  /*
+  $capsule::schema()->dropIfExists('goat'); // because of foreign key
+  $capsule::schema()->dropIfExists('breed');
+  $capsule::schema()->dropIfExists('image');
+  */
+
   /*** ***** Breed Table ***** ***/
-  //$capsule::schema()->dropIfExists('goat'); // because of foreign key
-  $capsule::schema()->dropIfExists('race');
-  //$capsule::schema()->dropIfExists('breed');
-  //$capsule::schema()->dropIfExists('image');
 
   // Create img table
   if(!$capsule::schema()->hasTable('image')){
@@ -30,7 +33,7 @@ function create_table (Capsule $capsule, $img_breed, $img_goat){
       $table->string('path');
       $table->enum('type',['breed', 'goat']);
       $table->integer('num');
-      $table->enum('ext', ['jpg', 'jpeg', 'png'])->comment('extension');
+      $table->enum('ext', ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'])->comment('extension');
 
       $table->timestamp('created_at')->nullable();
       $table->timestamp('updated_at')->nullable();
@@ -271,6 +274,9 @@ function create_table (Capsule $capsule, $img_breed, $img_goat){
       $table->integer('duration_of_lactation')->nullable()->comment('month');
       $table->enum('exploitation',['milk', 'cheese', 'hair', 'meat', 'pet', 'environment']);
       $table->integer('img_id')->unsigned()->comment('300x300px max')->nullable();
+
+      $table->timestamp('created_at')->nullable();
+      $table->timestamp('updated_at')->nullable();
 
       $table->unique('name');
       $table->foreign('img_id')->references('id')->on('image');

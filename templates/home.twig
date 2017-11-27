@@ -13,110 +13,66 @@ Goats
 {% endblock %}
 
 {% block body_core %}
-  <div class="goat-form">
-    <form method="POST" action="/goats/search" enctype="multipart/form-data" id="goatform" name="goatform">
-      <div class="form-group">
-        <div class="form-field">
-          <label class="form-label">Breed</label>
-          <select class="form-control" name="breed_name">
-            <option value = "">Any</option>
-            {% for breed in breeds %}
-              <option value="{{ breed.name }}">{{breed.name}}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class="form-field">
-          <label class="form-label">Gender</label>
-          <select class="form-control" name="gender">
-            <option value = "">Any</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label class="form-label">Exploitation</label>
-          <select class="form-control" name="exploitation">
-            <option value = "">Any</option>
-            <option value="milk">Milk</option>
-            <option value="cheese">Cheese</option>
-            <option value="meat">Meat</option>
-            <option value="hair">Hair</option>
-            <option value="pet">Pet</option>
-            <option value="environment">Environment</option>
-          </select>
-        </div>
+<div class="goat-form">
+  <form method="POST" action="/goats/search" enctype="multipart/form-data" id="goatform" name="goatform">
+    <div class="form-group">
+      <div class="form-field">
+        <label class="form-label">Breed</label>
+        <select class="form-control" name="breed_name">
+          <option value = "">Any</option>
+          {% for breed in breeds %}
+          <option value="{{ breed.name }}">{{breed.name}}</option>
+          {% endfor %}
+        </select>
       </div>
-      <div class="form-group">
-        <div class="form-field">
-          <div class="form-control">
-            <input type="number" name="height" placeholder="Height" step="0.01" min=0> cm
-          </div>
-        </div>
-        <div class="form-field">
-          <div class="form-control">
-            <input type="number" name="weight" placeholder="Weight" step="0.01" min=0> kg
-          </div>
-        </div>
+      <div class="form-field">
+        <label class="form-label">Gender</label>
+        <select class="form-control" name="gender">
+          <option value = "">Any</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
       </div>
-      <div class="form-group">
-        <div class="form-field">
-          <input class="form-control" type=text list=colors
-          name="color" placeholder="Select Color">
-          <datalist id=colors name="color_datalist">
-            <option value="White"></option>
-            <option value="Black"></option>
-            <option value="Grey"></option>
-          </datalist>
-          </input>
-        </div>
-        <div class="form-field">
-          <div class="form-control">
-            <input type="number" name="price" min="0"
-            max="99999.99" placeholder="0-999 999"> €
-          </div>
-        </div>
-        <div class="form-field">
-          <div class="form-control">
-            <input class="no-border" type="number" name="age" placeholder="Age"
-            step="1" min=0> month(s)
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="search-button">
-          <input class="btn btn-primary" type="submit" value="Search"/>
-        </div>
+    </div>
+    <div class="form-group">
+    <div class="form-field">
+    <div class="form-control">
+      <input type="number" name="price" min="0"
+      max="99999.99" placeholder="0-999 999"> €
+    </div>
+  </div>
+    <div class="form-field">
+      <div class="form-control">
+        <input class="no-border" type="number" name="age" placeholder="Age"
+        step="1" min=0> month(s)
       </div>
     </form>
   </div>
 
-  <div class="show-animals">
-    <div class="row">
-      {% for goat in goats %}
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <a href="/goats/{{ goat.id }}">
-                {% for img in imgs if goat.img_id == img.id %}
-                  <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
-                  class="mini-img">
-                  {% endfor %}
-                  <h4 class="card-title">{{ goat.name }}</h4>
-              </a>
-              <h5>{{ goat.price }} €</h5>
-              <p class="card-text">{{ goat.gender|capitalize }}<br>{{ goat.breed.name }}<br>{{ ages[goat.id] }}</p>
-              <div class="card-footer">
-                <form method="POST" action="/goats/remove">
-                  <input style="float: right; background-color: red; border-color: red;" class="btn btn-primary" type="submit" value="Remove">
-                  <input type="hidden" name="id" value="{{ goat.id }}">
-                </form>
+<div class="show-animals">
+  <div class="row">
+  {% for goat in goats %}
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href="/goats/{{ goat.id }}">
+          <div class="card-body">
+            {% for img in imgs if goat.img_id == img.id %}
+            <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
+            class="mini-img">
+            {% endfor %}
+            <h4 class="card-title">{{ goat.name }}</h4></a>
+            <h5>{{ goat.price }} €</h5>
+            <p class="card-text">{{ goat.gender|capitalize }}<br><a href="/breeds/{{ goat.breed.id }}">{{ goat.breed.name }}</a><br>{{ ages[goat.id] }}</p>
+            <div class="card-footer">
+            <form method="POST" action="/goats/remove">
+              <input class="btn btn-primary" id="remove-btn" type="submit" value="Remove">
+              <input type="hidden" name="id" value="{{ goat.id }}">
+            </form>
 
-                <form method="GET" action="/goats/update">
-                  <input type="hidden" name="id" value="{{ goat.id }}">
-                  <input style="float: left; background-color: yellow; border-color: yellow; color: black;" class="btn btn-primary" type="submit" value="Update">
-                </form>
-              </div>
-            </div>
+            <form method="GET" action="/goats/update">
+              <input type="hidden" name="id" value="{{ goat.id }}">
+              <input class="btn btn-primary" id="update-btn" type="submit" value="Update">
+            </form>
           </div>
         </div>
       {% endfor %}
@@ -135,22 +91,23 @@ Goats
       <h5>Breed: <a href="/breeds/{{ goat.breed.id }}">{{ goat.breed.name }}</a></h5>
       <h5>Gender: {{ goat.gender|capitalize }}</h5>
       <h5>Localisation: {{ goat.localisation|capitalize }}</h5>
-      <h5>Description: {{ goat.description|capitalize }}</h5>
+      <h5>Description: {{ goat.description }}</h5>
       {% if goat.identification %}
         <h5>Identification: {{ goat.identification }}</h5>
       {% endif %}
       <h5>Created at: {{ goat.created_at|date("d/m/Y") }}</h5><br>
       <h5>Updated at: {{ goat.updated_at|date("d/m/Y") }}</h5><br>
       <div class="form-group">
-        <form method="POST" action="/goats/remove">
-          <input style="float: right; background-color: red; border-color: red;" class="btn btn-primary" type="submit" value="Remove">
-          <input type="hidden" name="id" value="{{ goat.id }}">
-        </form>
-        <form method="GET" action="/goats/update">
-          <input type="hidden" name="id" value="{{ goat.id }}">
-          <input style="float: left; background-color: yellow; border-color: yellow; color: black;" class="btn btn-primary" type="submit" value="Update">
-        </form>
-      </div>
+      <form method="POST" action="/goats/remove">
+              <input class="btn btn-primary" id="remove-btn" type="submit" value="Remove">
+              <input type="hidden" name="id" value="{{ goat.id }}">
+            </form>
+
+            <form method="GET" action="/goats/update">
+              <input type="hidden" name="id" value="{{ goat.id }}">
+              <input class="btn btn-primary" id="update-btn" type="submit" value="Update">
+            </form>
+    </div>
     </div>
   {% endif %}
 {% endblock %}

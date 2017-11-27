@@ -7,12 +7,7 @@
 {% endblock %}
 
 {% block body_core %}
+  <h1>405 Method Not Allowed</h1>
   <h2>The operation you have requested is not allowed.</h2>
-  <h4>The methods allowed are :
-    {% for method in methods %}
-      {{ method }},
-    {% endfor %}
-  </h4>
-
 {% endblock %}
-{% block body_footer %} {% endblock %}
+{% block body_footer %} {% endblock %}    

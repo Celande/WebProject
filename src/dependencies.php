@@ -67,9 +67,8 @@ $container['view'] = function ($container) {
   $templates = __DIR__ . '/../templates/';
   $cache = __DIR__ . '/tmp/views/';
 
-  /* Use the cache to not load again and again the same page
+  /* Use the cache to not load again and again the same page */
   $view = new Slim\Views\Twig($templates, compact('cache'));
-  */
 
   /* Use for development */
   $view = new Slim\Views\Twig($templates, array(
@@ -99,6 +98,14 @@ $container[App\Controllers\GoatController::class] = function ($c) {
   $table = $c->get('db')->table('goat');
   $imgDir = $c->get('img_goat');
   return new App\Controllers\GoatController($view, $logger, $table, $imgDir);
+};
+
+// Controller of the image table
+$container[App\Controllers\ImageController::class] = function ($c) {
+  $view = $c->get('view');
+  $logger = $c->get('logger');
+  $table = $c->get('db')->table('image');
+  return new App\Controllers\ImageController($view, $logger, $table, NULL);
 };
 
 //Override the default Not Found Handler
