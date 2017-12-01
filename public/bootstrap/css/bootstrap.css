@@ -161,6 +161,11 @@
   background-color: #FF5D5D;
   border-color: #FF5D5D;
 }
+#agree-btn{
+  float: center;
+  background-color: #329932;
+  border-color: #329932;
+}
 
 #update-btn:hover{
   background-color: #FFDB1A;
@@ -169,6 +174,10 @@
 #remove-btn:hover{
   background-color: #FF1111;
   border-color: #FF1111;
+}
+#agree-btn:hover{
+  background-color: #2D892D;
+  border-color: #2D892D;
 }
 p{
   text-align: center;
