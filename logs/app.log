@@ -1954,3 +1954,10 @@
 [2017-11-25 11:56:42] slim-app.INFO: Route /goats/{id} [] {"uid":"c9663be"}
 [2017-11-25 11:56:42] slim-app.INFO: Route / [] {"uid":"832e9e2"}
 [2017-11-25 11:56:42] slim-app.INFO: Route /goats [] {"uid":"f474bb9"}
+[2017-11-25 12:00:00] slim-app.INFO: Route / [] {"uid":"0ef87f8"}
+[2017-11-25 12:00:00] slim-app.INFO: Route /goats [] {"uid":"81e55ea"}
+[2017-11-25 12:00:00] slim-app.INFO: Route /goats/{id} [] {"uid":"0a7379f"}
+[2017-11-25 12:00:00] slim-app.INFO: Route / [] {"uid":"fc61dce"}
+[2017-11-25 12:00:00] slim-app.INFO: Route /goats [] {"uid":"c90f9a9"}
+[2017-11-25 12:00:02] slim-app.INFO: Route / [] {"uid":"2134250"}
+[2017-11-25 12:00:02] slim-app.INFO: Route /goats [] {"uid":"78cdb98"}
