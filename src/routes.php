@@ -30,32 +30,32 @@ $app->group('/goats', function(){
 // Success returned if goat successfully added/updated/removed
 // Return to the goat list after a littke delay
 $app->get('/success', function (Request $request, Response $response) {
-  $this->logger->addInfo("Route /success");
+  //$this->logger->addInfo("Route /success");
   $this->view->render($response, 'success.twig');
 });
 // Failure returned if goat successfully added/updated/removed
 // Return to the goat list after a littke delay
 $app->get('/failure', function (Request $request, Response $response) {
-  $this->logger->addInfo("Route /failure");
+  //$this->logger->addInfo("Route /failure");
   $this->view->render($response, 'failure.twig');
 });
 
 // Home page
 $app->get('/home', function (Request $request, Response $response) {
-  $this->logger->addInfo("Route /home");
+  //$this->logger->addInfo("Route /home");
   return $response->withRedirect('/goats');
 });
 
 // 404 not found page
 $app->get('/404', function (Request $request, Response $response) {
-  $this->logger->addInfo("Route /404");
+  //$this->logger->addInfo("Route /404");
   $notFoundHandler = $this->notFoundHandler;
   return $notFoundHandler($request, $response);
 });
 
 // 405 allowed page
 $app->get('/405', function (Request $request, Response $response) {
-  $this->logger->addInfo("Route /405");
+  //$this->logger->addInfo("Route /405");
   $notAllowedHandler = $this->notAllowedHandler;
   $methods = array();
   return $notAllowedHandler($request, $response, $methods);
@@ -63,6 +63,6 @@ $app->get('/405', function (Request $request, Response $response) {
 
 // Home page
 $app->get('/', function (Request $request, Response $response) {
-  $this->logger->addInfo("Route /");
+  //$this->logger->addInfo("Route /");
   return $response->withRedirect('/goats');
 });

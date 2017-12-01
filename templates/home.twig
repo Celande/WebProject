@@ -21,7 +21,7 @@ Goats
           <select class="form-control" name="breed_name">
             <option value = "">Any</option>
             {% for breed in breeds %}
-              <option value="{{ breed.name }}">{{breed.name}}</option>
+            <option value="{{ breed.name }}">{{breed.name}}</option>
             {% endfor %}
           </select>
         </div>
@@ -35,16 +35,18 @@ Goats
         </div>
       </div>
       <div class="form-group">
-      <div class="form-field">
-      <div class="form-control">
-        <input type="number" name="price" min="0"
-        max="99999.99" placeholder="0-999 999"> €
+        <div class="form-field">
+          <div class="form-control">
+            <input type="number" name="price" min="0"
+            max="99999.99" placeholder="0-999 999"> €
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="form-field">
-      <div class="form-control">
-        <input class="no-border" type="number" name="age" placeholder="Age"
-        step="1" min=0> month(s)
+      <div class="form-field">
+        <div class="form-control">
+          <input class="no-border" type="number" name="age" placeholder="Age"
+          step="1" min=0> month(s)
+        </div>
       </div>
     </form>
   </div>
@@ -76,6 +78,8 @@ Goats
             </div>
           </div>
         </div>
+      </div>
+    </div>
       {% endfor %}
       {% if goat %}
         <div class="profile">
