@@ -1,5 +1,0 @@
-Race: id (only local), height, color, weight, origin, name, Hair growth (per month), Milk by lactation (litre), Duration pf lactation, exploitation (milk, cheese, hair, meat, pet)
-
-BuyAGoat.com: price, birthdate, photo, race, localisation, gender, # of babies, temper, identification/id, description
-
-search filter: exploitation, localisation, gender, race, age, price, # of babies
