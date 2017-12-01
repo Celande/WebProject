@@ -1,0 +1,19 @@
+Model : 
+(Controller)
+method : path
+
+
+
+()
+get  : /hello/{name}
+
+()
+get  : /races
+get  : /races/{id}
+
+()
+get  : /goats
+get  : /goats/{id}
+post : /goats/add
+post : /goats/search   (update???)
+get  : /goats/remove/{id}
