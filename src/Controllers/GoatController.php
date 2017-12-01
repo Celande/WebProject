@@ -30,7 +30,7 @@ class GoatController extends CommonController
   * @return $view
   **/
   public function showGoats(Request $request, Response $response, $args){
-    $this->logger->addInfo("Route /goats");
+    //$this-logger->addInfo("Route /goats");
 
     // Get all goats from the DB
     $goats = GoatController::getAllGoats();
@@ -61,7 +61,7 @@ class GoatController extends CommonController
   * @return $view
   **/
   public function showGoat(Request $request, Response $response, $args){
-    $this->logger->addInfo("Route /goats/{id}");
+    //$this-logger->addInfo("Route /goats/{id}");
 
     // Get the goat according to the id
     $id = $request->getAttribute('id');
@@ -102,7 +102,7 @@ class GoatController extends CommonController
   public function addGoat(Request $request, Response $response, $args){
     // GET method
     if($request->isGet()) {
-      $this->logger->addInfo("Route /goats/add - get");
+      //$this-logger->addInfo("Route /goats/add - get");
 
       // Get the list of breed for the form
       $breeds = BreedController::getAllBreeds();
@@ -115,7 +115,7 @@ class GoatController extends CommonController
     }
     // POST method
     else if($request->isPost()) {
-      $this->logger->addInfo("Route /goats/add - post");
+      //$this-logger->addInfo("Route /goats/add - post");
 
       // Get the posted data
       $data = $request->getParsedBody();
@@ -182,7 +182,7 @@ class GoatController extends CommonController
   * @return $view
   **/
   public function removeGoat(Request $request, Response $response, $args){
-    $this->logger->addInfo("Route /goats/remove");
+    //$this-logger->addInfo("Route /goats/remove");
 
     // Get data from the post method
     $data = $request->getParsedBody();
@@ -211,7 +211,7 @@ class GoatController extends CommonController
   public function updateGoat(Request $request, Response $response, $args){
     // GET method
     if($request->isGet()) {
-      $this->logger->addInfo("Route /goats/update - get");
+      //$this-logger->addInfo("Route /goats/update - get");
 
       // Get the goat according to the id
       $id = $request->getQueryParams()['id'];
@@ -231,7 +231,7 @@ class GoatController extends CommonController
     }
     // POST method
     else if($request->isPost()) {
-      $this->logger->addInfo("Route /goats/update - post");
+      //$this-logger->addInfo("Route /goats/update - post");
 
       // Get the data from the post
       $data = $request->getParsedBody();
@@ -301,7 +301,7 @@ class GoatController extends CommonController
   public function searchGoat(Request $request, Response $response, $args){
     // POST method
     if($request->isPost()) {
-      $this->logger->addInfo("Route /goats/search - post");
+      //$this-logger->addInfo("Route /goats/search - post");
 
       // Get the posted data
       $data = $request->getParsedBody();

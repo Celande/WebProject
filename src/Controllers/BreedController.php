@@ -24,7 +24,7 @@ class BreedController extends CommonController
   * @return $view
   **/
   public function showBreeds(Request $request, Response $response, $args){
-    $this->logger->addInfo("Route /breeds");
+    //$this-logger->addInfo("Route /breeds");
 
     // Get all breeds from DB
     $breeds = BreedController::getAllBreeds();
@@ -43,7 +43,7 @@ class BreedController extends CommonController
   * @return $view
   **/
   public function showBreed(Request $request, Response $response, $args){
-    $this->logger->addInfo("Route /breeds/{id}");
+    //$this-logger->addInfo("Route /breeds/{id}");
 
     // Get the id from request
     $id = $request->getAttribute('id');

@@ -5,8 +5,9 @@ During our 4th year at ESIEA - Engineering School - we had to create a full stac
 As a framework, we choosed Slim Framework, since it was indicated by our professor as a good tool, even for beginners.
 
 For the MVC, we used:
-* Eloquent to manage the database (DB) and the Models
+* Eloquent as ORM
 * Twig to manage the Views
+* What Slim framework allow us for the Controllers
 
 
 The goal of this project is to create a website on which one can get informations about goats and sell or buy a goat.
@@ -17,7 +18,7 @@ The goal of this project is to create a website on which one can get information
 LAMP:
 * php
 * MySQL
-* Apache2s
+* Apache2
 
 Framework:
 * Composer
@@ -54,17 +55,13 @@ For the image table:
         num int(11) NOT NULL,
         ext enum('jpg', 'jpeg', 'png') NOT NULL,
 
-        PRIMARY KEY (id),
-        UNIQUE KEY (name),
-        FOREIGN KEY (img_id) REFERENCES web_project.image(
-          id
-        )
+        PRIMARY KEY (id)
       );
 
 
-For the race table:
+For the breed table:
 
-      CREATE TABLE IF NOT EXISTS race (
+      CREATE TABLE IF NOT EXISTS breed (
         id int(11) NOT NULL AUTO_INCREMENT,
         name varchar(250) NOT NULL,
         height float(7,2) NOT NULL,
@@ -78,7 +75,6 @@ For the race table:
         img_id int(11) NOT NULL,
 
         PRIMARY KEY (id),
-        UNIQUE KEY (name),
         FOREIGN KEY (img_id) REFERENCES web_project.image(
           id
         )
@@ -91,7 +87,7 @@ For the goat table:
       name varchar(250) NOT NULL,
       price float(7,2) NOT NULL,
       birthdate date NOT NULL,
-      race_id int(11) NOT NULL,
+      breed_id int(11) NOT NULL,
       gender enum('male', 'female') NOT NULL,
       localisation varchar(250) NOT NULL,
       identification varchar(250) DEFAULT NULL,
@@ -99,7 +95,10 @@ For the goat table:
       created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
       PRIMARY KEY (id),
-      FOREIGN KEY (race_id) REFERENCES web_project.race(
+      FOREIGN KEY (breed_id) REFERENCES web_project.breed(
+        id
+      )
+      FOREIGN KEY (img_id) REFERENCES web_project.image(
         id
       )
     );
@@ -109,15 +108,22 @@ For the goat table:
 You can find in the `src/settings.php` file the settings used for this project.
 
 We added from the base file what we needed to make the DB works and the *logger* variable thanks to *Monolog*.
+
+The *displayErrorDetails* parameter is set to *false* when the website is deployed. It must be set to *true* to see errors.
+
+The different parameters for the DB are set in this file.
 ### Containers
 You can find in the `src/dependencies.php` file some more settings for the project.
 
-We added from the base file the *logger*, *img*, *img_race* and *img_goat* to indicate the path to the image folder. There is also *db* for the DB, *view* used for *Twig*, the Controllers and the Handlers.
+We added from the base file the *logger*, *img*, *img_breed* and *img_goat* to indicate the path to the image folder. There is also *db* for the DB, *view* used for *Twig*, the Controllers and the Handlers.
+
+### Error Handlers
+We choosed to use error handlers for the *404* and the *405* pages so that we could personalize our view by keeping the navigation bar on those page.
 ## MVC
 
 ### Models
 
-The Models used are **Image**, **Race** and **Goat**, as created in the DB, in the *Models* namespace.
+The Models used are **Image**, **Breed** and **Goat**, as created in the DB, in the *Models* namespace.
 
 The **Order** Model was added to be used by Eloquent.
 
@@ -127,11 +133,13 @@ We used *Twig* to create our views because we can, from a layout, dynamically ch
 
 ## Controllers
 
-The Controllers used are **CommonController**, **RaceControlelr** and **GoatController**, in the *Controllers* namespace.
+The Controllers used are **CommonController**, **BreedControlelr**, **GoatController** and **ImageController** in the *Controllers* namespace.
 
 The CommonController has been created as the parent of other controllers. That is why it contains the constructor and default behavior methods.
 
-The RaceController and the GoatController are used over the Models that have the same name. They are added to `dependencies.php` as containers so they can be used in the Routes.
+The BreedController, the GoatController and the ImageController are used over the Models that have the same name. They are added to `dependencies.php` as containers so they can be used in the Routes.
+
+You can add goats but also breeds and images through the *Add Goat* form.
 
 ## Credits
 
