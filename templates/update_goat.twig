@@ -134,7 +134,18 @@ Update a Goat
         return true;
       else
       {
-        alert("Please fill the fields correctly.");
+        if(!IdentificationOk){
+          alert("Please fill the identification field correctly.");
+        }
+        else if(!BirthdateOk){
+          alert("Please fill the birthdate field correctly.");
+        }
+        else if(!PriceOk){
+          alert("Please fill the price field correctly.");
+        }
+        else {
+          alert("Please fill the fields correctly.");
+        }
         return false;
       }
     }
