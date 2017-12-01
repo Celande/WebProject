@@ -146,3 +146,7 @@ You can add goats but also breeds and images through the *Add Goat* form.
 Célande ADRIEN
 
 Arthur FAGOT
+
+## NB
+
+You can have the complete deployment on the release_version branch

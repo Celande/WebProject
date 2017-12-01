@@ -101,7 +101,7 @@ Update a Goat
   <script>
     function verifIdentification(champ)
     {
-      var regex=/[A-Z]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
+      var regex=/[A-Z]{2,3}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}/;
       if (regex.test(champ.value)){
         return true;
       }

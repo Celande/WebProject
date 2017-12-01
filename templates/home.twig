@@ -58,8 +58,8 @@ Goats
     {% for goat in goats %}
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card h-100">
-        <a href="/goats/{{ goat.id }}"></a>
         <div class="card-body">
+          <a href="/goats/{{ goat.id }}">
           {% for img in imgs if goat.img_id == img.id %}
           <img src="/{{ img.path ~ img.type ~ img.num ~ "." ~ img.ext }}"
           class="mini-img">
