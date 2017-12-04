@@ -148,7 +148,7 @@ class ImageController extends CommonController
   * @param $uploadedFile
   * @return $result
   **/
-  private function moveUploadedFile($directory, UploadedFile $uploadedFile)
+  public function moveUploadedFile($directory, UploadedFile $uploadedFile)
   {
     $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
     $basename = "";
