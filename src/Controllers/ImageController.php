@@ -141,4 +141,48 @@ class ImageController extends CommonController
 
     return NULL;
   }
+
+    /** moveUploadedFile
+  * Add a file to the project
+  * @param $directory
+  * @param $uploadedFile
+  * @return $result
+  **/
+  private function moveUploadedFile($directory, UploadedFile $uploadedFile)
+  {
+    $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+    $basename = "";
+
+    // Result returned
+    $result = array();
+    $result['filename'] = NULL;
+    $result['id'] = NULL;
+
+    // No image except for the default
+    if(ImageController::getGoatImages()->count() == 1){
+      $basename = "goat1";
+    } else {
+      // Get last entry
+      $lastImg = ImageController::getLastImageByType('goat');
+      if($lastImg == NULL){
+        return result;
+      }
+      $lastNum = $lastImg->id;
+      $num = $lastNum->num + 1;
+      $basename = "goat".$num;
+    }
+    // Create filename
+    $filename = sprintf('%s.%0.8s', $basename, $extension);
+
+    // Upload file
+    $uploadedFile->moveTo("public/" . $directory . DIRECTORY_SEPARATOR . $filename);
+
+    // Add to DB
+    $image = ImageController::addImage($directory, 'goat', $num, $extension);
+    if($image != NULL){
+      $result['filename'] = $filename;
+      $result['id'] = $image->id;
+    }
+    return $result;
+  }
 }
