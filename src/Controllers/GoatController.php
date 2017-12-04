@@ -67,11 +67,6 @@ class GoatController extends CommonController
     $id = $request->getAttribute('id');
     $goat = GoatController::getGoatById($id);
 
-    // Can't find the goat then 404
-    if(!$goat){
-      parent::notFound($request, $response, $args);
-    }
-
     // Get the image according to the id
     $img = ImageController::getImageById($goat->img_id);
 
@@ -349,6 +344,18 @@ class GoatController extends CommonController
     // Remove breed_name from the array
     unset($array['breed_name']);
 
+    // Check array
+    if($array == NULL
+    || $array['name'] == NULL
+    || $array['price'] == NULL
+    || $array['birthdate'] == NULL
+    || $array['breed_id'] == NULL
+    || $array['gender'] == NULL
+    || $array['localisation'] == NULL
+    || $array['identification'] == NULL){
+      return false;
+    }
+
     // Check if the goat is already in the DB
     // count must be equal to 0
     if(Goat::where('identification', 'like', $array['identification'])->get()->count() == 0){
@@ -369,7 +376,14 @@ class GoatController extends CommonController
   private function delete($id){
     // Get the goat from the DB
     $goat = GoatController::getGoatById($id);
+    if($goat == NULL){
+      return false;
+    }
+
     $imgId = $goat->img_id;
+    if($imgId == NULL){
+      return false;
+    }
     // Delete the goat
     if($goat->delete()){
       // Delete the image
@@ -391,6 +405,10 @@ class GoatController extends CommonController
     unset($array['breed_name']);
     // Get the goat according to its id
     $goat = GoatController::getGoatById(intval($array['id']));
+    if($goat == NULL){
+      return false;
+    }
+
     $imgToRemove = $goat->img_id;
     // Replace the data
     $goat->name = $array['name'];
@@ -406,11 +424,7 @@ class GoatController extends CommonController
     if($goat->save()){
       // Delete old image
       if($imgToRemove != $goat->img_id){
-        if(ImageController::removeImage($imgToRemove)){
-          return TRUE;
-        } else {
-          return false;
-        }
+        ImageController::removeImage($imgToRemove);
       }
 
       return true;
@@ -580,7 +594,11 @@ class GoatController extends CommonController
   * @return $goat
   **/
   public function getAllGoats(){
-    return Goat::all();
+    $goats = Goat::all();
+    if(!$goats){
+      return parent::notFound($request, $response, $args);
+    }
+    return $goats;
   }
 
   /** getGoatById
@@ -589,7 +607,11 @@ class GoatController extends CommonController
   * @return $goat
   **/
   public function getGoatById($id){
-    return Goat::find($id);
+    $goat = Goat::find($id);
+    if(!$goat){
+      return parent::notFound($request, $response, $args);
+    }
+    return $goat;
   }
 
 }
