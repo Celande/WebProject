@@ -52,11 +52,6 @@ class BreedController extends CommonController
     // Get the image according to the id
     $img = ImageController::getImageById($breed->img_id);
 
-    // Can't find the breed, redirect to 404
-    if(!$breed){
-      return parent::notFound($request, $response, $args);
-    }
-
     return $this->view->render($response, 'breeds.twig', array('breed' => $breed, 'img' => $img));
   }
 
@@ -65,7 +60,11 @@ class BreedController extends CommonController
   * @return Breed[]
   **/
   public function getAllBreeds(){
-    return Breed::all();
+    $breeds = Breed::all();
+    if(!$breeds){
+      return parent::notFound($request, $response, $args);
+    }
+    return $breeds;
   }
 
   /** getBreedByName
@@ -74,8 +73,12 @@ class BreedController extends CommonController
   * @return Breed
   **/
   public function getBreedByName($name){
-    return Breed::where('name', 'like', $name)
+    $breed = Breed::where('name', 'like', $name)
                   ->first();
+    if(!$breed){
+      return parent::notFound($request, $response, $args);
+    }
+    return $breed;
   }
 
   /** addBreed
@@ -110,6 +113,10 @@ class BreedController extends CommonController
   * @return Breed
   **/
   public function getBreedById($id){
-    return Breed::find($id);
+    $breed = Breed::find($id);
+    if(!$breed){
+      return parent::notFound($request, $response, $args);
+    }
+    return $breed;
   }
 }

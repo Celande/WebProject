@@ -584,7 +584,7 @@ function create_table (Capsule $capsule, $img_breed, $img_goat){
       $table->enum('gender', ['male', 'female']);
       $table->string('localisation');
       $table->string('identification');
-      $table->text('description');
+      $table->text('description')->nullable();
       $table->integer('img_id')->nullable()->unsigned();
 
       $table->timestamps();
