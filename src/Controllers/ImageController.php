@@ -194,6 +194,10 @@ class ImageController extends CommonController
     // Create filename
     $filename = sprintf('%s.%0.8s', $basename, $extension);
 
+    if(is_writable('public/img/goat/')) echo "Writable!";
+    else echo "NOT writable!";
+    exit;
+
     // Upload file
     $uploadedFile->moveTo("public/" . $directory . DIRECTORY_SEPARATOR . $filename);
 
