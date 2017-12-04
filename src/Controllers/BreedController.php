@@ -29,7 +29,7 @@ class BreedController extends CommonController
     // Get all breeds from DB
     $breeds = BreedController::getAllBreeds();
     // Get all images from DB
-    $imgs = ImageController::getBreedImages();
+    $imgs = ImageController::getBreedImages($request, $response);
 
     return $this->view->render($response, 'breeds.twig',
         array('breeds' => $breeds, 'imgs' => $imgs)
@@ -48,9 +48,9 @@ class BreedController extends CommonController
     // Get the id from request
     $id = $request->getAttribute('id');
     // Get the breed according to the breed id
-    $breed = BreedController::getBreedById($id);
+    $breed = BreedController::getBreedById($request, $response, $id);
     // Get the image according to the id
-    $img = ImageController::getImageById($breed->img_id);
+    $img = ImageController::getImageById($request, $response, $breed->img_id);
 
     return $this->view->render($response, 'breeds.twig', array('breed' => $breed, 'img' => $img));
   }
