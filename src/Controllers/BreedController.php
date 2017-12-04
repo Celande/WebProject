@@ -29,7 +29,7 @@ class BreedController extends CommonController
     // Get all breeds from DB
     $breeds = BreedController::getAllBreeds();
     // Get all images from DB
-    $imgs = ImageController::getBreedImages();
+    $imgs = ImageController::getBreedImages($request, $response);
 
     return $this->view->render($response, 'breeds.twig',
         array('breeds' => $breeds, 'imgs' => $imgs)
@@ -48,9 +48,9 @@ class BreedController extends CommonController
     // Get the id from request
     $id = $request->getAttribute('id');
     // Get the breed according to the breed id
-    $breed = BreedController::getBreedById($id);
+    $breed = BreedController::getBreedById($request, $response, $id);
     // Get the image according to the id
-    $img = ImageController::getImageById($breed->img_id);
+    $img = ImageController::getImageById($request, $response, $breed->img_id);
 
     return $this->view->render($response, 'breeds.twig', array('breed' => $breed, 'img' => $img));
   }
@@ -61,9 +61,11 @@ class BreedController extends CommonController
   **/
   public function getAllBreeds(){
     $breeds = Breed::all();
+    /*
     if(!$breeds){
-      return parent::notFound($request, $response, $args);
+      return parent::notFound($request, $response, NULL);
     }
+    */
     return $breeds;
   }
 
@@ -72,11 +74,11 @@ class BreedController extends CommonController
   * @param $name
   * @return Breed
   **/
-  public function getBreedByName($name){
+  public function getBreedByName($request, $response, $name){
     $breed = Breed::where('name', 'like', $name)
                   ->first();
     if(!$breed){
-      return parent::notFound($request, $response, $args);
+      return parent::notFound($request, $response, $name);
     }
     return $breed;
   }
@@ -86,9 +88,9 @@ class BreedController extends CommonController
   * @param $name
   * @return int or NULL
   **/
-  public function addBreed($name){
+  public function addBreed($request, $response, $name){
     $name = ucfirst($name);
-    $existingBreed = BreedController::getBreedByName($name);
+    $existingBreed = BreedController::getBreedByName($request, $response, $name);
     if($existingBreed == NULL){
       $breed = new Breed;
       $breed->name = $name;
@@ -112,10 +114,10 @@ class BreedController extends CommonController
   * @param int
   * @return Breed
   **/
-  public function getBreedById($id){
+  public function getBreedById($request, $response, $id){
     $breed = Breed::find($id);
     if(!$breed){
-      return parent::notFound($request, $response, $args);
+      return parent::notFound($request, $response, $id);
     }
     return $breed;
   }

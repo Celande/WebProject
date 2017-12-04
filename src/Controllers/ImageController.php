@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Illuminate\Database\Query\Builder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\UploadedFile;
 
 /** ImageController
 * Controller of the Image Model
@@ -21,8 +22,9 @@ class ImageController extends CommonController
   * @param 'goat' or 'breed'
   * @return Image
   **/
-  private function getImagesByType($type){
+  private function getImagesByType($request, $response, $type){
     if($type != 'goat' && $type != 'breed'){
+      //return parent::notFound($request, $response, $type);
       return NULL;
     }
     return Image::where('type', 'like', $type)->get();
@@ -32,16 +34,28 @@ class ImageController extends CommonController
   * Get goat image
   * @return Image[]
   **/
-  public function getGoatImages(){
-    return ImageController::getImagesByType('goat');
+  public function getGoatImages($request, $response){
+    $img = ImageController::getImagesByType($request, $response, 'goat');
+    /*
+    if(!$img){
+      return parent::notFound($request, $response, NULL);
+    }
+    */
+    return $img;
   }
 
   /** getBreedImages
   * Get breed image
   * @return Image[]
   **/
-  public function getBreedImages(){
-    return ImageController::getImagesByType('breed');
+  public function getBreedImages($request, $response){
+    $img = ImageController::getImagesByType($request, $response, 'breed');
+    /*
+    if(!$img){
+      return parent::notFound($request, $response, NULL);
+    }
+    */
+    return $img;
   }
 
   /** getImageById
@@ -49,8 +63,14 @@ class ImageController extends CommonController
   * @param int
   * @return Image
   **/
-  public function getImageById($id){
-    return Image::find($id);
+  public function getImageById($request, $response, $id){
+    $img = Image::find($id);
+    /*
+    if(!$img){
+      return parent::notFound($request, $response, $id);
+    }
+    */
+    return $img;
   }
 
   /** getDefaultImage
@@ -140,5 +160,55 @@ class ImageController extends CommonController
     }
 
     return NULL;
+  }
+
+    /** moveUploadedFile
+  * Add a file to the project
+  * @param $directory
+  * @param $uploadedFile
+  * @return $result
+  **/
+  public function moveUploadedFile($request, $response, $directory, UploadedFile $uploadedFile)
+  {
+    $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+    $basename = "";
+
+    // Result returned
+    $result = array();
+    $result['filename'] = NULL;
+    $result['id'] = NULL;
+
+    // No image except for the default
+    if(ImageController::getGoatImages($request, $response)->count() <= 1){
+      $basename = "goat1";
+    } else {
+      // Get last entry
+      $lastImg = ImageController::getLastImageByType('goat');
+      if($lastImg == NULL){
+        return result;
+      }
+      $lastNum = $lastImg->num;
+      $num = $lastNum + 1;
+      $basename = "goat".$num;
+    }
+    // Create filename
+    $filename = sprintf('%s.%0.8s', $basename, $extension);
+
+    $path = __DIR__ . "/../../public/" . $directory;
+    /* Testing the path on the server
+    if(is_writable($path)) echo $path . " is Writable!";
+    else echo $path . "is NOT writable!";
+    exit;
+    */
+    // Upload file
+    $uploadedFile->moveTo($path . $filename);
+
+    // Add to DB
+    $image = ImageController::addImage($directory, 'goat', $num, $extension);
+    if($image != NULL){
+      $result['filename'] = $filename;
+      $result['id'] = $image->id;
+    }
+    return $result;
   }
 }
