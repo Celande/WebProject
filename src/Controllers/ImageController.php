@@ -183,7 +183,7 @@ class ImageController extends CommonController
       $basename = "goat1";
     } else {
       // Get last entry
-      $lastImg = ImageController::getLastImageByType($request, $response, 'goat');
+      $lastImg = ImageController::getLastImageByType('goat');
       if($lastImg == NULL){
         return result;
       }
@@ -194,10 +194,6 @@ class ImageController extends CommonController
     // Create filename
     $filename = sprintf('%s.%0.8s', $basename, $extension);
 
-    if(is_writable('./site/assets/files/1/')) echo "Writable!";
-    else echo "NOT writable!";
-    return;
-    
     // Upload file
     $uploadedFile->moveTo("public/" . $directory . DIRECTORY_SEPARATOR . $filename);
 
