@@ -179,7 +179,7 @@ class ImageController extends CommonController
     $result['id'] = NULL;
 
     // No image except for the default
-    if(ImageController::getGoatImages($request, $response)->count() == 1){
+    if(ImageController::getGoatImages($request, $response)->count() <= 1){
       $basename = "goat1";
     } else {
       // Get last entry
@@ -187,20 +187,20 @@ class ImageController extends CommonController
       if($lastImg == NULL){
         return result;
       }
-      $lastNum = $lastImg->id;
-      $num = $lastNum->num + 1;
+      $lastNum = $lastImg->num;
+      $num = $lastNum + 1;
       $basename = "goat".$num;
     }
     // Create filename
     $filename = sprintf('%s.%0.8s', $basename, $extension);
 
-    $path = __DIR__ . '/../../public/img/goat/';
-/*
+    $path = __DIR__ . "/../../public/" . $directory;
+    
     if(is_writable($path)) echo $path . " is Writable!";
-    else echo $path . " NOT writable!";
-    echo " PWD : " . getcwd();
+    else echo $path . "is NOT writable!";
     exit;
-*/
+    
+
     // Upload file
     $uploadedFile->moveTo($path . $filename);
 
