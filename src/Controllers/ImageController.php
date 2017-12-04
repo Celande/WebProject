@@ -22,8 +22,9 @@ class ImageController extends CommonController
   * @param 'goat' or 'breed'
   * @return Image
   **/
-  private function getImagesByType($type){
+  private function getImagesByType($request, $response, $type){
     if($type != 'goat' && $type != 'breed'){
+      //return parent::notFound($request, $response, $type);
       return NULL;
     }
     return Image::where('type', 'like', $type)->get();
@@ -33,16 +34,28 @@ class ImageController extends CommonController
   * Get goat image
   * @return Image[]
   **/
-  public function getGoatImages(){
-    return ImageController::getImagesByType('goat');
+  public function getGoatImages($request, $response){
+    $img = ImageController::getImagesByType($request, $response, 'goat');
+    /*
+    if(!$img){
+      return parent::notFound($request, $response, NULL);
+    }
+    */
+    return $img;
   }
 
   /** getBreedImages
   * Get breed image
   * @return Image[]
   **/
-  public function getBreedImages(){
-    return ImageController::getImagesByType('breed');
+  public function getBreedImages($request, $response){
+    $img = ImageController::getImagesByType($request, $response, 'breed');
+    /*
+    if(!$img){
+      return parent::notFound($request, $response, NULL);
+    }
+    */
+    return $img;
   }
 
   /** getImageById
@@ -50,8 +63,14 @@ class ImageController extends CommonController
   * @param int
   * @return Image
   **/
-  public function getImageById($id){
-    return Image::find($id);
+  public function getImageById($request, $response, $id){
+    $img = Image::find($id);
+    /*
+    if(!$img){
+      return parent::notFound($request, $response, $id);
+    }
+    */
+    return $img;
   }
 
   /** getDefaultImage
@@ -149,7 +168,7 @@ class ImageController extends CommonController
   * @param $uploadedFile
   * @return $result
   **/
-  public function moveUploadedFile($directory, UploadedFile $uploadedFile)
+  public function moveUploadedFile($request, $response, $directory, UploadedFile $uploadedFile)
   {
     $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
     $basename = "";
@@ -160,11 +179,11 @@ class ImageController extends CommonController
     $result['id'] = NULL;
 
     // No image except for the default
-    if(ImageController::getGoatImages()->count() == 1){
+    if(ImageController::getGoatImages($request, $response)->count() == 1){
       $basename = "goat1";
     } else {
       // Get last entry
-      $lastImg = ImageController::getLastImageByType('goat');
+      $lastImg = ImageController::getLastImageByType($request, $response, 'goat');
       if($lastImg == NULL){
         return result;
       }
@@ -175,6 +194,10 @@ class ImageController extends CommonController
     // Create filename
     $filename = sprintf('%s.%0.8s', $basename, $extension);
 
+    if(is_writable('./site/assets/files/1/')) echo "Writable!";
+    else echo "NOT writable!";
+    return;
+    
     // Upload file
     $uploadedFile->moveTo("public/" . $directory . DIRECTORY_SEPARATOR . $filename);
 

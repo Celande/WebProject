@@ -33,9 +33,9 @@ class GoatController extends CommonController
     //$this-logger->addInfo("Route /goats");
 
     // Get all goats from the DB
-    $goats = GoatController::getAllGoats();
+    $goats = GoatController::getAllGoats($request, $response);
     // Get all images from the DB for the goats
-    $imgs = ImageController::getGoatImages();
+    $imgs = ImageController::getGoatImages($request, $response);
     // Get all the breeds
     $breeds = BreedController::getAllBreeds();
     // Get ages
@@ -65,10 +65,10 @@ class GoatController extends CommonController
 
     // Get the goat according to the id
     $id = $request->getAttribute('id');
-    $goat = GoatController::getGoatById($id);
+    $goat = GoatController::getGoatById($request, $response, $id);
 
     // Get the image according to the id
-    $img = ImageController::getImageById($goat->img_id);
+    $img = ImageController::getImageById($request, $response, $goat->img_id);
 
     // Get the age according to the birthdate
     $age = $this->getAge($goat->birthdate);
@@ -121,7 +121,7 @@ class GoatController extends CommonController
       }
 
       // Get the breed id from the breed name or add it to the DB
-      $breed = BreedController::addBreed($array['breed_name']);
+      $breed = BreedController::addBreed($request, $response, $array['breed_name']);
 
       // Add the breed to the DB
       if($breed == NULL){
@@ -145,7 +145,7 @@ class GoatController extends CommonController
 
       if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
         // Get the file
-        $result = ImageController::moveUploadedFile($this->imgDir, $uploadedFile);
+        $result = ImageController::moveUploadedFile($request, $response, $this->imgDir, $uploadedFile);
         // Check that it exists
         if($result['filename'] == NULL || $result['id'] == NULL){
           return $response->withRedirect('/failure');
@@ -210,11 +210,11 @@ class GoatController extends CommonController
 
       // Get the goat according to the id
       $id = $request->getQueryParams()['id'];
-      $goat = GoatController::getGoatById(intval($id));
+      $goat = GoatController::getGoatById($request, $response, intval($id));
       // Get the breed according to the id
-      $breed = BreedController::getBreedById($goat->breed_id);
+      $breed = BreedController::getBreedById($request, $response, $goat->breed_id);
       // Get the image according to the id
-      $img = ImageController::getImageById($goat->img_id);
+      $img = ImageController::getImageById($request, $response, $goat->img_id);
       // Return the form
       return $this->view->render($response, 'update_goat.twig',
       array(
@@ -237,7 +237,7 @@ class GoatController extends CommonController
       }
 
       // Get the breed id from the breed name or add it to the DB
-      $breed = BreedController::addBreed($array['breed_name']);
+      $breed = BreedController::addBreed($request, $response, $array['breed_name']);
 
       // Add the breed to the DB
       if($breed == NULL){
@@ -261,7 +261,7 @@ class GoatController extends CommonController
 
       if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
         // Get the file
-        $result = ImageController::moveUploadedFile($this->imgDir, $uploadedFile);
+        $result = ImageController::moveUploadedFile($request, $response, $this->imgDir, $uploadedFile);
         // Check that it exists
         if($result['filename'] == NULL || $result['id'] == NULL){
           return $response->withRedirect('/failure');
@@ -311,7 +311,7 @@ class GoatController extends CommonController
       // Get breeds
       $breeds = BreedController::getAllBreeds();
       // Get images
-      $imgs = ImageController::getGoatImages();
+      $imgs = ImageController::getGoatImages($request, $response);
       // Get ages
       $ages = array();
       foreach($goats as $goat){
@@ -375,7 +375,7 @@ class GoatController extends CommonController
   **/
   private function delete($id){
     // Get the goat from the DB
-    $goat = GoatController::getGoatById($id);
+    $goat = GoatController::getGoatById($request, $response, $id);
     if($goat == NULL){
       return false;
     }
@@ -404,7 +404,7 @@ class GoatController extends CommonController
     // Remove breed_name from the array
     unset($array['breed_name']);
     // Get the goat according to its id
-    $goat = GoatController::getGoatById(intval($array['id']));
+    $goat = GoatController::getGoatById($request, $response, intval($array['id']));
     if($goat == NULL){
       return false;
     }
@@ -478,7 +478,7 @@ class GoatController extends CommonController
   * @return $goat
   **/
   private function getSearchGoat($array){
-    $array['breed_id'] = BreedController::getBreedByName($array['breed_name'])->id;
+    $array['breed_id'] = BreedController::getBreedByName($request, $response, $array['breed_name'])->id;
 
     // Get the date from the age
     $date = new DateTime();
@@ -551,9 +551,11 @@ class GoatController extends CommonController
   **/
   public function getAllGoats(){
     $goats = Goat::all();
+    /*
     if(!$goats){
       return parent::notFound($request, $response, $args);
     }
+    */
     return $goats;
   }
 
@@ -562,7 +564,7 @@ class GoatController extends CommonController
   * @param $id
   * @return $goat
   **/
-  public function getGoatById($id){
+  public function getGoatById($request, $response, $id){
     $goat = Goat::find($id);
     if(!$goat){
       return parent::notFound($request, $response, $args);
