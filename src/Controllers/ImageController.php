@@ -194,7 +194,7 @@ class ImageController extends CommonController
     // Create filename
     $filename = sprintf('%s.%0.8s', $basename, $extension);
 
-    if(is_writable('public/img/goat/')) echo "Writable!";
+    if(is_writable('img/goat/')) echo "Writable!";
     else echo getcwd() . " NOT writable!";
     exit;
 
