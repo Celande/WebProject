@@ -183,7 +183,7 @@ class ImageController extends CommonController
       $basename = "goat1";
     } else {
       // Get last entry
-      $lastImg = ImageController::getLastImageByType($request, $response, 'goat');
+      $lastImg = ImageController::getLastImageByType('goat');
       if($lastImg == NULL){
         return result;
       }
