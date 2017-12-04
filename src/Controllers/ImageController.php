@@ -194,12 +194,19 @@ class ImageController extends CommonController
     // Create filename
     $filename = sprintf('%s.%0.8s', $basename, $extension);
 
+<<<<<<< HEAD
     if(is_writable('img/goat/')) echo "Writable!";
     else echo getcwd() . " NOT writable!";
+=======
+    $path = 'public/img/goat/';
+    if(is_writable($path)) echo $path . " is Writable!";
+    else echo $path . " NOT writable!";
+    echo " PWD : " . getcwd();
+>>>>>>> 04f907221495168ce22f7a24066409b4ef5a51fa
     exit;
 
     // Upload file
-    $uploadedFile->moveTo("public/" . $directory . DIRECTORY_SEPARATOR . $filename);
+    $uploadedFile->moveTo(__DIR__ . "/../public/" . $directory . DIRECTORY_SEPARATOR . $filename);
 
     // Add to DB
     $image = ImageController::addImage($directory, 'goat', $num, $extension);
