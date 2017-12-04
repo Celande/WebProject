@@ -261,7 +261,7 @@ class GoatController extends CommonController
 
       if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
         // Get the file
-        $result = $this->moveUploadedFile($this->imgDir, $uploadedFile);
+        $result = ImageController::moveUploadedFile($this->imgDir, $uploadedFile);
         // Check that it exists
         if($result['filename'] == NULL || $result['id'] == NULL){
           return $response->withRedirect('/failure');
