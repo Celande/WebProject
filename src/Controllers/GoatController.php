@@ -373,9 +373,8 @@ class GoatController extends CommonController
     // Delete the goat
     if($goat->delete()){
       // Delete the image
-      if(ImageController::removeImage($imgId)){
-        return TRUE;
-      }
+      ImageController::removeImage($imgId);
+      return TRUE;
     }
     // If the goat doesn't exist or if there is any problem
     return FALSE;

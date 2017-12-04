@@ -89,7 +89,7 @@ class ImageController extends CommonController
     // Get image
     $img = Image::find($id);
     // Get file
-    $file = "public/".$img->path.$img->type.$img->num.".".$img->ext;
+    $file = "public/" . $img->path . $img->type . $img->num . "." . $img->ext;
 
     if($img != NULL){
       if (file_exists($file)) {
