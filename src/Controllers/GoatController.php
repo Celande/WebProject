@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use Illuminate\Database\Query\Builder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\UploadedFile;
 use \DateTime;
 use \DateInterval;
 
