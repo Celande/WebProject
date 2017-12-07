@@ -12,6 +12,8 @@ For the MVC, we used:
 
 The goal of this project is to create a website on which one can get informations about goats and sell or buy a goat.
 
+*The code used for the inline website is available on the release_version branch"
+
 ## Install
 ### Installed Applications
 
