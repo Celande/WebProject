@@ -74,7 +74,7 @@ class BreedController extends CommonController
   * @param $name
   * @return Breed
   **/
-  public function getBreedByName($request, $response, $name){
+  public function getBreedByName(Request $request, Response $response, $name){
     $breed = Breed::where('name', 'like', $name)
                   ->first();
     if(!$breed){
@@ -88,7 +88,7 @@ class BreedController extends CommonController
   * @param $name
   * @return int or NULL
   **/
-  public function addBreed($request, $response, $name){
+  public function addBreed(Request $request, Response $response, $name){
     $name = ucfirst($name);
     $existingBreed = BreedController::getBreedByName($request, $response, $name);
     if($existingBreed == NULL){
