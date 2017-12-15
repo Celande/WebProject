@@ -5,7 +5,7 @@ return [
         // Slim Settings
         'determineRouteBeforeAppMiddleware' => false,
 
-        'displayErrorDetails' => true,
+        'displayErrorDetails' => false,
 
         'db' => [
             'driver' => 'mysql',
