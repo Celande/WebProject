@@ -195,11 +195,11 @@ class ImageController extends CommonController
     $filename = sprintf('%s.%0.8s', $basename, $extension);
 
     $path = __DIR__ . "/../../public/" . $directory;
-    
+    /*
     if(is_writable($path)) echo $path . " is Writable!";
     else echo $path . "is NOT writable!";
     exit;
-    
+    */
 
     // Upload file
     $uploadedFile->moveTo($path . $filename);
