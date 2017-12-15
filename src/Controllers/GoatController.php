@@ -306,7 +306,7 @@ class GoatController extends CommonController
         $array[$key] = $value;
       }
 
-      $goats = $this->getSearchGoat($array);
+      $goats = $this->getSearchGoat($request, $response, $array);
 
       // Get breeds
       $breeds = BreedController::getAllBreeds();
@@ -477,7 +477,7 @@ class GoatController extends CommonController
   * @param $array
   * @return $goat
   **/
-  private function getSearchGoat($array){
+  private function getSearchGoat(Request $request, Response $response, $array){
     $array['breed_id'] = BreedController::getBreedByName($request, $response, $array['breed_name'])->id;
 
     // Get the date from the age
