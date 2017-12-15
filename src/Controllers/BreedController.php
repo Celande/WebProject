@@ -61,11 +61,9 @@ class BreedController extends CommonController
   **/
   public function getAllBreeds(){
     $breeds = Breed::all();
-    /*
     if(!$breeds){
-      return parent::notFound($request, $response, NULL);
+      //return parent::notFound($request, $response, NULL);
     }
-    */
     return $breeds;
   }
 
@@ -74,11 +72,11 @@ class BreedController extends CommonController
   * @param $name
   * @return Breed
   **/
-  public function getBreedByName($request, $response, $name){
+  public function getBreedByName(Request $request, Response $response, $name){
     $breed = Breed::where('name', 'like', $name)
                   ->first();
     if(!$breed){
-      return parent::notFound($request, $response, $name);
+      //return parent::notFound($request, $response, $name);
     }
     return $breed;
   }
@@ -88,7 +86,7 @@ class BreedController extends CommonController
   * @param $name
   * @return int or NULL
   **/
-  public function addBreed($request, $response, $name){
+  public function addBreed(Request $request, Response $response, $name){
     $name = ucfirst($name);
     $existingBreed = BreedController::getBreedByName($request, $response, $name);
     if($existingBreed == NULL){
@@ -114,10 +112,10 @@ class BreedController extends CommonController
   * @param int
   * @return Breed
   **/
-  public function getBreedById($request, $response, $id){
+  public function getBreedById(Request $request, Response $response, $id){
     $breed = Breed::find($id);
     if(!$breed){
-      return parent::notFound($request, $response, $id);
+      //return parent::notFound($request, $response, $id);
     }
     return $breed;
   }

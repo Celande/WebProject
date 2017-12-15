@@ -200,6 +200,7 @@ class ImageController extends CommonController
     else echo $path . "is NOT writable!";
     exit;
     */
+
     // Upload file
     $uploadedFile->moveTo($path . $filename);
 
