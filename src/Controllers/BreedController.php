@@ -117,7 +117,7 @@ class BreedController extends CommonController
   public function getBreedById(Request $request, Response $response, $id){
     $breed = Breed::find($id);
     if(!$breed){
-      return parent::notFound($request, $response, $id);
+      //return parent::notFound($request, $response, $id);
     }
     return $breed;
   }
