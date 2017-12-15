@@ -61,11 +61,9 @@ class BreedController extends CommonController
   **/
   public function getAllBreeds(){
     $breeds = Breed::all();
-    /*
     if(!$breeds){
-      return parent::notFound($request, $response, NULL);
+      //return parent::notFound($request, $response, NULL);
     }
-    */
     return $breeds;
   }
 
@@ -78,7 +76,7 @@ class BreedController extends CommonController
     $breed = Breed::where('name', 'like', $name)
                   ->first();
     if(!$breed){
-      return parent::notFound($request, $response, $name);
+      //return parent::notFound($request, $response, $name);
     }
     return $breed;
   }
