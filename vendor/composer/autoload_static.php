@@ -9,8 +9,8 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
-        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -71,6 +71,7 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'A' => 
         array (
             'App\\Models\\' => 11,
+            'App\\Mobiles\\' => 12,
             'App\\Handlers\\' => 13,
             'App\\Controllers\\' => 16,
         ),
@@ -179,6 +180,10 @@ class ComposerStaticInit5d3383c81ca8f2c52a42fda430cfc460
         'App\\Models\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Models',
+        ),
+        'App\\Mobiles\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Mobiles',
         ),
         'App\\Handlers\\' => 
         array (

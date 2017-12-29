@@ -28,6 +28,7 @@
             "Tests\\": "tests/",
             "App\\Models\\": "src/Models/",
             "App\\Controllers\\": "src/Controllers/",
+            "App\\Mobiles\\": "src/Mobiles/",
             "App\\Handlers\\": "src/Handlers/"
         }
     },

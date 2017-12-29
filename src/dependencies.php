@@ -108,6 +108,33 @@ $container[App\Controllers\ImageController::class] = function ($c) {
   return new App\Controllers\ImageController($view, $logger, $table, NULL);
 };
 
+// Mobile of the breed table
+$container[App\Mobiles\BreedMobile::class] = function ($c) {
+  $view = $c->get('view');
+  $logger = $c->get('logger');
+  $table = $c->get('db')->table('breed');
+  $imgDir = $c->get('img_breed');
+  return new App\Mobiles\BreedMobile($view, $logger, $table, $imgDir);
+};
+
+// Mobile of the goat table
+$container[App\Mobiles\GoatMobile::class] = function ($c) {
+  $view = $c->get('view');
+  $logger = $c->get('logger');
+  $table = $c->get('db')->table('goat');
+  $imgDir = $c->get('img_goat');
+  return new App\Mobiles\GoatMobile($view, $logger, $table, $imgDir);
+};
+
+// Mobile of the image table
+$container[App\Mobiles\ImageMobile::class] = function ($c) {
+  $view = $c->get('view');
+  $logger = $c->get('logger');
+  $table = $c->get('db')->table('image');
+  $imgDir = 'img/';
+  return new App\Mobiles\ImageMobile($view, $logger, $table, $imgDir);
+};
+
 //Override the default Not Found Handler
 /* http://help.slimframework.com/discussions/problems/10851-how-to-add-404-template-in-slim-3 */
 $container['notFoundHandler'] = function ($c) {

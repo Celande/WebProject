@@ -31,6 +31,7 @@ return array(
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'App\\Models\\' => array($baseDir . '/src/Models'),
+    'App\\Mobiles\\' => array($baseDir . '/src/Mobiles'),
     'App\\Handlers\\' => array($baseDir . '/src/Handlers'),
     'App\\Controllers\\' => array($baseDir . '/src/Controllers'),
 );
